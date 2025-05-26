@@ -1,19 +1,19 @@
 # Sinal IF
 
 ## Contexto
-- Instituição: Instituo Federal de Educação, Ciência e Tecnologia do Triângulo Mineiro - Campus Patrocínio.
-- Curso: curso superior de Tecnologia em Análise e Desenvolvimento de Sistemas (ADS).
-- Disciplina: Desenvolvimento de Aplicações Web II
-- Docente: Lucas Gonçalves Cunha
-- Discentes: Bruno Eugênio Santos e João Augusto Marciano Silva
+- **Instituição**: Instituo Federal de Educação, Ciência e Tecnologia do Triângulo Mineiro - Campus Patrocínio.
+- **Curso**: curso superior de Tecnologia em Análise e Desenvolvimento de Sistemas (ADS).
+- **Disciplina**: Desenvolvimento de Aplicações Web II
+- **Docente**: Lucas Gonçalves Cunha
+- **Discentes**: Bruno Eugênio Santos e João Augusto Marciano Silva
 
 ## Descrição do projeto
- 
+ > A ideia do Sinal IF é fruto de uma necessidade encontrada pelos técnicos adminsitrativos do IFTM Campus Patrocínio onde, antes deste projeto, é utilizado pela instituição um aplicativo muito antigo (no qual nem se é mais possível realizar manutenções técnicas) que aciona uma música em horários programados para indicar a o início/fim de cada horário. Devida as condições em que se encontra o aplicativo, pareceu-se conveniente e benéfico à instituição recriar o aplicativo com tecnologias atuais e que ofereça mais funcionalidades aos usuários. Logo este projeto contribui não somente para o portifólio e aprendizado dos discentes como também beneficia a instituição no qual se fazem parte.
 
 ## Desenvolvedores
 
-- Bruno Eugênio Santos
-- João Augusto Marciano Silva
+> Bruno Eugênio Santos
+> João Augusto Marciano Silva
 
 ## Tecnologias utilizadas
 
@@ -26,8 +26,8 @@
   </tr>
   <tr>
     <td>icon</td>
-    <td>icon</td>
-    <td>icon</td>
+    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" height="40" alt="php logo"  /></td>
+    <td><img src="https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png?f=webp" height="40" alt="jQuery logo"  /></td>
     <td>icon</td>
   </tr>
 </table>
