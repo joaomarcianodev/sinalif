@@ -3,9 +3,9 @@
 ## Contexto
 - **Instituição**: Instituo Federal de Educação, Ciência e Tecnologia do Triângulo Mineiro - Campus Patrocínio.
 - **Curso**: curso superior de Tecnologia em Análise e Desenvolvimento de Sistemas (ADS).
-- **Disciplina**: Desenvolvimento de Aplicações Web II
-- **Docente**: Lucas Gonçalves Cunha
-- **Discentes**: Bruno Eugênio Santos e João Augusto Marciano Silva
+- **Disciplina**: Desenvolvimento de Aplicações Web II.
+- **Docente**: Lucas Gonçalves Cunha.
+- **Discentes**: João Augusto Marciano Silva e Bruno Eugênio Santos.
 
 ## Descrição do projeto
  > A ideia do Sinal IF é fruto de uma necessidade encontrada pelos técnicos adminsitrativos do IFTM Campus Patrocínio onde, antes deste projeto, é utilizado pela instituição um aplicativo muito antigo (no qual nem se é mais possível realizar manutenções técnicas) que aciona uma música em horários programados para indicar a o início/fim de cada horário escolar (7:10, 8:00, 8:50), ...). Devida as condições em que se encontra o aplicativo e a forma como este é manuseado pelos servidores, pareceu-se conveniente e benéfico à instituição recriar o aplicativo com tecnologias atuais e que ofereça mais funcionalidades aos usuários. Logo este projeto contribui não somente para o portifólio e aprendizado dos discentes como também beneficia a instituição no qual se fazem parte.
