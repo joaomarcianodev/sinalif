@@ -1,13 +1,25 @@
 package sinalif_gestor.services;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 @Service
 public class SistemasService {
     private RestTemplate restTemplate;
+    private final ObjectMapper mapper = new ObjectMapper();;
 
     private String url_srv1_musicas;
     private String url_srv1_historico;
@@ -76,12 +88,58 @@ public class SistemasService {
 
     //Usuários
     public ResponseEntity<String> listarUsuario(){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv2_usuarios, String.class);
-        return response;
+        ResponseEntity<String> responseUsuarios = restTemplate.getForEntity(url_srv2_usuarios, String.class);
+        if(!responseUsuarios.getStatusCode().is2xxSuccessful()) return responseUsuarios;
+
+        ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
+        if(!responseSugestao.getStatusCode().is2xxSuccessful()) return responseSugestao;
+
+        try {
+            JsonNode usuarios = mapper.readTree(responseUsuarios.getBody());
+            JsonNode sugestoes = mapper.readTree(responseSugestao.getBody());
+
+            List<JsonNode> usuariosList = new ArrayList<>();
+            for(JsonNode usuario : usuarios){
+                String id_usuario = usuario.get("id_usuario").asText();
+
+                List<JsonNode> sugestoesList = new ArrayList<>();
+                for(JsonNode sugestao : sugestoes){
+                    if(Objects.equals(sugestao.get("id_usuario").asText(), id_usuario)) sugestoesList.add(sugestao);
+                }
+
+                ((ObjectNode) usuario).set("sugestoes", mapper.valueToTree(sugestoesList));
+                usuariosList.add(usuario);
+            }
+
+            return ResponseEntity.ok(mapper.writeValueAsString(usuariosList));
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
     public ResponseEntity<String> detalharUsuario(String id){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv2_usuarios+"/"+id, String.class);
-        return response;
+        ResponseEntity<String> responseUsuario = restTemplate.getForEntity(url_srv2_usuarios+"/"+id, String.class);
+        if(!responseUsuario.getStatusCode().is2xxSuccessful()) return responseUsuario;
+
+        ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
+        if(!responseSugestao.getStatusCode().is2xxSuccessful()) return responseSugestao;
+
+        try {
+            JsonNode usuario = mapper.readTree(responseUsuario.getBody());
+            JsonNode sugestoes = mapper.readTree(responseSugestao.getBody());
+            String id_usuario = usuario.get("id_usuario").asText();
+
+            List<JsonNode> sugestoesList = new ArrayList<>();
+            for(JsonNode sugestao : sugestoes){
+                if(Objects.equals(sugestao.get("id_usuario").asText(), id_usuario)) sugestoesList.add(sugestao);
+            }
+
+            ((ObjectNode) usuario).set("sugestoes", mapper.valueToTree(sugestoesList));
+            return ResponseEntity.ok(mapper.writeValueAsString(usuario));
+
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
     public ResponseEntity<String> salvarUsuario(RequestEntity<String> usuario){
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_usuarios, usuario, String.class);
@@ -91,8 +149,22 @@ public class SistemasService {
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_usuarios+"/"+id, usuario, String.class);
         return response;
     }
-    public void excluirUsuario(String id){
-        restTemplate.delete(url_srv2_usuarios+"/"+id);
+    public void excluirUsuario(String id_usuario){
+        ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
+        if(responseSugestao.getStatusCode().is2xxSuccessful()){
+            try {
+                JsonNode sugestoes = mapper.readTree(responseSugestao.getBody());
+                for(JsonNode sugestao : sugestoes){
+                    if(Objects.equals(id_usuario, sugestao.get("id_usuario").asText())){
+                        restTemplate.delete(url_srv2_sugestao+"/"+sugestao.get("id_sugestao").asText());
+                    }
+                }
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        restTemplate.delete(url_srv2_usuarios+"/"+id_usuario);
     }
 
     //Sugestões
