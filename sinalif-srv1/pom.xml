@@ -8,7 +8,7 @@
 		<version>3.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>prova</groupId>
+	<groupId>sinalif</groupId>
 	<artifactId>sinalif-srv1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sinalif-srv1</name>
