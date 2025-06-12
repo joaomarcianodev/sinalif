@@ -15,7 +15,7 @@ public class LogReproducao {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id_logReproducao;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_musica", nullable = false)
     private Musica musica;
 
