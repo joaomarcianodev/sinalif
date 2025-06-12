@@ -2,10 +2,12 @@ package sinalif_srv1.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "musica")
@@ -23,11 +25,13 @@ public class Musica {
     private String url;
 
     @Column(name = "status")
-    private String status = "Pendente";
+    private String status;
 
     @CreatedDate
     @Column(name = "data_criacao")
     private LocalDateTime data_criacao;
+
+    List<LogReproducao> logs;
 
     public String getTime(){
         String dataDeCriacao = "";

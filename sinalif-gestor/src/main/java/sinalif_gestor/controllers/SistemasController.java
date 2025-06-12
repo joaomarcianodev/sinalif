@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sinalif_gestor.services.SistemasService;
 
 @RestController
-@RequestMapping("/api/sistemas")
+@RequestMapping("/api/")
 public class SistemasController {
 
     @Autowired
@@ -35,8 +35,8 @@ public class SistemasController {
     public ResponseEntity<String> salvarMusica(RequestEntity<String> musica){ return sistemasService.salvarMusica(musica); }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("/musicas/{id}")
-    public ResponseEntity<String> editarMusica(RequestEntity<String> musica, @PathVariable Long id){ return sistemasService.editarMusica(musica, id); }
+    @PutMapping("/musicas")
+    public ResponseEntity<String> editarMusica(RequestEntity<String> musica){ return sistemasService.editarMusica(musica); }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/musicas/{id}")

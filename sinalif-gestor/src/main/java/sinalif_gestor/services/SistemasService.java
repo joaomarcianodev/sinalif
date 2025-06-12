@@ -1,11 +1,8 @@
 package sinalif_gestor.services;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +16,7 @@ import java.util.Objects;
 @Service
 public class SistemasService {
     private RestTemplate restTemplate;
-    private final ObjectMapper mapper = new ObjectMapper();;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     private String url_srv1_musicas;
     private String url_srv1_historico;
@@ -51,8 +48,8 @@ public class SistemasService {
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
         return response;
     }
-    public ResponseEntity<String> editarMusica(RequestEntity<String> musica, Long id){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_musicas+"/"+id, musica, String.class);
+    public ResponseEntity<String> editarMusica(RequestEntity<String> musica){
+        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
         return response;
     }
     public void excluirMusica(Long id){
@@ -117,8 +114,8 @@ public class SistemasService {
             throw new RuntimeException(e);
         }
     }
-    public ResponseEntity<String> detalharUsuario(String id){
-        ResponseEntity<String> responseUsuario = restTemplate.getForEntity(url_srv2_usuarios+"/"+id, String.class);
+    public ResponseEntity<String> detalharUsuario(String id_usuario){
+        ResponseEntity<String> responseUsuario = restTemplate.getForEntity(url_srv2_usuarios+"/"+id_usuario, String.class);
         if(!responseUsuario.getStatusCode().is2xxSuccessful()) return responseUsuario;
 
         ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
@@ -127,7 +124,6 @@ public class SistemasService {
         try {
             JsonNode usuario = mapper.readTree(responseUsuario.getBody());
             JsonNode sugestoes = mapper.readTree(responseSugestao.getBody());
-            String id_usuario = usuario.get("id_usuario").asText();
 
             List<JsonNode> sugestoesList = new ArrayList<>();
             for(JsonNode sugestao : sugestoes){
