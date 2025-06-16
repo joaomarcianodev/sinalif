@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -69,8 +70,8 @@ public class SistemasService {
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
         return response;
     }
-    public ResponseEntity<String> editarLogReproducao(RequestEntity<String> logRep, Long id){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_historico+"/"+id, logRep, String.class);
+    public ResponseEntity<String> editarLogReproducao(RequestEntity<String> logRep){
+        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
         return response;
     }
     public void excluirLogReproducao(Long id){
@@ -142,7 +143,8 @@ public class SistemasService {
         return response;
     }
     public ResponseEntity<String> editarUsuario(RequestEntity<String> usuario, String id){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_usuarios+"/"+id, usuario, String.class);
+        //restTemplate.put(url_srv2_usuarios+"/"+id, usuario);
+        ResponseEntity<String> response = restTemplate.exchange(url_srv2_usuarios+"/"+id, HttpMethod.PUT, usuario, String.class);
         return response;
     }
     public void excluirUsuario(String id_usuario){
@@ -165,8 +167,9 @@ public class SistemasService {
 
     //Sugestões
     public ResponseEntity<String> listarSugestao(){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv2_sugestao, String.class);
-        return response;
+        ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
+        System.out.println(responseSugestao);
+        return responseSugestao;
     }
     public ResponseEntity<String> detalharSugestao(String id){
         ResponseEntity<String> response = restTemplate.getForEntity(url_srv2_sugestao+"/"+id, String.class);
@@ -176,8 +179,8 @@ public class SistemasService {
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao, sugestao, String.class);
         return response;
     }
-    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao, String id){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao+"/"+id, sugestao, String.class);
+    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao){
+        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao, sugestao, String.class);
         return response;
     }
     public void excluirSugestao(String id){

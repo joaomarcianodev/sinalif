@@ -16,9 +16,9 @@ api_bp = Blueprint("api", __name__)
 def create_usuario():
     data = request.json
     usuario = Usuario.to_dict(data) # type: ignore
-    usuario["data_criacao"] = datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S");
+    usuario["data_criacao"] = datetime.datetime.now().strftime("%d-%m-%Y [%H:%M:%S]");
     result = mongo.db.usuarios.insert_one(usuario) # type: ignore
-    return jsonify({"id_usuario": str(result.inserted_id), **usuario}), 201
+    return jsonify({"id_usuario": str(result.inserted_id), **usuario}), 200
 
 # GET
 @api_bp.route("/usuarios", methods=["GET"])
@@ -35,7 +35,7 @@ def detail_usuario(id_usuario):
     return jsonify({"error": "Usuario not found"}), 404
 
 # UPDATE
-@api_bp.route("/usuarios/<string:id_usuario>", methods=["POST"])
+@api_bp.route("/usuarios/<string:id_usuario>", methods=["PUT"])
 def update_usuario(id_usuario):
     data = request.json
     update_data = {"$set": Usuario.to_dict(data)}
@@ -67,9 +67,9 @@ def create_sugestao():
     sugestao = Sugestao.to_dict(data) # type: ignore
     sugestao["status_sugestao"] = "pendente"
     sugestao["data_analise"] = "aguardando"
-    sugestao["data_sugestao"] = datetime.datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
+    sugestao["data_sugestao"] = datetime.datetime.now().strftime("%d-%m-%Y [%H:%M:%S]")
     result = mongo.db.sugestoes.insert_one(sugestao) # type: ignore
-    return jsonify({"id_sugestao": str(result.inserted_id), **sugestao}), 201
+    return jsonify({"id_sugestao": str(result.inserted_id), **sugestao}), 200
 
 # GET
 @api_bp.route("/sugestao", methods=["GET"])
@@ -86,7 +86,7 @@ def detail_sugestao(id_sugestao):
     return jsonify({"error": "Sugestao not found"}), 404
 
 # UPDATE
-@api_bp.route("/sugestao/<string:id_sugestao>", methods=["POST"])
+@api_bp.route("/sugestao/<string:id_sugestao>", methods=["PUT"])
 def update_sugestao(id_sugestao):
     data = request.json
     update_data = {"$set": Sugestao.to_dict(data)}

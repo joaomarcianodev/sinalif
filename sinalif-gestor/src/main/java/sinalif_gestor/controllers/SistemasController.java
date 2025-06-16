@@ -8,6 +8,7 @@ import sinalif_gestor.services.SistemasService;
 
 @RestController
 @RequestMapping("/api/")
+@CrossOrigin(origins = "*")
 public class SistemasController {
 
     @Autowired
@@ -18,58 +19,49 @@ public class SistemasController {
     /* ********************************************************** */
 
     //Músicas
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/musicas")
     public ResponseEntity<String> listarMusica(){
         return sistemasService.listarMusica();
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/musicas/{id}")
     public ResponseEntity<String> detalharMusica(@PathVariable Long id){
         return sistemasService.detalharMusica(id);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/musicas")
     public ResponseEntity<String> salvarMusica(RequestEntity<String> musica){ return sistemasService.salvarMusica(musica); }
 
-    @CrossOrigin(origins = "*")
     @PutMapping("/musicas")
     public ResponseEntity<String> editarMusica(RequestEntity<String> musica){ return sistemasService.editarMusica(musica); }
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/musicas/{id}")
     public void excluirMusica(@PathVariable Long id){
         sistemasService.excluirMusica(id);
     }
 
     //Histórico
-    @CrossOrigin(origins = "*")
     @GetMapping("/historico")
     public ResponseEntity<String> listarLogReproducao(){
         return sistemasService.listarLogReproducao();
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/historico/{id}")
     public ResponseEntity<String> detalharLogReproducao(@PathVariable Long id){
         return sistemasService.detalharLogReproducao(id);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/historico")
     public ResponseEntity<String> salvarLogReproducao(RequestEntity<String> logRep){
         return sistemasService.salvarLogReproducao(logRep);
     }
 
-    @CrossOrigin(origins = "*")
-    @PutMapping("/historico/{id}")
-    public ResponseEntity<String> editarLogReproducao(RequestEntity<String> logRep, @PathVariable Long id){
-        return sistemasService.editarLogReproducao(logRep, id);
+    @PutMapping("/historico")
+    public ResponseEntity<String> editarLogReproducao(RequestEntity<String> logRep){
+        return sistemasService.editarLogReproducao(logRep);
     }
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/historico/{id}")
     public void excluirLogReproducao(@PathVariable Long id){
         sistemasService.excluirLogReproducao(id);
@@ -82,56 +74,46 @@ public class SistemasController {
     /* ******************************************** */
 
     //Usuários
-    @CrossOrigin(origins = "*")
     @GetMapping("/usuarios")
     public ResponseEntity<String> listarUsuario(){
         return sistemasService.listarUsuario();
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<String> detalharUsuario(@PathVariable String id){
         return sistemasService.detalharUsuario(id);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/usuarios")
     public ResponseEntity<String> salvarUsuario(RequestEntity<String> usuario){ return sistemasService.salvarUsuario(usuario); }
 
-    @CrossOrigin(origins = "*")
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<String> editarUsuario(RequestEntity<String> usuario, @PathVariable String id){ return sistemasService.editarUsuario(usuario, id); }
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/usuarios/{id}")
     public void excluirUsuario(@PathVariable String id){
         sistemasService.excluirUsuario(id);
     }
 
     //Sugestões
-    @CrossOrigin(origins = "*")
     @GetMapping("/sugestao")
     public ResponseEntity<String> listarSugestao(){
         return sistemasService.listarSugestao();
     }
 
-    @CrossOrigin(origins = "*")
     @GetMapping("/sugestao/{id}")
     public ResponseEntity<String> detalharSugestao(@PathVariable String id){
         return sistemasService.detalharSugestao(id);
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/sugestao")
     public ResponseEntity<String> salvarSugestao(RequestEntity<String> sugestao){
         return sistemasService.salvarSugestao(sugestao); }
 
-    @CrossOrigin(origins = "*")
-    @PutMapping("/sugestao/{id}")
-    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao, @PathVariable String id){
-        return sistemasService.editarSugestao(sugestao, id); }
+    @PutMapping("/sugestao")
+    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao){
+        return sistemasService.editarSugestao(sugestao); }
 
-    @CrossOrigin(origins = "*")
     @DeleteMapping("/sugestao/{id}")
     public void excluirSugestao(@PathVariable String id){
         sistemasService.excluirSugestao(id);

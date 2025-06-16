@@ -15,12 +15,12 @@ public class LogReproducao {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id_logReproducao;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id_musica", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_musica")
     private Musica musica;
 
     @CreatedDate
-    @Column(name = "data_reproducao", nullable = true)
+    @Column(name = "data_reproducao")
     private LocalDateTime data_reproducao;
 
     public long getId_logReproducao() {

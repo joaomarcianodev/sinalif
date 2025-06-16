@@ -2,7 +2,6 @@ package sinalif_srv1.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Value;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -24,20 +23,15 @@ public class Musica {
     @Column(name = "url", nullable = false)
     private String url;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "status", nullable = true)
+    private String status = "Pendente";
 
     @CreatedDate
-    @Column(name = "data_criacao")
+    @Column(name = "data_criacao", nullable = true)
     private LocalDateTime data_criacao;
 
-    List<LogReproducao> logs;
-
-    public String getTime(){
-        String dataDeCriacao = "";
-
-        return dataDeCriacao;
-    }
+    @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<LogReproducao> logs;
 
     public Long getId_musica() {
         return id_musica;
@@ -55,9 +49,13 @@ public class Musica {
         this.url = url;
     }
 
-    public String getStatus() { return status; }
+    public String getStatus() {
+        return status;
+    }
 
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public LocalDateTime getData_criacao() {
         return data_criacao;
