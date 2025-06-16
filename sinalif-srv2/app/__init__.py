@@ -8,7 +8,7 @@ def create_app():
     app.config.from_object(Config)
 
     mongo.init_app(app)
-    CORS(app)
+    # CORS(app)
 
     from app.routes import api_bp
     app.register_blueprint(api_bp, url_prefix="/srv2")

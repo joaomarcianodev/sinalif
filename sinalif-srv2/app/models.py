@@ -31,19 +31,19 @@ class Sugestao:
         if sugestao.get("_id", "") == '':
             return {
                 "id_usuario": sugestao["id_usuario"],
+                "id_musica": sugestao["id_musica"],
                 "url_sugerida": sugestao["url_sugerida"],
                 "status_sugestao": sugestao["status_sugestao"],
                 "data_sugestao": sugestao["data_sugestao"],
                 "data_analise": sugestao.get("data_analise", ""),
-                "id_musica": sugestao["id_musica"],
             }
         else:
             return {
                 "id_sugestao": str(sugestao["_id"]),
                 "id_usuario": sugestao["id_usuario"],
+                "id_musica": sugestao["id_musica"],
                 "url_sugerida": sugestao["url_sugerida"],
                 "status_sugestao": sugestao["status_sugestao"],
                 "data_sugestao": sugestao["data_sugestao"],
                 "data_analise": sugestao.get("data_analise", ""),
-                "id_musica": sugestao["id_musica"],
             }

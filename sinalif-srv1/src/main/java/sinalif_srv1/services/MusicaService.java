@@ -27,7 +27,7 @@ public class MusicaService {
         Musica musica = new Musica();
         musica.setId_musica(musicaRecordDto.id_musica());
         musica.setUrl(musicaRecordDto.url());
-        if(musica.getStatus() == null) musica.setStatus("Pendente"); else musica.setStatus(musicaRecordDto.status());
+        musica.setStatus(musicaRecordDto.status());
         musica.setData_criacao(musicaRecordDto.data_criacao());
 
         return musicaRepository.save(musica);
