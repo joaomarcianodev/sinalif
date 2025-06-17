@@ -57,8 +57,6 @@ function salvar(){
     "data_sugestao": null,
     "data_analise": null
   }
-
-  alert("objeto enviado: "+JSON.stringify(json))
   
   request.send(JSON.stringify(json));
   resetar();
