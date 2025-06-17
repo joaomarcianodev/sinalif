@@ -91,25 +91,37 @@ function listar(){
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
-      mostrarLogs(JSON.parse(request.responseText));
+      mostrar(JSON.parse(request.responseText));
     }
   }
 
   //! View
-  function mostrarLogs(listLogs){
+  function mostrar(list){
     var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>ID Música</th><th>URL tocada</th><th>Data Reprodução</th><th>Editar</th><th>Deletar</th></tr>";
 
-    if(listLogs.length>0){
+    if(list.length>0){
       var i;
-      for(i=0; i<listLogs.length; i++){
+      for(i=0; i<list.length; i++){
+        const date = new Date(list[i].data_reproducao);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        data_reproducao_formatado = `${day}-${month}-${year} [${hours}:${minutes}:${seconds}]`;
+        
         out +=
         "<tr>"+
-          "<td>"+listLogs[i].id_logReproducao+"</td>"+
-          "<td>"+listLogs[i].musica.id_musica+"</td>"+
-          "<td>"+listLogs[i].musica.url+"</td>"+
-          "<td>"+listLogs[i].data_reproducao+"</td>"+
-          "<td><button class='btn btn-warning' onclick='editar("+listLogs[i].id_logReproducao+", &apos;"+listLogs[i].musica.id_musica+"&apos;)'>Editar</button></td>"+
-          "<td><button class='btn btn-danger' onclick='deletar("+listLogs[i].id_logReproducao+")'>Deletar</button></td>"+
+          "<td>"+list[i].id_logReproducao+"</td>"+
+          "<td>"+list[i].musica.id_musica+"</td>"+
+          "<td>"+list[i].musica.url+"</td>"+
+          "<td>"+data_reproducao_formatado+"</td>"+
+          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_logReproducao+", &apos;"+list[i].musica.id_musica+"&apos;)'>Editar</button></td>"+
+          "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_logReproducao+")'>Deletar</button></td>"+
         "</tr>";
       }
 

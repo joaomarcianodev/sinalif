@@ -73,12 +73,24 @@ function listar(){
     if(list.length>0){
       var i;
       for(i=0; i<list.length; i++){
+        const date = new Date(list[i].data_criacao);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        data_criacao_formatado = `${day}-${month}-${year} [${hours}:${minutes}:${seconds}]`;
+
         out +=
         "<tr>"+
           "<td>"+list[i].id_musica+"</td>"+
           "<td>"+list[i].url+"</td>"+
           "<td>"+list[i].status+"</td>"+
-          "<td>"+list[i].data_criacao+"</td>"+
+          "<td>"+data_criacao_formatado+"</td>"+
           "<td><button class='btn btn-warning' onclick='editar("+list[i].id_musica+", &apos;"+list[i].url+"&apos;)'>Editar</button></td>"+
           "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_musica+")'>Deletar</button></td>"+
         "</tr>";
