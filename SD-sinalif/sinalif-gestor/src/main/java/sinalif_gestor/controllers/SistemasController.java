@@ -19,7 +19,6 @@ public class SistemasController {
     /* ********************************************************** */
 
     //Músicas
-
     @GetMapping("/musicas")
     public ResponseEntity<String> listarMusica(){
         return sistemasService.listarMusica();
@@ -117,5 +116,112 @@ public class SistemasController {
     @DeleteMapping("/sugestao/{id}")
     public void excluirSugestao(@PathVariable String id){
         sistemasService.excluirSugestao(id);
+    }
+
+    /* ****************************************** */
+    /* Métodos Serviço 3 - API Sinalif_srv3 (Alarmes, Etiquetas, Pausas, Perfis) */
+    /* ****************************************** */
+
+    @GetMapping("/sinalif_srv3/alarmes")
+    public ResponseEntity<String> listarAlarmesSrv3(){
+        return sistemasService.listarAlarmesSrv3();
+    }
+
+    @GetMapping("/sinalif_srv3/alarmes/{id}")
+    public ResponseEntity<String> detalharAlarmeSrv3(@PathVariable Long id){
+        return sistemasService.detalharAlarmeSrv3(id);
+    }
+
+    @PostMapping("/sinalif_srv3/alarmes")
+    public ResponseEntity<String> salvarAlarmeSrv3(RequestEntity<String> alarme){
+        return sistemasService.salvarAlarmeSrv3(alarme);
+    }
+
+    @PutMapping("/sinalif_srv3/alarmes/{id}")
+    public ResponseEntity<String> atualizarAlarmeSrv3(@PathVariable Long id, @RequestBody String alarmeJson){
+        return sistemasService.atualizarAlarmeSrv3(id, alarmeJson);
+    }
+
+    @DeleteMapping("/sinalif_srv3/alarmes/{id}")
+    public void excluirAlarmeSrv3(@PathVariable Long id){
+        sistemasService.excluirAlarmeSrv3(id);
+    }
+
+    // Etiquetas
+    @GetMapping("/sinalif_srv3/etiquetas")
+    public ResponseEntity<String> listarEtiquetasSrv3(){
+        return sistemasService.listarEtiquetasSrv3();
+    }
+
+    @GetMapping("/sinalif_srv3/etiquetas/{id}")
+    public ResponseEntity<String> detalharEtiquetaSrv3(@PathVariable Long id){
+        return sistemasService.detalharEtiquetaSrv3(id);
+    }
+
+    @PostMapping("/sinalif_srv3/etiquetas")
+    public ResponseEntity<String> salvarEtiquetaSrv3(RequestEntity<String> etiqueta){
+        return sistemasService.salvarEtiquetaSrv3(etiqueta);
+    }
+
+    @PutMapping("/sinalif_srv3/etiquetas/{id}")
+    public ResponseEntity<String> atualizarEtiquetaSrv3(@PathVariable Long id, @RequestBody String etiquetaJson){
+        return sistemasService.atualizarEtiquetaSrv3(id, etiquetaJson);
+    }
+
+    @DeleteMapping("/sinalif_srv3/etiquetas/{id}")
+    public void excluirEtiquetaSrv3(@PathVariable Long id){
+        sistemasService.excluirEtiquetaSrv3(id);
+    }
+
+    // Pausas Programadas
+    @GetMapping("/sinalif_srv3/pausasProgramadas")
+    public ResponseEntity<String> listarPausasProgramadasSrv3(){
+        return sistemasService.listarPausasProgramadasSrv3();
+    }
+
+    @GetMapping("/sinalif_srv3/pausasProgramadas/{id}")
+    public ResponseEntity<String> detalharPausaProgramadaSrv3(@PathVariable Long id){
+        return sistemasService.detalharPausaProgramadaSrv3(id);
+    }
+
+    @PostMapping("/sinalif_srv3/pausasProgramadas")
+    public ResponseEntity<String> salvarPausaProgramadaSrv3(RequestEntity<String> pausa){
+        return sistemasService.salvarPausaProgramadaSrv3(pausa);
+    }
+
+    @PutMapping("/sinalif_srv3/pausasProgramadas/{id}")
+    public ResponseEntity<String> atualizarPausaProgramadaSrv3(@PathVariable Long id, @RequestBody String pausaJson){
+        return sistemasService.atualizarPausaProgramadaSrv3(id, pausaJson);
+    }
+
+    @DeleteMapping("/sinalif_srv3/pausasProgramadas/{id}")
+    public void excluirPausaProgramadaSrv3(@PathVariable Long id){
+        sistemasService.excluirPausaProgramadaSrv3(id);
+    }
+
+    // Perfis
+    @GetMapping("/sinalif_srv3/perfis")
+    public ResponseEntity<String> listarPerfisSrv3(){
+        return sistemasService.listarPerfisSrv3();
+    }
+
+    @GetMapping("/sinalif_srv3/perfis/{id}")
+    public ResponseEntity<String> detalharPerfilSrv3(@PathVariable Long id){
+        return sistemasService.detalharPerfilSrv3(id);
+    }
+
+    @PostMapping("/sinalif_srv3/perfis")
+    public ResponseEntity<String> salvarPerfilSrv3(RequestEntity<String> perfil){
+        return sistemasService.salvarPerfilSrv3(perfil);
+    }
+
+    @PutMapping("/sinalif_srv3/perfis/{id}")
+    public ResponseEntity<String> atualizarPerfilSrv3(@PathVariable Long id, @RequestBody String perfilJson){
+        return sistemasService.atualizarPerfilSrv3(id, perfilJson);
+    }
+
+    @DeleteMapping("/sinalif_srv3/perfis/{id}")
+    public void excluirPerfilSrv3(@PathVariable Long id){
+        sistemasService.excluirPerfilSrv3(id);
     }
 }
