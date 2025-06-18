@@ -34,7 +34,7 @@ public class PausaProgramada {
 	@Column(nullable = false)
 	private boolean ativo;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate data_criacao;
 
 	public long getId_pausa() {
