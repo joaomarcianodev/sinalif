@@ -33,14 +33,14 @@ public class Alarme {
 	@Column(nullable = false)
 	private boolean pausado;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate data_criacao;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private LocalDate data_modificacao;
 	
 	@ManyToOne 
-    @JoinColumn(name = "id_etiqueta", nullable = false) 
+    @JoinColumn(name = "id_etiqueta")
     private Etiqueta etiqueta;
 
 	public long getId_alarme() {
