@@ -13,41 +13,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sinalif_srv3.dtos.AlarmeRecordDto;
 import sinalif_srv3.models.Alarme;
 import sinalif_srv3.services.AlarmeService;
 
-
 @RestController
-@RequestMapping("/api/alarmes")
+@RequestMapping("/srv3/alarmes")
+@CrossOrigin(origins = "*")
 public class AlarmeController {
+
 	 @Autowired
 	 private AlarmeService alarmeService;
-	
-	 @CrossOrigin(origins = "*")
+
 	 @GetMapping
 	 public List<Alarme> getAlarmes(){
 	     return alarmeService.getAlarmes();
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @GetMapping("/{id}")
 	 public Alarme getAlarmeById(@PathVariable Long id) {
 	     return alarmeService.getAlarme(id);
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @PostMapping
-	 public Alarme salvarAlarme(@RequestBody Alarme alarme) {
-	     return alarmeService.salvarAlarme(alarme);
+	 public Alarme salvarAlarme(@RequestBody AlarmeRecordDto alarmeRecordDto) {
+	     return alarmeService.salvarAlarme(alarmeRecordDto);
 	 }
-	 
-	 @CrossOrigin(origins = "*")
-	 @PutMapping("/{id}") 
-	 public Alarme atualizarAlarme(@PathVariable Long id, @RequestBody Alarme alarme) {
-	     return alarmeService.atualizarAlarme(id, alarme);
+
+	 @PutMapping("/{id}")
+	 public Alarme atualizarAlarme(@PathVariable Long id, @RequestBody AlarmeRecordDto alarmeRecordDto) {
+	     return alarmeService.atualizarAlarme(id, alarmeRecordDto);
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @DeleteMapping("/{id}") 
 	 public void deletarAlarme(@PathVariable Long id) {
 	     alarmeService.excluirAlarme(id);

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "LogReproducao")
 @EntityListeners(AuditingEntityListener.class)
 public class LogReproducao {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

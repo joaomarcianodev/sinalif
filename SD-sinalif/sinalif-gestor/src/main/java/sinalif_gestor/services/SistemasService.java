@@ -37,10 +37,10 @@ public class SistemasService {
         this.url_srv1_historico = "http://localhost:8082/srv1/historico";
         this.url_srv2_usuarios = "http://localhost:8083/srv2/usuarios";
         this.url_srv2_sugestao = "http://localhost:8083/srv2/sugestao";
-        this.url_srv3_alarmes = "http://localhost:8084/api/alarmes";
-        this.url_srv3_etiquetas = "http://localhost:8084/api/etiquetas";
-        this.url_srv3_pausasProgramadas = "http://localhost:8084/api/pausasProgramadas";
-        this.url_srv3_perfis = "http://localhost:8084/api/perfis";
+        this.url_srv3_alarmes = "http://localhost:8084/srv3/alarmes";
+        this.url_srv3_etiquetas = "http://localhost:8084/srv3/etiquetas";
+        this.url_srv3_pausasProgramadas = "http://localhost:8084/srv3/pausas";
+        this.url_srv3_perfis = "http://localhost:8084/srv3/perfis";
     }
 
     /* ********************************************************** */
@@ -202,98 +202,98 @@ public class SistemasService {
     /* ****************************************** */
 
     // Alarmes
-    public ResponseEntity<String> listarAlarmesSrv3(){
+    public ResponseEntity<String> listarAlarmes(){
         return restTemplate.getForEntity(url_srv3_alarmes, String.class);
     }
 
-    public ResponseEntity<String> detalharAlarmeSrv3(Long id){
+    public ResponseEntity<String> detalharAlarme(Long id){
         return restTemplate.getForEntity(url_srv3_alarmes + "/" + id, String.class);
     }
 
-    public ResponseEntity<String> salvarAlarmeSrv3(RequestEntity<String> alarme){
+    public ResponseEntity<String> salvarAlarme(RequestEntity<String> alarme){
         return restTemplate.postForEntity(url_srv3_alarmes, alarme, String.class);
     }
 
-    public ResponseEntity<String> atualizarAlarmeSrv3(Long id, String alarmeJson){
+    public ResponseEntity<String> atualizarAlarme(Long id, String alarmeJson){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RequestEntity<String> requestEntity = new RequestEntity<>(alarmeJson, headers, HttpMethod.PUT, null);
         return restTemplate.exchange(url_srv3_alarmes + "/" + id, HttpMethod.PUT, requestEntity, String.class);
     }
 
-    public void excluirAlarmeSrv3(Long id){
+    public void excluirAlarme(Long id){
         restTemplate.delete(url_srv3_alarmes + "/" + id);
     }
 
     // Etiquetas
-    public ResponseEntity<String> listarEtiquetasSrv3(){
+    public ResponseEntity<String> listarEtiquetas(){
         return restTemplate.getForEntity(url_srv3_etiquetas, String.class);
     }
 
-    public ResponseEntity<String> detalharEtiquetaSrv3(Long id){
+    public ResponseEntity<String> detalharEtiqueta(Long id){
         return restTemplate.getForEntity(url_srv3_etiquetas + "/" + id, String.class);
     }
 
-    public ResponseEntity<String> salvarEtiquetaSrv3(RequestEntity<String> etiqueta){
+    public ResponseEntity<String> salvarEtiqueta(RequestEntity<String> etiqueta){
         return restTemplate.postForEntity(url_srv3_etiquetas, etiqueta, String.class);
     }
 
-    public ResponseEntity<String> atualizarEtiquetaSrv3(Long id, String etiquetaJson){
+    public ResponseEntity<String> atualizarEtiqueta(Long id, String etiquetaJson){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RequestEntity<String> requestEntity = new RequestEntity<>(etiquetaJson, headers, HttpMethod.PUT, null);
         return restTemplate.exchange(url_srv3_etiquetas + "/" + id, HttpMethod.PUT, requestEntity, String.class);
     }
 
-    public void excluirEtiquetaSrv3(Long id){
+    public void excluirEtiqueta(Long id){
         restTemplate.delete(url_srv3_etiquetas + "/" + id);
     }
 
     // Pausas Programadas
-    public ResponseEntity<String> listarPausasProgramadasSrv3(){
+    public ResponseEntity<String> listarPausasProgramadas(){
         return restTemplate.getForEntity(url_srv3_pausasProgramadas, String.class);
     }
 
-    public ResponseEntity<String> detalharPausaProgramadaSrv3(Long id){
+    public ResponseEntity<String> detalharPausaProgramada(Long id){
         return restTemplate.getForEntity(url_srv3_pausasProgramadas + "/" + id, String.class);
     }
 
-    public ResponseEntity<String> salvarPausaProgramadaSrv3(RequestEntity<String> pausa){
+    public ResponseEntity<String> salvarPausaProgramada(RequestEntity<String> pausa){
         return restTemplate.postForEntity(url_srv3_pausasProgramadas, pausa, String.class);
     }
 
-    public ResponseEntity<String> atualizarPausaProgramadaSrv3(Long id, String pausaJson){
+    public ResponseEntity<String> atualizarPausaProgramada(Long id, String pausaJson){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RequestEntity<String> requestEntity = new RequestEntity<>(pausaJson, headers, HttpMethod.PUT, null);
         return restTemplate.exchange(url_srv3_pausasProgramadas + "/" + id, HttpMethod.PUT, requestEntity, String.class);
     }
 
-    public void excluirPausaProgramadaSrv3(Long id){
+    public void excluirPausaProgramada(Long id){
         restTemplate.delete(url_srv3_pausasProgramadas + "/" + id);
     }
 
     // Perfis
-    public ResponseEntity<String> listarPerfisSrv3(){
+    public ResponseEntity<String> listarPerfis(){
         return restTemplate.getForEntity(url_srv3_perfis, String.class);
     }
 
-    public ResponseEntity<String> detalharPerfilSrv3(Long id){
+    public ResponseEntity<String> detalharPerfil(Long id){
         return restTemplate.getForEntity(url_srv3_perfis + "/" + id, String.class);
     }
 
-    public ResponseEntity<String> salvarPerfilSrv3(RequestEntity<String> perfil){
+    public ResponseEntity<String> salvarPerfil(RequestEntity<String> perfil){
         return restTemplate.postForEntity(url_srv3_perfis, perfil, String.class);
     }
 
-    public ResponseEntity<String> atualizarPerfilSrv3(Long id, String perfilJson){
+    public ResponseEntity<String> atualizarPerfil(Long id, String perfilJson){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         RequestEntity<String> requestEntity = new RequestEntity<>(perfilJson, headers, HttpMethod.PUT, null);
         return restTemplate.exchange(url_srv3_perfis + "/" + id, HttpMethod.PUT, requestEntity, String.class);
     }
 
-    public void excluirPerfilSrv3(Long id){
+    public void excluirPerfil(Long id){
         restTemplate.delete(url_srv3_perfis + "/" + id);
     }
 }

@@ -13,40 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sinalif_srv3.dtos.PausaProgramadaRecordDto;
+import sinalif_srv3.dtos.PerfilRecordDto;
+import sinalif_srv3.models.PausaProgramada;
 import sinalif_srv3.models.Perfil;
 import sinalif_srv3.services.PerfilService;
 
 @RestController
-@RequestMapping("/api/perfis")
+@RequestMapping("/srv3/perfis")
+@CrossOrigin(origins = "*")
 public class PerfilController {
 	@Autowired
 	private PerfilService perfilService;
 
-	@CrossOrigin(origins = "*")
 	@GetMapping
 	public List<Perfil> getPerfis(){
 		return perfilService.getPerfis();
 	}
-	
-	@CrossOrigin(origins = "*")
+
 	@GetMapping("/{id}")
 	public Perfil getPerfilById(@PathVariable Long id){
 		return perfilService.getPerfil(id);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping
-	public Perfil salvarPerfil(@RequestBody Perfil perfil) {
-		return perfilService.salvarPerfil(perfil);
+	public Perfil salvarPerfil(@RequestBody PerfilRecordDto perfilRecordDto) {
+		return perfilService.salvarPerfil(perfilRecordDto);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
-	public Perfil atualizarPerfil(@PathVariable Long id, @RequestBody Perfil perfil) {
-		return perfilService.atualizarPerfil(id, perfil);
+	public Perfil atualizarPerfil(@PathVariable Long id, @RequestBody PerfilRecordDto perfilRecordDto) {
+		return perfilService.atualizarPerfil(id, perfilRecordDto);
 	}
 
-	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	public void deletarPerfil(@PathVariable Long id) {
 		perfilService.excluirPerfil(id);
