@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import sinalif_srv3.dtos.AlarmeRecordDto;
+import sinalif_srv3.dtos.EtiquetaRecordDto;
+import sinalif_srv3.models.Alarme;
 import sinalif_srv3.models.Etiqueta;
 import sinalif_srv3.repositories.EtiquetaRepository;
 
@@ -24,20 +27,22 @@ public class EtiquetaService {
 				.orElseThrow(() -> new RuntimeException("Etiqueta não encontrada com ID: " + id));
 	}
 
-	public Etiqueta salvarEtiqueta(Etiqueta etiqueta){
+	public Etiqueta salvarEtiqueta(EtiquetaRecordDto etiquetaRecordDto){
+		Etiqueta etiqueta = new Etiqueta();
+		etiqueta.setId_etiqueta(etiquetaRecordDto.id_etiqueta());
+		etiqueta.setNome(etiquetaRecordDto.nome());
+		etiqueta.setDuracao(etiquetaRecordDto.duracao());
+
 		return etiquetaRepository.save(etiqueta);
 	}
 
-	public Etiqueta atualizarEtiqueta(Long id, Etiqueta etiquetaAtualizada) {
-		Etiqueta etiquetaExistente = etiquetaRepository.findById(id)
+	public Etiqueta atualizarEtiqueta(Long id, EtiquetaRecordDto etiquetaRecordDto) {
+		Etiqueta etiqueta = etiquetaRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Etiqueta não encontrada com ID: " + id));
-		etiquetaExistente.setNome(etiquetaAtualizada.getNome());
-		etiquetaExistente.setDuracao(etiquetaAtualizada.getDuracao());
-		return etiquetaRepository.save(etiquetaExistente);
-	}
-	
-	public void excluirEtiqueta(Etiqueta etiqueta) {
-		etiquetaRepository.deleteById(etiqueta.getId_etiqueta());
+		etiqueta.setNome(etiquetaRecordDto.nome());
+		etiqueta.setDuracao(etiquetaRecordDto.duracao());
+
+		return etiquetaRepository.save(etiqueta);
 	}
 
 	public void excluirEtiqueta(Long id) {

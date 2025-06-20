@@ -1,5 +1,7 @@
 package sinalif_srv3.dtos;
 
-public record EtiquetaRecordDto(Long id_etiqueta,
+public record EtiquetaRecordDto(
+		long id_etiqueta,
 		String nome,
-		String duracao) {}
+		Integer duracao){
+}

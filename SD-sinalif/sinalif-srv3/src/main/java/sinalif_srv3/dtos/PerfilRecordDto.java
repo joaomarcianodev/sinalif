@@ -1,4 +1,6 @@
 package sinalif_srv3.dtos;
 
-public record PerfilRecordDto(Long id_perfil,
-		String nome){}
+public record PerfilRecordDto(
+		long id_perfil,
+		String nome){
+}

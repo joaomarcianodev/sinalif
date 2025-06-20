@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import sinalif_srv3.dtos.PerfilRecordDto;
+import sinalif_srv3.models.PausaProgramada;
 import sinalif_srv3.models.Perfil;
 import sinalif_srv3.repositories.PerfilRepository;
 
@@ -24,19 +26,20 @@ public class PerfilService {
 				.orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
 	}
 
-	public Perfil salvarPerfil(Perfil perfil){
+	public Perfil salvarPerfil(PerfilRecordDto perfilRecordDto){
+		Perfil perfil = new Perfil();
+		perfil.setId_perfil(perfilRecordDto.id_perfil());
+		perfil.setNome(perfilRecordDto.nome());
+
 		return perfilRepository.save(perfil);
 	}
 
-	public Perfil atualizarPerfil(Long id, Perfil perfilAtualizado) {
-		Perfil perfilExistente = perfilRepository.findById(id)
+	public Perfil atualizarPerfil(Long id, PerfilRecordDto perfilRecordDto){
+		Perfil perfil = perfilRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
-		perfilExistente.setNome(perfilAtualizado.getNome());
-		return perfilRepository.save(perfilExistente);
-	}
+		perfil.setNome(perfilRecordDto.nome());
 
-	public void excluirPerfil(Perfil perfil) {
-		perfilRepository.deleteById(perfil.getId_perfil());
+		return perfilRepository.save(perfil);
 	}
 
 	public void excluirPerfil(Long id) {

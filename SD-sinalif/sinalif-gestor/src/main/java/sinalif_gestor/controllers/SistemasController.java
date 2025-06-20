@@ -124,105 +124,105 @@ public class SistemasController {
 
     //Alarmes
     @GetMapping("/alarmes")
-    public ResponseEntity<String> listarAlarmesSrv3(){
-        return sistemasService.listarAlarmesSrv3();
+    public ResponseEntity<String> listarAlarmes(){
+        return sistemasService.listarAlarmes();
     }
 
     @GetMapping("/alarmes/{id}")
-    public ResponseEntity<String> detalharAlarmeSrv3(@PathVariable Long id){
-        return sistemasService.detalharAlarmeSrv3(id);
+    public ResponseEntity<String> detalharAlarme(@PathVariable Long id){
+        return sistemasService.detalharAlarme(id);
     }
 
     @PostMapping("/alarmes")
-    public ResponseEntity<String> salvarAlarmeSrv3(RequestEntity<String> alarme){
-        return sistemasService.salvarAlarmeSrv3(alarme);
+    public ResponseEntity<String> salvarAlarme(RequestEntity<String> alarme){
+        return sistemasService.salvarAlarme(alarme);
     }
 
     @PutMapping("/alarmes/{id}")
-    public ResponseEntity<String> atualizarAlarmeSrv3(@PathVariable Long id, @RequestBody String alarmeJson){
-        return sistemasService.atualizarAlarmeSrv3(id, alarmeJson);
+    public ResponseEntity<String> atualizarAlarme(@PathVariable Long id, @RequestBody String alarmeJson){
+        return sistemasService.atualizarAlarme(id, alarmeJson);
     }
 
     @DeleteMapping("/alarmes/{id}")
-    public void excluirAlarmeSrv3(@PathVariable Long id){
-        sistemasService.excluirAlarmeSrv3(id);
+    public void excluirAlarme(@PathVariable Long id){
+        sistemasService.excluirAlarme(id);
     }
 
     // Etiquetas
     @GetMapping("/etiquetas")
-    public ResponseEntity<String> listarEtiquetasSrv3(){
-        return sistemasService.listarEtiquetasSrv3();
+    public ResponseEntity<String> listarEtiquetas(){
+        return sistemasService.listarEtiquetas();
     }
 
     @GetMapping("/etiquetas/{id}")
-    public ResponseEntity<String> detalharEtiquetaSrv3(@PathVariable Long id){
-        return sistemasService.detalharEtiquetaSrv3(id);
+    public ResponseEntity<String> detalharEtiqueta(@PathVariable Long id){
+        return sistemasService.detalharEtiqueta(id);
     }
 
     @PostMapping("/etiquetas")
-    public ResponseEntity<String> salvarEtiquetaSrv3(RequestEntity<String> etiqueta){
-        return sistemasService.salvarEtiquetaSrv3(etiqueta);
+    public ResponseEntity<String> salvarEtiqueta(RequestEntity<String> etiqueta){
+        return sistemasService.salvarEtiqueta(etiqueta);
     }
 
     @PutMapping("/etiquetas/{id}")
-    public ResponseEntity<String> atualizarEtiquetaSrv3(@PathVariable Long id, @RequestBody String etiquetaJson){
-        return sistemasService.atualizarEtiquetaSrv3(id, etiquetaJson);
+    public ResponseEntity<String> atualizarEtiqueta(@PathVariable Long id, @RequestBody String etiquetaJson){
+        return sistemasService.atualizarEtiqueta(id, etiquetaJson);
     }
 
     @DeleteMapping("/etiquetas/{id}")
-    public void excluirEtiquetaSrv3(@PathVariable Long id){
-        sistemasService.excluirEtiquetaSrv3(id);
+    public void excluirEtiqueta(@PathVariable Long id){
+        sistemasService.excluirEtiqueta(id);
     }
 
     // Pausas Programadas
-    @GetMapping("/pausasProgramadas")
-    public ResponseEntity<String> listarPausasProgramadasSrv3(){
-        return sistemasService.listarPausasProgramadasSrv3();
+    @GetMapping("/pausas")
+    public ResponseEntity<String> listarPausasProgramadas(){
+        return sistemasService.listarPausasProgramadas();
     }
 
-    @GetMapping("/pausasProgramadas/{id}")
-    public ResponseEntity<String> detalharPausaProgramadaSrv3(@PathVariable Long id){
-        return sistemasService.detalharPausaProgramadaSrv3(id);
+    @GetMapping("/pausas/{id}")
+    public ResponseEntity<String> detalharPausaProgramada(@PathVariable Long id){
+        return sistemasService.detalharPausaProgramada(id);
     }
 
-    @PostMapping("/pausasProgramadas")
-    public ResponseEntity<String> salvarPausaProgramadaSrv3(RequestEntity<String> pausa){
-        return sistemasService.salvarPausaProgramadaSrv3(pausa);
+    @PostMapping("/pausas")
+    public ResponseEntity<String> salvarPausaProgramada(RequestEntity<String> pausa){
+        return sistemasService.salvarPausaProgramada(pausa);
     }
 
-    @PutMapping("/pausasProgramadas/{id}")
-    public ResponseEntity<String> atualizarPausaProgramadaSrv3(@PathVariable Long id, @RequestBody String pausaJson){
-        return sistemasService.atualizarPausaProgramadaSrv3(id, pausaJson);
+    @PutMapping("/pausas/{id}")
+    public ResponseEntity<String> atualizarPausaProgramada(@PathVariable Long id, @RequestBody String pausaJson){
+        return sistemasService.atualizarPausaProgramada(id, pausaJson);
     }
 
-    @DeleteMapping("/pausasProgramadas/{id}")
-    public void excluirPausaProgramadaSrv3(@PathVariable Long id){
-        sistemasService.excluirPausaProgramadaSrv3(id);
+    @DeleteMapping("/pausas/{id}")
+    public void excluirPausaProgramada(@PathVariable Long id){
+        sistemasService.excluirPausaProgramada(id);
     }
 
     // Perfis
     @GetMapping("/perfis")
-    public ResponseEntity<String> listarPerfisSrv3(){
-        return sistemasService.listarPerfisSrv3();
+    public ResponseEntity<String> listarPerfis(){
+        return sistemasService.listarPerfis();
     }
 
     @GetMapping("/perfis/{id}")
-    public ResponseEntity<String> detalharPerfilSrv3(@PathVariable Long id){
-        return sistemasService.detalharPerfilSrv3(id);
+    public ResponseEntity<String> detalharPerfil(@PathVariable Long id){
+        return sistemasService.detalharPerfil(id);
     }
 
     @PostMapping("/perfis")
-    public ResponseEntity<String> salvarPerfilSrv3(RequestEntity<String> perfil){
-        return sistemasService.salvarPerfilSrv3(perfil);
+    public ResponseEntity<String> salvarPerfil(RequestEntity<String> perfil){
+        return sistemasService.salvarPerfil(perfil);
     }
 
     @PutMapping("/perfis/{id}")
-    public ResponseEntity<String> atualizarPerfilSrv3(@PathVariable Long id, @RequestBody String perfilJson){
-        return sistemasService.atualizarPerfilSrv3(id, perfilJson);
+    public ResponseEntity<String> atualizarPerfil(@PathVariable Long id, @RequestBody String perfilJson){
+        return sistemasService.atualizarPerfil(id, perfilJson);
     }
 
     @DeleteMapping("/perfis/{id}")
-    public void excluirPerfilSrv3(@PathVariable Long id){
-        sistemasService.excluirPerfilSrv3(id);
+    public void excluirPerfil(@PathVariable Long id){
+        sistemasService.excluirPerfil(id);
     }
 }

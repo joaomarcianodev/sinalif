@@ -13,40 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import sinalif_srv3.dtos.EtiquetaRecordDto;
+import sinalif_srv3.dtos.PausaProgramadaRecordDto;
+import sinalif_srv3.models.Etiqueta;
 import sinalif_srv3.models.PausaProgramada;
 import sinalif_srv3.services.PausaProgramadaService;
 
 @RestController
-@RequestMapping("/api/pausasProgramadas")
+@RequestMapping("/srv3/pausas")
+@CrossOrigin(origins = "*")
 public class PausaProgramadaController {
 	@Autowired
 	private PausaProgramadaService pausaProgramadaService;
 
-	@CrossOrigin(origins = "*")
 	@GetMapping
 	public List<PausaProgramada> getPausasProgramadas(){
 		return pausaProgramadaService.getPausasProgramadas();
 	}
 
-	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public PausaProgramada getPausaProgramadaById(@PathVariable Long id){
 		return pausaProgramadaService.getPausaProgramada(id);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping
-	public PausaProgramada salvarPausaProgramada(@RequestBody PausaProgramada pausaProgramada) {
-		return pausaProgramadaService.salvarPausaProgramada(pausaProgramada);
+	public PausaProgramada salvarPausaProgramada(@RequestBody PausaProgramadaRecordDto pausaProgramadaRecordDto) {
+		return pausaProgramadaService.salvarPausaProgramada(pausaProgramadaRecordDto);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
-	public PausaProgramada atualizarPausaProgramada(@PathVariable Long id, @RequestBody PausaProgramada pausaProgramada) {
-		return pausaProgramadaService.atualizarPausaProgramada(id, pausaProgramada);
+	public PausaProgramada atualizarPausaProgramada(@PathVariable Long id, @RequestBody PausaProgramadaRecordDto pausaProgramadaRecordDto) {
+		return pausaProgramadaService.atualizarPausaProgramada(id, pausaProgramadaRecordDto);
 	}
 
-	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	public void deletarPausaProgramada(@PathVariable Long id) {
 		pausaProgramadaService.excluirPausaProgramada(id);
