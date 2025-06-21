@@ -1,13 +1,14 @@
-const _URL = "http://localhost:8081/api/musicas";
+const _URL = "http://localhost:8081/api/etiquetas";
 
 $( document ).ready(function() {
     listar();
 });
 
 //! View
-function editar(id, txtUrl){
+function editar(id, txtNome, txtDuracao){
   $("#txtID").val(id);
-  $("#txtUrl").val(txtUrl);
+  $("#txtNome").val(txtNome);
+  $("#txtDuracao").val(txtDuracao);
 
   $("#btnSalvar").hide();
   $("#btnCancelar").show();
@@ -17,7 +18,8 @@ function editar(id, txtUrl){
 //! View
 function resetar(){
   $("#txtID").val("");
-  $("#txtUrl").val("");
+  $("#txtNome").val("");
+  $("#txtDuracao").val("");
 
   $("#btnSalvar").show();
   $("#btnCancelar").hide();
@@ -27,7 +29,8 @@ function resetar(){
 //! Função POST
 function salvar(){
   var request = new XMLHttpRequest();
-  var txtUrl = $("#txtUrl").val();
+  var txtNome = $("#txtNome").val();
+  var txtDuracao = $("#txtDuracao").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -43,10 +46,9 @@ function salvar(){
   request.setRequestHeader('Content-type', 'application/json');
 
   var json = {
-    "id_musica": null,
-    "url": txtUrl,
-    "status": "Pendente",
-    "data_criacao": null
+    "id_etiqueta": null,
+    "nome": txtNome,
+    "duracao": txtDuracao
   }
   
   request.send(JSON.stringify(json));
@@ -68,37 +70,24 @@ function listar(){
 
   //! View
   function mostrar(list){
-    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>URL</th><th>Status</th><th>Data Criação</th><th>Editar</th><th>Deletar</th></tr>";
+    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>Nome</th><th>Duração</th><th>Editar</th><th>Deletar</th></tr>";
 
     if(list.length>0){
       var i;
       for(i=0; i<list.length; i++){
-        const date = new Date(list[i].data_criacao);
-
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        const seconds = String(date.getSeconds()).padStart(2, '0');
-
-        data_criacao_formatado = `${day}-${month}-${year} [${hours}:${minutes}:${seconds}]`;
-
         out +=
         "<tr>"+
-          "<td>"+list[i].id_musica+"</td>"+
-          "<td>"+list[i].url+"</td>"+
-          "<td>"+list[i].status+"</td>"+
-          "<td>"+data_criacao_formatado+"</td>"+
-          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_musica+", &apos;"+list[i].url+"&apos;)'>Editar</button></td>"+
-          "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_musica+")'>Deletar</button></td>"+
+          "<td>"+list[i].id_etiqueta+"</td>"+
+          "<td>"+list[i].nome+"</td>"+
+          "<td>"+list[i].duracao+"</td>"+
+          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_etiqueta+", &apos;"+list[i].nome+"&apos;,"+list[i].duracao+")'>Editar</button></td>"+
+          "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_etiqueta+")'>Deletar</button></td>"+
         "</tr>";
       }
 
       out += "</table>";
     }else{
-      var out = "<div class='text-center'>Não há músicas cadastradas.</div>"
+      var out = "<div class='text-center'>Não há etiquetas cadastradas.</div>"
     }
 
     document.getElementById("listagem").innerHTML = out;
@@ -110,7 +99,8 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtUrl = $("#txtUrl").val();
+  var txtNome = $("#txtNome").val();
+  var txtDuracao = $("#txtDuracao").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -131,15 +121,13 @@ function salvarEdicao(){
   request_GET.open("GET", _URL+"/"+id, true);
   request_GET.send();
 
-  function receber(musica){
-    request.open("PUT", _URL, true);
+  function receber(etiqueta){
+    request.open("PUT", _URL+"/"+id, true);
     request.setRequestHeader('Content-type', 'application/json');
 
     var json = {
-      "id_musica": id,
-      "url": txtUrl,
-      "status": musica.status,
-      "data_criacao": musica.data_criacao
+      "nome": txtNome,
+      "duracao": txtDuracao
     }
 
     request.send(JSON.stringify(json));
