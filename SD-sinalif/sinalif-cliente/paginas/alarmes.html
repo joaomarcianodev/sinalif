@@ -41,12 +41,50 @@
   </header>
 
   <div id="form" class="container col-10 mt-5">
-    <h1 class="mb-5 text-center">Músicas</h1>
+    <h1 class="mb-5 text-center">Alarmes</h1>
     <div class="mb-3">
       <input type="text" class="input" id="txtID" hidden>
       
-      <label for="txtUrl" class="form-label">URL</label>
-      <input type="text" class="form-control input" id="txtUrl" placeholder="https://exemplo.com.br">
+      <label for="txtIDEtiqueta" class="form-label">ID Etiqueta</label>
+      <input type="text" class="form-control input" id="txtIDEtiqueta" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="txtHorario" class="form-label">Horário Programado</label>
+      <input type="time" class="form-control input" id="txtHorario" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="txtDias" class="form-label">Dias da Semana</label>
+      <input type="text" class="form-control input" id="txtDias" placeholder="2,3,6">
+    </div>
+    <!--<div hidden class="mb-3">
+      <p>Dias da Semana<br></p>
+      <input type="checkbox" class="input" id="domingo" name="txtDias" value="1">
+      <label for="domingo" class="form-label">Domingo</label><br>
+
+      <input type="checkbox" class="input" id="Segunda" name="txtDias" value="2">
+      <label for="Segunda" class="form-label">Segunda</label><br>
+
+      <input type="checkbox" class="input" id="terca" name="txtDias" value="3">
+      <label for="terca" class="form-label">Terça</label><br>
+
+      <input type="checkbox" class="input" id="quarta" name="txtDias" value="4">
+      <label for="quarta" class="form-label">Quarta</label><br>
+
+      <input type="checkbox" class="input" id="quinta" name="txtDias" value="5">
+      <label for="quinta" class="form-label">Quinta</label><br>
+
+      <input type="checkbox" class="input" id="sexta" name="txtDias" value="6">
+      <label for="sexta" class="form-label">Sexta</label><br>
+
+      <input type="checkbox" class="input" id="sabado" name="txtDias" value="7">
+      <label for="sabado" class="form-label">Sábado</label><br>
+    </div>-->
+    <div class="mb-3">
+      <label for="selectAtivo" class="form-label">Situação</label>
+      <select name="txtAtivo" class="form-control input" id="selectAtivo">
+        <option value="false">Desativado</option>
+        <option value="true">Ativado</option>
+      </select>
     </div>
 
     <div class="row">
@@ -67,7 +105,7 @@
   </div>
 
   <footer>
-    <script src="../js/musicas.js"></script>
+    <script src="../js/alarmes.js"></script>
   </footer>
 </body>
 </html>

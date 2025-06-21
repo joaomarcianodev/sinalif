@@ -41,12 +41,17 @@
   </header>
 
   <div id="form" class="container col-10 mt-5">
-    <h1 class="mb-5 text-center">Músicas</h1>
+    <h1 class="mb-5 text-center">Etiquetas</h1>
     <div class="mb-3">
       <input type="text" class="input" id="txtID" hidden>
       
-      <label for="txtUrl" class="form-label">URL</label>
-      <input type="text" class="form-control input" id="txtUrl" placeholder="https://exemplo.com.br">
+      <label for="txtNome" class="form-label">Nome da Etiqueta</label>
+      <input type="text" class="form-control input" id="txtNome" placeholder="">
+    </div>
+
+    <div class="mb-3">
+      <label for="txtDuracao" class="form-label">Duração dos Alarmes</label>
+      <input type="number" class="form-control input" id="txtDuracao" placeholder="">
     </div>
 
     <div class="row">
@@ -67,7 +72,7 @@
   </div>
 
   <footer>
-    <script src="../js/musicas.js"></script>
+    <script src="../js/etiquetas.js"></script>
   </footer>
 </body>
 </html>

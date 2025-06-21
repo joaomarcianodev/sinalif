@@ -41,12 +41,31 @@
   </header>
 
   <div id="form" class="container col-10 mt-5">
-    <h1 class="mb-5 text-center">Músicas</h1>
+    <h1 class="mb-5 text-center">Pausas Programadas</h1>
     <div class="mb-3">
       <input type="text" class="input" id="txtID" hidden>
       
-      <label for="txtUrl" class="form-label">URL</label>
-      <input type="text" class="form-control input" id="txtUrl" placeholder="https://exemplo.com.br">
+      <label for="txtDataInicio" class="form-label">Data de Início</label>
+      <input type="date" class="form-control input" id="txtDataInicio" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="txtDataFim" class="form-label">Data de Fim</label>
+      <input type="date" class="form-control input" id="txtDataFim" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="txtHoraInicio" class="form-label">Horário de Início</label>
+      <input type="time" class="form-control input" id="txtHoraInicio" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="txtHoraFim" class="form-label">Horário de Fim</label>
+      <input type="time" class="form-control input" id="txtHoraFim" placeholder="">
+    </div>
+    <div class="mb-3">
+      <label for="selectAtivo" class="form-label">Situação</label>
+      <select name="txtAtivo" class="form-control input" id="selectAtivo">
+        <option value="true">Ativado</option>
+        <option value="false">Desativado</option>
+      </select>
     </div>
 
     <div class="row">
@@ -67,7 +86,7 @@
   </div>
 
   <footer>
-    <script src="../js/musicas.js"></script>
+    <script src="../js/pausas.js"></script>
   </footer>
 </body>
 </html>

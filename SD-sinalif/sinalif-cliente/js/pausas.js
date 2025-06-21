@@ -1,13 +1,17 @@
-const _URL = "http://localhost:8081/api/musicas";
+const _URL = "http://localhost:8081/api/pausas";
 
 $( document ).ready(function() {
     listar();
 });
 
 //! View
-function editar(id, txtUrl){
+function editar(id, txtDataInicio, txtDataFim, txtHoraInicio, txtHoraFim, ativado){
   $("#txtID").val(id);
-  $("#txtUrl").val(txtUrl);
+  $("#txtDataInicio").val(txtDataInicio);
+  $("#txtDataFim").val(txtDataFim);
+  $("#txtHoraInicio").val(txtHoraInicio);
+  $("#txtHoraFim").val(txtHoraFim);
+  $("#selectAtivo").val(ativado)
 
   $("#btnSalvar").hide();
   $("#btnCancelar").show();
@@ -17,7 +21,11 @@ function editar(id, txtUrl){
 //! View
 function resetar(){
   $("#txtID").val("");
-  $("#txtUrl").val("");
+  $("#txtDataInicio").val("");
+  $("#txtDataFim").val("");
+  $("#txtHoraInicio").val("");
+  $("#txtHoraFim").val("");
+  $("#selectAtivo").val("true");
 
   $("#btnSalvar").show();
   $("#btnCancelar").hide();
@@ -27,7 +35,11 @@ function resetar(){
 //! Função POST
 function salvar(){
   var request = new XMLHttpRequest();
-  var txtUrl = $("#txtUrl").val();
+  var txtDataInicio = $("#txtDataInicio").val();
+  var txtDataFim = $("#txtDataFim").val();
+  var txtHoraInicio = $("#txtHoraInicio").val();
+  var txtHoraFim = $("#txtHoraFim").val();
+  var ativado = $("#selectAtivo").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -43,9 +55,12 @@ function salvar(){
   request.setRequestHeader('Content-type', 'application/json');
 
   var json = {
-    "id_musica": null,
-    "url": txtUrl,
-    "status": "Pendente",
+    "id_pausa": null,
+    "data_inicio": txtDataInicio,
+    "data_fim": txtDataFim,
+    "hora_inicio": txtHoraInicio,
+    "hora_fim": txtHoraFim,
+    "ativo": ativado,
     "data_criacao": null
   }
   
@@ -68,7 +83,7 @@ function listar(){
 
   //! View
   function mostrar(list){
-    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>URL</th><th>Status</th><th>Data Criação</th><th>Editar</th><th>Deletar</th></tr>";
+    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>Data Início</th><th>Data Fim</th><th>Hora Início</th><th>Hora Fin</th><th>Ativo</th><th>Data Criação</th><th>Editar</th><th>Deletar</th></tr>";
 
     if(list.length>0){
       var i;
@@ -87,18 +102,21 @@ function listar(){
 
         out +=
         "<tr>"+
-          "<td>"+list[i].id_musica+"</td>"+
-          "<td>"+list[i].url+"</td>"+
-          "<td>"+list[i].status+"</td>"+
+          "<td>"+list[i].id_pausa+"</td>"+
+          "<td>"+list[i].data_inicio+"</td>"+
+          "<td>"+list[i].data_fim+"</td>"+
+          "<td>"+list[i].hora_inicio+"</td>"+
+          "<td>"+list[i].hora_fim+"</td>"+
+          "<td>"+list[i].ativo+"</td>"+
           "<td>"+data_criacao_formatado+"</td>"+
-          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_musica+", &apos;"+list[i].url+"&apos;)'>Editar</button></td>"+
-          "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_musica+")'>Deletar</button></td>"+
+          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_pausa+", &apos;"+list[i].data_inicio+"&apos;, &apos;"+list[i].data_fim+"&apos;, &apos;"+list[i].hora_inicio+"&apos;, &apos;"+list[i].hora_fim+"&apos;, &apos;"+list[i].ativo+"&apos;, &apos;"+list[i].data_criacao+"&apos;)'>Editar</button></td>"+
+          "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_pausa+")'>Deletar</button></td>"+
         "</tr>";
       }
 
       out += "</table>";
     }else{
-      var out = "<div class='text-center'>Não há músicas cadastradas.</div>"
+      var out = "<div class='text-center'>Não há pausas cadastradas.</div>"
     }
 
     document.getElementById("listagem").innerHTML = out;
@@ -110,7 +128,11 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtUrl = $("#txtUrl").val();
+  var txtDataInicio = $("#txtDataInicio").val();
+  var txtDataFim = $("#txtDataFim").val();
+  var txtHoraInicio = $("#txtHoraInicio").val();
+  var txtHoraFim = $("#txtHoraFim").val();
+  var ativado = $("#selectAtivo").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -131,15 +153,17 @@ function salvarEdicao(){
   request_GET.open("GET", _URL+"/"+id, true);
   request_GET.send();
 
-  function receber(musica){
-    request.open("PUT", _URL, true);
+  function receber(pausa){
+    request.open("PUT", _URL+"/"+id, true);
     request.setRequestHeader('Content-type', 'application/json');
 
     var json = {
-      "id_musica": id,
-      "url": txtUrl,
-      "status": musica.status,
-      "data_criacao": musica.data_criacao
+      "data_inicio": txtDataInicio,
+      "data_fim": txtDataFim,
+      "hora_inicio": txtHoraInicio,
+      "hora_fim": txtHoraFim,
+      "ativo": ativado,
+      "data_criacao": pausa.data_criacao
     }
 
     request.send(JSON.stringify(json));
