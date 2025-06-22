@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2736eb8e-3482-49ac-b512-fa661103df0d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/musicas.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/musicas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/historico.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/historico.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/musicas.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/musicas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/sugestoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/sugestoes.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/usuarios.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/usuarios.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

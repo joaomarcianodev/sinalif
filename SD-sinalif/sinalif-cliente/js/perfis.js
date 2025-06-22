@@ -29,6 +29,13 @@ function salvar(){
   var request = new XMLHttpRequest();
   var txtNome = $("#txtNome").val();
 
+  //* Validação
+  if(txtNome==''){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
+
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
       $("#mensagem").text("Salvo com sucesso!");
@@ -82,7 +89,7 @@ function listar(){
 
       out += "</table>";
     }else{
-      var out = "<div class='text-center'>Não há etiquetas cadastradas.</div>"
+      var out = "<div class='text-center'>Não há perfis cadastradas.</div>"
     }
 
     document.getElementById("listagem").innerHTML = out;

@@ -35,6 +35,13 @@ function salvar(){
   var txtIDMusica = $("#txtIDMusica").val();
   var txtUrl = $("#txtUrl").val();
 
+  //* Validação
+  if(txtIDUsuario=='' || txtIDMusica=='' || txtUrl==''){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
+
   request.onreadystatechange = function(){
     if(request.readyState == 4){
       //aqui o && request.status == 200 no if está dando problema pois o status está sendo = 0 (???)

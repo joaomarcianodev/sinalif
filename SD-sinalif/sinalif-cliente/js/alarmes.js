@@ -1,13 +1,15 @@
 const _URL = "http://localhost:8081/api/alarmes";
+const _URLAUX = "http://localhost:8081/api/etiquetas";
 
 $( document ).ready(function() {
     listar();
+    listarEtiqueta();
 });
 
 //! View
 function editar(id, txtIDEtiqueta, txtHorario, txtDias, ativado){
   $("#txtID").val(id);
-  $("#txtIDEtiqueta").val(txtIDEtiqueta);
+  $("#selectEtiqueta").val(txtIDEtiqueta);
   $("#txtHorario").val(txtHorario);
   $("#txtDias").val(txtDias);
   $("#selectAtivo").val(ativado);
@@ -20,23 +22,60 @@ function editar(id, txtIDEtiqueta, txtHorario, txtDias, ativado){
 //! View
 function resetar(){
   $("#txtID").val("");
-  $("#txtIDEtiqueta").val("");
+  $("#selectEtiqueta").val("");
   $("#txtHorario").val("");
   $("#txtDias").val("");
-  $("#selectAtivo").val("false");
+  $("#selectAtivo").val("true");
 
   $("#btnSalvar").show();
   $("#btnCancelar").hide();
   $("#btnEditar").hide();
 }
 
+//! Função GET ETIQUETAS
+function listarEtiqueta(){
+  var request = new XMLHttpRequest();
+
+  request.open("GET", _URLAUX, true);
+  request.send();
+
+  request.onreadystatechange = function(){
+    if(request.readyState == 4 && request.status == 200){
+      mostrarEtiquetas(JSON.parse(request.responseText));
+    }
+  }
+
+  //! View
+  function mostrarEtiquetas(list){
+    if(list.length>0){
+      out = `<option value='' selected disabled'>Selecione uma Etiqueta</option>`
+      var i;
+      for(i=0; i<list.length; i++){
+        out += `<option value="${list[i].id_etiqueta}">${list[i].nome} (${list[i].duracao}min)</option>`
+      }
+    }else{
+      out = "<option value='' selected disabled>Não há etiquetas cadastradas</option>"
+      $("#selectEtiqueta").prop("disabled", true);
+    }
+
+    document.getElementById("selectEtiqueta").innerHTML = out;
+  }
+}
+
 //! Função POST
 function salvar(){
   var request = new XMLHttpRequest();
-  var txtIDEtiqueta = $("#txtIDEtiqueta").val();
+  var txtIDEtiqueta = $("#selectEtiqueta").val();
   var txtHorario = $("#txtHorario").val();
   var txtDias = $("#txtDias").val();
   var ativado = $("#selectAtivo").val();
+
+  //* Validação
+  if(txtIDEtiqueta==null || txtHorario=='' || txtDias=='' || ativado==null){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -81,7 +120,7 @@ function listar(){
 
   //! View
   function mostrar(list){
-    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>ID Etiqueta</th><th>Horário</th><th>Dias</th><th>Ativo</th><th>Pausado</th><th>Data Criação</th><th>Data Modificação</th><th>Editar</th><th>Deletar</th></tr>";
+    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>Etiqueta</th><th>Horário</th><th>Dias</th><th>Ativo</th><th>Pausado</th><th>Data Criação</th><th>Data Modificação</th><th>Editar</th><th>Deletar</th></tr>";
 
     if(list.length>0){
       var i;
@@ -110,17 +149,20 @@ function listar(){
 
         data_modificacao_formatado = `${day2}-${month2}-${year2} [${hours2}:${minutes2}:${seconds2}]`;
 
+        list[i].ativo ? saidaAtivo="Sim" : saidaAtivo="Não"
+        list[i].pausado ? saidaPausado="Sim" : saidaPausado="Não"
+
         out +=
         "<tr>"+
           "<td>"+list[i].id_alarme+"</td>"+
-          "<td>"+list[i].etiqueta.id_etiqueta+"</td>"+
+          "<td>"+list[i].etiqueta.nome+"</td>"+
           "<td>"+list[i].horario_programado+"</td>"+
           "<td>"+list[i].dias_semana+"</td>"+
-          "<td>"+list[i].ativo+"</td>"+
-          "<td>"+list[i].pausado+"</td>"+
+          "<td>"+saidaAtivo+"</td>"+
+          "<td>"+saidaPausado+"</td>"+
           "<td>"+data_criacao_formatado+"</td>"+
           "<td>"+data_modificacao_formatado+"</td>"+
-          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_alarme+", "+list[i].etiqueta.id_etiqueta+", &apos;"+list[i].horario_programado+"&apos;, &apos;"+list[i].dias_semana+"&apos;, &apos;"+list[i].ativo+"&apos;, "+list[i].pausado+", &apos;"+list[i].data_criacao+"&apos;, &apos;"+list[i].data_modificacao+"&apos;)'>Editar</button></td>"+
+          "<td><button class='btn btn-warning' onclick='editar("+list[i].id_alarme+", "+list[i].etiqueta.id_etiqueta+", &apos;"+list[i].horario_programado+"&apos;, &apos;"+list[i].dias_semana+"&apos;, &apos;"+list[i].ativo+"&apos;)'>Editar</button></td>"+
           "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_alarme+")'>Deletar</button></td>"+
         "</tr>";
       }
@@ -139,7 +181,7 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtIDEtiqueta = $("#txtIDEtiqueta").val();
+  var txtIDEtiqueta = $("#selectEtiqueta").val();
   var txtHorario = $("#txtHorario").val();
   var txtDias = $("#txtDias").val();
   var ativado = $("#selectAtivo").val();
