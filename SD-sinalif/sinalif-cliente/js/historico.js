@@ -1,14 +1,15 @@
 const _URL = "http://localhost:8081/api/historico";
+const _URLAUX = "http://localhost:8081/api/musicas";
 
 $( document ).ready(function() {
     listar();
-    //listarMusicas();
+    listarMusicas();
 });
 
 //! View
 function editar(id, txtIdMusica){
   $("#txtID").val(id);
-  $("#txtIDMusica").val(txtIdMusica);
+  $("#selectMusicas").val(txtIdMusica);
 
   $("#btnSalvar").hide();
   $("#btnCancelar").show();
@@ -18,35 +19,36 @@ function editar(id, txtIdMusica){
 //! View
 function resetar(){
   $("#txtID").val("");
-  $("#txtIDMusica").val("");
+  $("#selectMusicas").val("");
 
   $("#btnSalvar").show();
   $("#btnCancelar").hide();
   $("#btnEditar").hide();
 }
 
-//! View
+//! Função GET ETIQUETAS
 function listarMusicas(){
   var request = new XMLHttpRequest();
 
-  request.open("GET", "http://localhost:8081/api/musicas", true);
+  request.open("GET", _URLAUX, true);
   request.send();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
-      mostrar(JSON.parse(request.responseText));
+      mostrarMusicas(JSON.parse(request.responseText));
     }
   }
 
-  function mostrar(list){
+  //! View
+  function mostrarMusicas(list){
     if(list.length>0){
+      out = "<option value='' selected disabled>Selecione uma música</option>"
       var i;
-      out = "<option selected disa>Selecione uma música</option>"
       for(i=0; i<list.length; i++){
-        out += "<option value='"+list[i].id_musica+"'>"+list[i].url+"</option>";
+        out += `<option value="${list[i].id_musica}">${list[i].url}</option>`
       }
     }else{
-      out = "<option selected disa>Não há músicas cadastradas</option>";
+      out = "<option value='' selected disabled>Não há músicas cadastradas</option>"
       $("#selectMusicas").prop("disabled", true);
     }
 
@@ -57,7 +59,7 @@ function listarMusicas(){
 //! FUNÇÃO POST
 function salvar(){
   var request = new XMLHttpRequest();
-  var txtIDMusica = $("#txtIDMusica").val();
+  var txtIDMusica = $("#selectMusicas").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
@@ -139,7 +141,7 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtIDMusica = $("#txtIDMusica").val();
+  var txtIDMusica = $("#selectMusicas").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){

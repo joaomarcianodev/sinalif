@@ -1,7 +1,9 @@
 const _URL = "http://localhost:8081/api/usuarios";
+const _URLAUX = "http://localhost:8081/api/perfis";
 
 $( document ).ready(function() {
     listar();
+    listarPerfis();
 });
 
 //! View
@@ -30,6 +32,36 @@ function resetar(){
   $("#btnEditar").hide();
 }
 
+//! Função GET PERFIS
+function listarPerfis(){
+  var request = new XMLHttpRequest();
+
+  request.open("GET", _URLAUX, true);
+  request.send();
+
+  request.onreadystatechange = function(){
+    if(request.readyState == 4 && request.status == 200){
+      mostrarPerfis(JSON.parse(request.responseText));
+    }
+  }
+
+  //! View
+  function mostrarPerfis(list){
+    if(list.length>0){
+      out = `<option value='' selected disabled>Selecione um Perfil</option>`
+      var i;
+      for(i=0; i<list.length; i++){
+        out += `<option value="${list[i].id_perfil}">${list[i].nome}</option>`
+      }
+    }else{
+      out = "<option value='' selected disabled>Não há perfis cadastradas</option>"
+      $("#selectPerfil").prop("disabled", true);
+    }
+
+    document.getElementById("selectPerfil").innerHTML = out;
+  }
+}
+
 //! FUNÇÃO POST
 function salvar(){
   var request = new XMLHttpRequest();
@@ -37,6 +69,13 @@ function salvar(){
   var txtEmail = $("#txtEmail").val();
   var txtSenha = $("#txtSenha").val();
   var txtIDPerfil = $("#selectPerfil").val();
+
+  //* Validação
+  if(txtNome=='' || txtEmail=='' || txtSenha=='' || txtIDPerfil==null){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
 
   request.onreadystatechange = function(){
     if(request.readyState == 4){

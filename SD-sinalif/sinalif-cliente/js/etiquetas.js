@@ -32,6 +32,13 @@ function salvar(){
   var txtNome = $("#txtNome").val();
   var txtDuracao = $("#txtDuracao").val();
 
+  //* Validação
+  if(txtNome=='' || txtDuracao==''){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
+
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
       $("#mensagem").text("Salvo com sucesso!");
