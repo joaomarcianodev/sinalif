@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3188482b-a9f3-4198-a8e8-82e67ae279d7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/java/sinalif/SinalifApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/test/java/sinalif/SinalifApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-gestor/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-gestor/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Web2-sinalif/Ainda a ser criado.txt" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "JoaoAugusto2020"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JoaoAugusto2020/sinalif",
+    "accountId": "a77ef69e-0821-4e75-907a-4d28806dca89"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2yyX9xGGWaqeE4pnC8FpEFAKja9" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "unificacao",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="servico3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="sinalif_srv3.SinalifSrv3Application" />
+      <module name="sinalif-srv3" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3188482b-a9f3-4198-a8e8-82e67ae279d7" name="Changes" comment="" />
+      <created>1750807641360</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750807641360</updated>
+    </task>
+    <servers />
+  </component>
+</project>
