@@ -22,31 +22,26 @@ public class PausaProgramadaController {
 	@Autowired
 	private PausaProgramadaService pausaProgramadaService;
 
-	@CrossOrigin(origins = "*")
 	@GetMapping
 	public List<PausaProgramada> getPausasProgramadas(){
 		return pausaProgramadaService.getPausasProgramadas();
 	}
 
-	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public PausaProgramada getPausaProgramadaById(@PathVariable Long id){
 		return pausaProgramadaService.getPausaProgramada(id);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping
 	public PausaProgramada salvarPausaProgramada(@RequestBody PausaProgramada pausaProgramada) {
 		return pausaProgramadaService.salvarPausaProgramada(pausaProgramada);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
 	public PausaProgramada atualizarPausaProgramada(@PathVariable Long id, @RequestBody PausaProgramada pausaProgramada) {
 		return pausaProgramadaService.atualizarPausaProgramada(id, pausaProgramada);
 	}
 
-	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	public void deletarPausaProgramada(@PathVariable Long id) {
 		pausaProgramadaService.excluirPausaProgramada(id);

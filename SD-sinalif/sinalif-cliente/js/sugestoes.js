@@ -1,4 +1,4 @@
-const _URL = "http://localhost:8081/api/sugestao";
+const _URL = "http://172.16.0.9:8081/api/sugestao";
 
 $( document ).ready(function() {
     listar();
@@ -118,10 +118,9 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtNome = $("#txtNome").val();
-  var txtEmail = $("#txtEmail").val();
-  var txtSenha = $("#txtSenha").val();
-  var txtIDPerfil = $("#txtIDPerfil").val();
+  var txtIDUsuario = $("#txtIDUsuario").val();
+  var txtIDMusica = $("#txtIDMusica").val();
+  var txtUrl = $("#txtUrl").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4){
@@ -143,18 +142,17 @@ function salvarEdicao(){
   request_GET.open("GET", _URL+"/"+id, true);
   request_GET.send();
 
-  function receber(usuario){
+  function receber(sugestao){
     request.open("PUT", _URL+"/"+id, true);
     request.setRequestHeader('Content-type', 'application/json');
-
+    
     var json = {
-      "id_usuario": id,
-      "nome": txtNome,
-      "email": txtEmail,
-      "senha": txtSenha,
-      "id_perfil": txtIDPerfil,
-      "data_criacao": usuario.data_criacao,
-      "sugestoes": []
+      "id_usuario": txtIDUsuario,
+      "id_musica": txtIDMusica,
+      "url_sugerida": txtUrl,
+      "status_sugestao": sugestao.status_sugestao,
+      "data_sugestao": sugestao.data_sugestao,
+      "data_analise": sugestao.data_analise
     }
 
     request.send(JSON.stringify(json));

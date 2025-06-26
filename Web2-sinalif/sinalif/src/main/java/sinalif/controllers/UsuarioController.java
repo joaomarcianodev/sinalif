@@ -10,8 +10,7 @@ import sinalif.models.Usuario;
 import sinalif.services.UsuarioService;
 
 @Controller
-public class UsuarioController { 
-
+public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService; 
 
