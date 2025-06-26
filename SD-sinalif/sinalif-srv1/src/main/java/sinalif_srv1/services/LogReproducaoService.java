@@ -23,7 +23,8 @@ public class LogReproducaoService {
     }
 
     public LogReproducao detalharLogReproducao(Long id){
-        return logReproducaoRepository.findById(id).get();
+        return logReproducaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Log não encontrada com ID: " + id));
     }
 
     public LogReproducao salvarLogReproducao(LogReproducaoRecordDto logRepDto){
@@ -36,6 +37,10 @@ public class LogReproducaoService {
     }
 
     public void excluirLogReproducao(Long id){
-        logReproducaoRepository.deleteById(id);
+        if (logReproducaoRepository.existsById(id)) {
+            logReproducaoRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Log não encontrado com ID: " + id);
+        }
     }
 }

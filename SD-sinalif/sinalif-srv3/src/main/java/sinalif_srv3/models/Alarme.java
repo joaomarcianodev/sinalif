@@ -1,19 +1,17 @@
 package sinalif_srv3.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "alarme")
+@EntityListeners(AuditingEntityListener.class)
 public class Alarme {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,20 +25,22 @@ public class Alarme {
 	@Column(nullable = false)
 	private String dias_semana;
 	
-	@Column(nullable = false)
-	private boolean ativo;
+	@Column(nullable = true)
+	private boolean ativo = true;
 	
-	@Column(nullable = false)
-	private boolean pausado;
+	@Column(nullable = true)
+	private boolean pausado = false;
+
+	@CreatedDate
+	@Column(nullable = true, updatable = false)
+	private LocalDateTime data_criacao;
+
+	@LastModifiedDate
+	@Column(nullable = true)
+	private LocalDateTime data_modificacao;
 	
-	@Column(nullable = false)
-	private LocalDate data_criacao;
-	
-	@Column(nullable = false)
-	private LocalDate data_modificacao;
-	
-	@ManyToOne 
-    @JoinColumn(name = "id_etiqueta", nullable = false) 
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_etiqueta")
     private Etiqueta etiqueta;
 
 	public long getId_alarme() {
@@ -83,19 +83,19 @@ public class Alarme {
 		this.pausado = pausado;
 	}
 
-	public LocalDate getData_criacao() {
+	public LocalDateTime getData_criacao() {
 		return data_criacao;
 	}
 
-	public void setData_criacao(LocalDate data_criacao) {
+	public void setData_criacao(LocalDateTime data_criacao) {
 		this.data_criacao = data_criacao;
 	}
 
-	public LocalDate getData_modificacao() {
+	public LocalDateTime getData_modificacao() {
 		return data_modificacao;
 	}
 
-	public void setData_modificacao(LocalDate data_modificacao) {
+	public void setData_modificacao(LocalDateTime data_modificacao) {
 		this.data_modificacao = data_modificacao;
 	}
 
@@ -106,11 +106,4 @@ public class Alarme {
 	public void setEtiqueta(Etiqueta etiqueta) {
 		this.etiqueta = etiqueta;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-	
 }

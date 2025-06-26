@@ -20,7 +20,8 @@ public class MusicaService {
     }
 
     public Musica detalharMusica(Long id){
-        return musicaRepository.findById(id).get();
+        return musicaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Música não encontrada com ID: " + id));
     }
 
     public Musica salvarMusica(MusicaRecordDto musicaRecordDto){
@@ -34,6 +35,10 @@ public class MusicaService {
     }
 
     public void excluirMusica(Long id){
-        musicaRepository.deleteById(id);
+        if (musicaRepository.existsById(id)) {
+            musicaRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Música não encontrada com ID: " + id);
+        }
     }
 }

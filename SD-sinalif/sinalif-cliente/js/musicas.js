@@ -1,6 +1,6 @@
 const _URL = "http://localhost:8081/api/musicas";
 
-$( document ).ready(function() {
+$(document).ready(function() {
     listar();
 });
 
@@ -29,12 +29,19 @@ function salvar(){
   var request = new XMLHttpRequest();
   var txtUrl = $("#txtUrl").val();
 
+  //* Validação
+  if(txtUrl==''){
+    $("#mensagem").text("Dados inválidos");
+    listar();
+    return
+  }
+
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
       $("#mensagem").text("Salvo com sucesso!");
       listar();
     }else{
-      $("#mensagem").text("Referência não encontrada.");
+      $("#mensagem").text("Erro ao salvar.");
       listar();
     }
   }
@@ -115,6 +122,9 @@ function salvarEdicao(){
   request.onreadystatechange = function(){
     if(request.readyState == 4 && request.status == 200){
       $("#mensagem").text("Editado com sucesso!");
+      listar();
+    }else{
+      $("#mensagem").text("Não foi possível editar.");
       listar();
     }
   }

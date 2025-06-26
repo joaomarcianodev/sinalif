@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="3188482b-a9f3-4198-a8e8-82e67ae279d7" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/.gitattributes" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/.gitignore" afterDir="false" />
@@ -17,6 +18,12 @@
       <change beforePath="$PROJECT_DIR$/../sinalif-gestor/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-gestor/mvnw.cmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-srv1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Web2-sinalif/Ainda a ser criado.txt" beforeDir="false" />
+=======
+    <list default="true" id="2736eb8e-3482-49ac-b512-fa661103df0d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/historico.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/historico.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-cliente/paginas/usuarios.html" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/paginas/usuarios.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> c4582eab2a379c27a6ff43f750fb35c4f71527c3
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+<<<<<<< HEAD
   <component name="GitHubPullRequestSearchHistory"><![CDATA[{
   "lastFilter": {
     "state": "OPEN",
@@ -55,6 +63,38 @@
 }]]></component>
   <component name="RunManager">
     <configuration name="servico3" type="Application" factoryName="Application">
+=======
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JoaoAugusto2020&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JoaoAugusto2020/sinalif&quot;,
+    &quot;accountId&quot;: &quot;a77ef69e-0821-4e75-907a-4d28806dca89&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2yhSh4W0e9YbL6n4WzOgJmcM7Ji" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/cliente-srv3&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="main" type="Application" factoryName="Application">
+>>>>>>> c4582eab2a379c27a6ff43f750fb35c4f71527c3
       <option name="MAIN_CLASS_NAME" value="sinalif_srv3.SinalifSrv3Application" />
       <module name="sinalif-srv3" />
       <method v="2">
@@ -65,11 +105,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="3188482b-a9f3-4198-a8e8-82e67ae279d7" name="Changes" comment="" />
       <created>1750807641360</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1750807641360</updated>
+=======
+      <changelist id="2736eb8e-3482-49ac-b512-fa661103df0d" name="Changes" comment="" />
+      <created>1750285428774</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750285428774</updated>
+>>>>>>> c4582eab2a379c27a6ff43f750fb35c4f71527c3
     </task>
     <servers />
   </component>

@@ -1,17 +1,16 @@
 package sinalif_srv3.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "pausaProgramada")
+@EntityListeners(AuditingEntityListener.class)
 public class PausaProgramada {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,11 +30,12 @@ public class PausaProgramada {
 	@Column(nullable = false)
 	private LocalTime hora_fim;
 	
-	@Column(nullable = false)
-	private boolean ativo;
-	
-	@Column(nullable = false)
-	private LocalDate data_criacao;
+	@Column(nullable = true)
+	private boolean ativo = true;
+
+	@CreatedDate
+	@Column(nullable = true)
+	private LocalDateTime data_criacao;
 
 	public long getId_pausa() {
 		return id_pausa;
@@ -85,11 +85,11 @@ public class PausaProgramada {
 		this.ativo = ativo;
 	}
 
-	public LocalDate getData_criacao() {
+	public LocalDateTime getData_criacao() {
 		return data_criacao;
 	}
 
-	public void setData_criacao(LocalDate data_criacao) {
+	public void setData_criacao(LocalDateTime data_criacao) {
 		this.data_criacao = data_criacao;
 	}
 

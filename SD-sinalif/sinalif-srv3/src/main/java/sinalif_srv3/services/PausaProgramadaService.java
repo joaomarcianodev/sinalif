@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import sinalif_srv3.dtos.PausaProgramadaRecordDto;
+import sinalif_srv3.models.Etiqueta;
 import sinalif_srv3.models.PausaProgramada;
 import sinalif_srv3.repositories.PausaProgramadaRepository;
 
@@ -24,23 +26,30 @@ public class PausaProgramadaService {
 				.orElseThrow(() -> new RuntimeException("Pausa programada não encontrada com ID: " + id));
 	}
 
-	public PausaProgramada salvarPausaProgramada(PausaProgramada pausaProgramada){
-		return pausaProgramadaRepository.save(pausaProgramada);
+	public PausaProgramada salvarPausaProgramada(PausaProgramadaRecordDto pausaProgramadaRecordDto){
+		PausaProgramada pausa = new PausaProgramada();
+		pausa.setId_pausa(pausaProgramadaRecordDto.id_pausa());
+		pausa.setData_inicio(pausaProgramadaRecordDto.data_inicio());
+		pausa.setData_fim(pausaProgramadaRecordDto.data_fim());
+		pausa.setHora_inicio(pausaProgramadaRecordDto.hora_inicio());
+		pausa.setHora_fim(pausaProgramadaRecordDto.hora_fim());
+		pausa.setAtivo(pausaProgramadaRecordDto.ativo());
+		pausa.setData_criacao(pausaProgramadaRecordDto.data_criacao());
+
+		return pausaProgramadaRepository.save(pausa);
 	}
 
-	public PausaProgramada atualizarPausaProgramada(Long id, PausaProgramada pausaProgramadaAtualizada) {
-		PausaProgramada pausaExistente = pausaProgramadaRepository.findById(id)
+	public PausaProgramada atualizarPausaProgramada(Long id, PausaProgramadaRecordDto pausaProgramadaRecordDto){
+		PausaProgramada pausa = pausaProgramadaRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Pausa programada não encontrada com ID: " + id));
-		pausaExistente.setData_inicio(pausaProgramadaAtualizada.getData_inicio());
-		pausaExistente.setData_fim(pausaProgramadaAtualizada.getData_fim());
-		pausaExistente.setHora_inicio(pausaProgramadaAtualizada.getHora_inicio());
-		pausaExistente.setHora_fim(pausaProgramadaAtualizada.getHora_fim());
-		pausaExistente.setAtivo(pausaProgramadaAtualizada.isAtivo());
-		return pausaProgramadaRepository.save(pausaExistente);
-	}
+		pausa.setData_inicio(pausaProgramadaRecordDto.data_inicio());
+		pausa.setData_fim(pausaProgramadaRecordDto.data_fim());
+		pausa.setHora_inicio(pausaProgramadaRecordDto.hora_inicio());
+		pausa.setHora_fim(pausaProgramadaRecordDto.hora_fim());
+		pausa.setAtivo(pausaProgramadaRecordDto.ativo());
+		pausa.setData_criacao(pausaProgramadaRecordDto.data_criacao());
 
-	public void excluirPausaProgramada(PausaProgramada pausaProgramada) {
-		pausaProgramadaRepository.deleteById(pausaProgramada.getId_pausa());
+		return pausaProgramadaRepository.save(pausa);
 	}
 
 	public void excluirPausaProgramada(Long id) {
