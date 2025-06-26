@@ -22,31 +22,26 @@ public class EtiquetaController {
 	@Autowired
 	private EtiquetaService etiquetaService;
 
-	@CrossOrigin(origins = "*")
 	@GetMapping
 	public List<Etiqueta> getEtiqueta(){
 		return etiquetaService.getEtiqueta();
 	}
 
-	@CrossOrigin(origins = "*")
 	@GetMapping("/{id}")
 	public Etiqueta getEtiquetaById(@PathVariable Long id){
 		return etiquetaService.getEtiqueta(id);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PostMapping
 	public Etiqueta salvarEtiqueta(@RequestBody Etiqueta etiqueta) {
 		return etiquetaService.salvarEtiqueta(etiqueta);
 	}
 
-	@CrossOrigin(origins = "*")
 	@PutMapping("/{id}")
 	public Etiqueta atualizarEtiqueta(@PathVariable Long id, @RequestBody Etiqueta etiqueta) {
 		return etiquetaService.atualizarEtiqueta(id, etiqueta);
 	}
 
-	@CrossOrigin(origins = "*")
 	@DeleteMapping("/{id}")
 	public void deletarEtiqueta(@PathVariable Long id) {
 		etiquetaService.excluirEtiqueta(id);

@@ -22,32 +22,27 @@ import sinalif.services.AlarmeService;
 public class AlarmeController {
 	 @Autowired
 	 private AlarmeService alarmeService;
-	
-	 @CrossOrigin(origins = "*")
+
 	 @GetMapping
 	 public List<Alarme> getAlarmes(){
 	     return alarmeService.getAlarmes();
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @GetMapping("/{id}")
 	 public Alarme getAlarmeById(@PathVariable Long id) {
 	     return alarmeService.getAlarme(id);
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @PostMapping
 	 public Alarme salvarAlarme(@RequestBody Alarme alarme) {
 	     return alarmeService.salvarAlarme(alarme);
 	 }
-	 
-	 @CrossOrigin(origins = "*")
+
 	 @PutMapping("/{id}") 
 	 public Alarme atualizarAlarme(@PathVariable Long id, @RequestBody Alarme alarme) {
 	     return alarmeService.atualizarAlarme(id, alarme);
 	 }
-	
-	 @CrossOrigin(origins = "*")
+
 	 @DeleteMapping("/{id}") 
 	 public void deletarAlarme(@PathVariable Long id) {
 	     alarmeService.excluirAlarme(id);

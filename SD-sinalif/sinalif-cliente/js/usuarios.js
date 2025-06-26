@@ -1,5 +1,5 @@
-const _URL = "http://localhost:8081/api/usuarios";
-const _URLAUX = "http://localhost:8081/api/perfis";
+const _URL = "http://172.16.0.9:8081/api/usuarios";
+const _URLAUX = "http://172.16.0.9:8081/api/perfis";
 
 $( document ).ready(function() {
     listar();
