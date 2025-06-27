@@ -3,7 +3,6 @@ package sinalif.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sinalif.models.Alarme;
-import sinalif.services.AlarmeService;
+import sinalif.services.impl.AlarmeServiceImpl;
 
 
 @RestController
 @RequestMapping("/api/alarmes")
 public class AlarmeController {
 	 @Autowired
-	 private AlarmeService alarmeService;
+	 private AlarmeServiceImpl alarmeService;
 
 	 @GetMapping
 	 public List<Alarme> getAlarmes(){

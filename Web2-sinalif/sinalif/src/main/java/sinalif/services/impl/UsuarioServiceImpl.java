@@ -51,7 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
             throw new UsernameNotFoundException("Usuário com e-mail: " + email + " não encontrado");
         } else {
             Usuario usuario = opt.get();
-            List<String> roles = usuario.getPerfis();
+            List<String> roles = usuario.getRoles();
             Set<GrantedAuthority> authorities = new HashSet<>();
             for (String role : roles) {
                 authorities.add(new SimpleGrantedAuthority(role));
