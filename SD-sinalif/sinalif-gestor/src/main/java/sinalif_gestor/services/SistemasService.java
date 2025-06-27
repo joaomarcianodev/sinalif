@@ -189,8 +189,8 @@ public class SistemasService {
         ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao, sugestao, String.class);
         return response;
     }
-    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao, sugestao, String.class);
+    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao, String id){
+        ResponseEntity<String> response = restTemplate.exchange(url_srv2_sugestao+"/"+id, HttpMethod.PUT, sugestao, String.class);
         return response;
     }
     public void excluirSugestao(String id){

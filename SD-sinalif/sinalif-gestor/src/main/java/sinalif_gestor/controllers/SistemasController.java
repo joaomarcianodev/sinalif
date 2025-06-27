@@ -109,9 +109,9 @@ public class SistemasController {
     public ResponseEntity<String> salvarSugestao(RequestEntity<String> sugestao){
         return sistemasService.salvarSugestao(sugestao); }
 
-    @PutMapping("/sugestao")
-    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao){
-        return sistemasService.editarSugestao(sugestao); }
+    @PutMapping("/sugestao/{id}")
+    public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao, @PathVariable String id){
+        return sistemasService.editarSugestao(sugestao, id); }
 
     @DeleteMapping("/sugestao/{id}")
     public void excluirSugestao(@PathVariable String id){
