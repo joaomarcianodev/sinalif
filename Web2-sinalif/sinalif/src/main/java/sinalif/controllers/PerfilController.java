@@ -3,7 +3,6 @@ package sinalif.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable; 
@@ -14,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import sinalif.models.Perfil;
-import sinalif.services.PerfilService;
+import sinalif.services.impl.PerfilServiceImpl;
 
 @RestController
 @RequestMapping("/api/perfis")
 public class PerfilController {
 	@Autowired
-	private PerfilService perfilService;
+	private PerfilServiceImpl perfilService;
 
 	@GetMapping
 	public List<Perfil> getPerfis(){

@@ -29,9 +29,9 @@ public class Usuario {
 	private LocalDate data_criacao;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "perfil", joinColumns = @JoinColumn(name = "id_usuario"))
-	@Column(name = "perfil_usuario")
-	private List<String> perfis;
+	@CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "user_role")
+	private List<String> roles;
 
 	public Integer getId_usuario() {
 		return id_usuario;
@@ -73,11 +73,11 @@ public class Usuario {
 		this.data_criacao = data_criacao;
 	}
 
-	public List<String> getPerfis() {
-		return perfis;
+	public List<String> getRoles() {
+		return roles;
 	}
 
-	public void setPerfis(List<String> perfis) {
-		this.perfis = perfis;
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 }

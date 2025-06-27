@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sinalif.dtos.LogReproducaoRecordDto;
 import sinalif.models.LogReproducao;
-import sinalif.services.LogReproducaoService;
+import sinalif.services.impl.LogReproducaoServiceImpl;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/srv1/historico")
 public class LogReproducaoController {
     @Autowired
-    private LogReproducaoService logReproducaoService;
+    private LogReproducaoServiceImpl logReproducaoService;
 
     @GetMapping
     public List<LogReproducao> listarLogReproducao(){

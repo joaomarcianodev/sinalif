@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sinalif.dtos.MusicaRecordDto;
 import sinalif.models.Musica;
-import sinalif.services.MusicaService;
+import sinalif.services.impl.MusicaServiceImpl;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/srv1/musicas")
 public class MusicaController {
     @Autowired
-    private MusicaService musicaService;
+    private MusicaServiceImpl musicaService;
 
     @GetMapping
     public List<Musica> listarMusicas(){
