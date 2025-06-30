@@ -29,7 +29,7 @@ public class Usuario {
 	private LocalDate data_criacao;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "id_usuario"))
+	@CollectionTable(name = "roles", joinColumns = @JoinColumn(name = "user_id"))
 	@Column(name = "user_role")
 	private List<String> roles;
 
