@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,20 +51,16 @@ public class SistemasService {
 
     //Músicas
     public ResponseEntity<String> listarMusica(){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv1_musicas, String.class);
-        return response;
+        return restTemplate.getForEntity(url_srv1_musicas, String.class);
     }
-    public ResponseEntity<String> detalharMusica(Long id){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv1_musicas+"/"+id, String.class);
-        return response;
+    public ResponseEntity<String> detalharMusica(Long id_musica){
+        return restTemplate.getForEntity(url_srv1_musicas+"/"+id_musica, String.class);
     }
     public ResponseEntity<String> salvarMusica(RequestEntity<String> musica){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
-        return response;
+        return restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
     }
     public ResponseEntity<String> editarMusica(RequestEntity<String> musica){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
-        return response;
+        return restTemplate.postForEntity(url_srv1_musicas, musica, String.class);
     }
     public void excluirMusica(Long id){
         restTemplate.delete(url_srv1_musicas+"/"+id);
@@ -70,20 +68,16 @@ public class SistemasService {
 
     //Histórico de Reproduções
     public ResponseEntity<String> listarLogReproducao(){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv1_historico, String.class);
-        return response;
+        return restTemplate.getForEntity(url_srv1_historico, String.class);
     }
     public ResponseEntity<String> detalharLogReproducao(Long id){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv1_historico+"/"+id, String.class);
-        return response;
+        return restTemplate.getForEntity(url_srv1_historico+"/"+id, String.class);
     }
     public ResponseEntity<String> salvarLogReproducao(RequestEntity<String> logRep){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
-        return response;
+        return restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
     }
     public ResponseEntity<String> editarLogReproducao(RequestEntity<String> logRep){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
-        return response;
+        return restTemplate.postForEntity(url_srv1_historico, logRep, String.class);
     }
     public void excluirLogReproducao(Long id){
         restTemplate.delete(url_srv1_historico+"/"+id);
@@ -150,12 +144,10 @@ public class SistemasService {
         }
     }
     public ResponseEntity<String> salvarUsuario(RequestEntity<String> usuario){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_usuarios, usuario, String.class);
-        return response;
+        return restTemplate.postForEntity(url_srv2_usuarios, usuario, String.class);
     }
     public ResponseEntity<String> editarUsuario(RequestEntity<String> usuario, String id){
-        ResponseEntity<String> response = restTemplate.exchange(url_srv2_usuarios+"/"+id, HttpMethod.PUT, usuario, String.class);
-        return response;
+        return restTemplate.exchange(url_srv2_usuarios+"/"+id, HttpMethod.PUT, usuario, String.class);
     }
     public void excluirUsuario(String id_usuario){
         ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
@@ -177,21 +169,47 @@ public class SistemasService {
 
     //Sugestões
     public ResponseEntity<String> listarSugestao(){
-        ResponseEntity<String> responseSugestao = restTemplate.getForEntity(url_srv2_sugestao, String.class);
-        System.out.println(responseSugestao);
-        return responseSugestao;
+        return restTemplate.getForEntity(url_srv2_sugestao, String.class);
     }
     public ResponseEntity<String> detalharSugestao(String id){
-        ResponseEntity<String> response = restTemplate.getForEntity(url_srv2_sugestao+"/"+id, String.class);
-        return response;
+        return restTemplate.getForEntity(url_srv2_sugestao+"/"+id, String.class);
     }
     public ResponseEntity<String> salvarSugestao(RequestEntity<String> sugestao){
-        ResponseEntity<String> response = restTemplate.postForEntity(url_srv2_sugestao, sugestao, String.class);
-        return response;
+        try {
+            JsonNode sugestaoJson = mapper.readTree(sugestao.getBody());
+            String urlSugerida = sugestaoJson.get("url_sugerida").asText();
+
+            ObjectNode musica = mapper.createObjectNode();
+            musica.put("url", urlSugerida);
+            musica.putNull("status");
+            musica.put("data_sugestao", LocalDateTime.now().toString());
+            String musicaJsonRequest = mapper.writeValueAsString(musica);
+            RequestEntity<String> requestMusica = RequestEntity
+                    .post(URI.create(url_srv1_musicas))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(musicaJsonRequest);
+
+            ResponseEntity<String> responseMusica = restTemplate.exchange(requestMusica, String.class);
+            if (responseMusica.getStatusCode().is2xxSuccessful()) {
+                JsonNode musicaJson = mapper.readTree(responseMusica.getBody());
+
+                ((ObjectNode) sugestaoJson).set("id_musica", musicaJson.get("id_musica"));
+                String sugestaoJsonRequest = mapper.writeValueAsString(sugestaoJson);
+                RequestEntity<String> responseSugestao = RequestEntity
+                        .post(URI.create(url_srv2_sugestao))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(sugestaoJsonRequest);
+
+                return restTemplate.exchange(responseSugestao, String.class);
+            } else {
+                return responseMusica;
+            }
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
     public ResponseEntity<String> editarSugestao(RequestEntity<String> sugestao, String id){
-        ResponseEntity<String> response = restTemplate.exchange(url_srv2_sugestao+"/"+id, HttpMethod.PUT, sugestao, String.class);
-        return response;
+        return restTemplate.exchange(url_srv2_sugestao+"/"+id, HttpMethod.PUT, sugestao, String.class);
     }
     public void excluirSugestao(String id){
         restTemplate.delete(url_srv2_sugestao+"/"+id);

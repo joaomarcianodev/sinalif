@@ -1,4 +1,4 @@
-const _URL = "http://172.16.0.9:8081/api/etiquetas";
+const _URL = "http://localhost:8081/api/etiquetas";
 
 $( document ).ready(function() {
     listar();

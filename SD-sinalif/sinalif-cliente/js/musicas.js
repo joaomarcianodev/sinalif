@@ -1,4 +1,4 @@
-const _URL = "http://172.16.0.9:8081/api/musicas";
+const _URL = "http://localhost:8081/api/musicas";
 
 $(document).ready(function() {
     listar();
@@ -52,7 +52,7 @@ function salvar(){
   var json = {
     "id_musica": null,
     "url": txtUrl,
-    "status": "Pendente",
+    "status": null,
     "data_criacao": null
   }
   
@@ -75,22 +75,33 @@ function listar(){
 
   //! View
   function mostrar(list){
-    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>URL</th><th>Status</th><th>Data Criação</th><th>Editar</th><th>Deletar</th></tr>";
+    var out = "<table border='1' class='col table table-striped'><tr><th>ID</th><th>URL</th><th>Status</th><th>Data Criação</th><th>Data Sugestão</th><th>Editar</th><th>Deletar</th></tr>";
 
     if(list.length>0){
       var i;
       for(i=0; i<list.length; i++){
         const date = new Date(list[i].data_criacao);
-
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
-
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         const seconds = String(date.getSeconds()).padStart(2, '0');
-
         data_criacao_formatado = `${day}-${month}-${year} [${hours}:${minutes}:${seconds}]`;
+
+        if(list[i].data_sugestao!=null){
+          const date2 = new Date(list[i].data_sugestao);
+          const day2 = String(date2.getDate()).padStart(2, '0');
+          const month2 = String(date2.getMonth() + 1).padStart(2, '0');
+          const year2 = date2.getFullYear();
+          const hours2 = String(date2.getHours()).padStart(2, '0');
+          const minutes2 = String(date2.getMinutes()).padStart(2, '0');
+          const seconds2 = String(date2.getSeconds()).padStart(2, '0');
+          data_sugestao_formatado = `${day2}-${month2}-${year2} [${hours2}:${minutes2}:${seconds2}]`;
+        }else{
+          data_sugestao_formatado = "Cadastro Manual"
+        }
+        
 
         out +=
         "<tr>"+
@@ -98,6 +109,7 @@ function listar(){
           "<td>"+list[i].url+"</td>"+
           "<td>"+list[i].status+"</td>"+
           "<td>"+data_criacao_formatado+"</td>"+
+          "<td>"+data_sugestao_formatado+"</td>"+
           "<td><button class='btn btn-warning' onclick='editar("+list[i].id_musica+", &apos;"+list[i].url+"&apos;)'>Editar</button></td>"+
           "<td><button class='btn btn-danger' onclick='deletar("+list[i].id_musica+")'>Deletar</button></td>"+
         "</tr>";

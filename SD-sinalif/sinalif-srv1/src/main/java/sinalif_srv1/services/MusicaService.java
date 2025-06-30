@@ -28,8 +28,9 @@ public class MusicaService {
         Musica musica = new Musica();
         musica.setId_musica(musicaRecordDto.id_musica());
         musica.setUrl(musicaRecordDto.url());
-        musica.setStatus(musicaRecordDto.status());
+        if(musicaRecordDto.status()!=null) musica.setStatus(musicaRecordDto.status());
         musica.setData_criacao(musicaRecordDto.data_criacao());
+        musica.setData_sugestao(musicaRecordDto.data_sugestao());
 
         return musicaRepository.save(musica);
     }
