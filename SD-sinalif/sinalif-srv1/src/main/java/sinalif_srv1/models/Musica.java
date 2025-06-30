@@ -29,6 +29,9 @@ public class Musica {
     @Column(name = "data_criacao", nullable = true)
     private LocalDateTime data_criacao;
 
+    @Column(name = "data_sugestao", nullable = true)
+    private LocalDateTime data_sugestao;
+
     @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<LogReproducao> logs;
 
@@ -62,5 +65,13 @@ public class Musica {
 
     public void setData_criacao(LocalDateTime data_criacao) {
         this.data_criacao = data_criacao;
+    }
+
+    public LocalDateTime getData_sugestao() {
+        return data_sugestao;
+    }
+
+    public void setData_sugestao(LocalDateTime data_sugestao) {
+        this.data_sugestao = data_sugestao;
     }
 }

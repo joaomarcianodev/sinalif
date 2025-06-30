@@ -8,5 +8,6 @@ public record MusicaRecordDto(
         long id_musica,
         String url,
         String status,
-        LocalDateTime data_criacao){
+        LocalDateTime data_criacao,
+        LocalDateTime data_sugestao){
 }

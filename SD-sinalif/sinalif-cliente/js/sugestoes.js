@@ -1,15 +1,17 @@
-const _URL = "http://172.16.0.9:8081/api/sugestao";
+const _URL = "http://localhost:8081/api/sugestao";
+const _URLAUX = "http://localhost:8081/api/usuarios";
 
 $( document ).ready(function() {
-    listar();
+  listar();
+  listarUsuarios();
 });
 
 //! View
 function editar(id, txtIDUsuario, txtIDMusica, txtUrl){
   $("#txtID").val(id);
-  $("#txtIDUsuario").val(txtIDUsuario);
-  $("#txtIDMusica").val(txtIDMusica);
+  $("#selectUsuario").val(txtIDUsuario);
   $("#txtUrl").val(txtUrl);
+  //$("#txtIDMusica").val(txtIDMusica);
 
   $("#btnSalvar").hide();
   $("#btnCancelar").show();
@@ -19,24 +21,54 @@ function editar(id, txtIDUsuario, txtIDMusica, txtUrl){
 //! View
 function resetar(){
   $("#txtID").val("");
-  $("#txtIDUsuario").val("");
-  $("#txtIDMusica").val("");
+  $("#selectUsuario").val("");
   $("#txtUrl").val("");
+  //$("#txtIDMusica").val("");
 
   $("#btnSalvar").show();
   $("#btnCancelar").hide();
   $("#btnEditar").hide();
 }
 
+//! Função GET USUARIOS
+function listarUsuarios(){
+  var request = new XMLHttpRequest();
+
+  request.open("GET", _URLAUX, true);
+  request.send();
+
+  request.onreadystatechange = function(){
+    if(request.readyState == 4 && request.status == 200){
+      mostrarUsuarios(JSON.parse(request.responseText));
+    }
+  }
+
+  //! View
+  function mostrarUsuarios(list){
+    if(list.length>0){
+      out = `<option value='' selected disabled>Selecione um Usuário</option>`
+      var i;
+      for(i=0; i<list.length; i++){
+        out += `<option value="${list[i].id_usuario}">${list[i].nome}</option>`
+      }
+    }else{
+      out = "<option value='' selected disabled>Não há usuários cadastradas</option>"
+      $("#selectUsuario").prop("disabled", true);
+    }
+
+    document.getElementById("selectUsuario").innerHTML = out;
+  }
+}
+
 //! FUNÇÃO POST
 function salvar(){
   var request = new XMLHttpRequest();
-  var txtIDUsuario = $("#txtIDUsuario").val();
-  var txtIDMusica = $("#txtIDMusica").val();
+  var txtIDUsuario = $("#selectUsuario").val();
   var txtUrl = $("#txtUrl").val();
+  //var txtIDMusica = $("#txtIDMusica").val();
 
   //* Validação
-  if(txtIDUsuario=='' || txtIDMusica=='' || txtUrl==''){
+  if(txtIDUsuario=='' || txtUrl==''){
     $("#mensagem").text("Dados inválidos");
     listar();
     return
@@ -58,8 +90,8 @@ function salvar(){
 
   var json = {
     "id_usuario": txtIDUsuario,
-    "id_musica": txtIDMusica,
     "url_sugerida": txtUrl,
+    "id_musica": null,
     "status_sugestao": null,
     "data_sugestao": null,
     "data_analise": null
@@ -118,9 +150,9 @@ function salvarEdicao(){
   var request = new XMLHttpRequest();
   var request_GET = new XMLHttpRequest();
   var id = $("#txtID").val();
-  var txtIDUsuario = $("#txtIDUsuario").val();
-  var txtIDMusica = $("#txtIDMusica").val();
+  var txtIDUsuario = $("#selectUsuario").val();
   var txtUrl = $("#txtUrl").val();
+  //var txtIDMusica = $("#txtIDMusica").val();
 
   request.onreadystatechange = function(){
     if(request.readyState == 4){
@@ -148,8 +180,8 @@ function salvarEdicao(){
     
     var json = {
       "id_usuario": txtIDUsuario,
-      "id_musica": txtIDMusica,
       "url_sugerida": txtUrl,
+      "id_musica": sugestao.id_musica,
       "status_sugestao": sugestao.status_sugestao,
       "data_sugestao": sugestao.data_sugestao,
       "data_analise": sugestao.data_analise

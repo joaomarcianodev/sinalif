@@ -5,6 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90bfe66d-0a32-4bcd-818e-1347f89f8dcf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/static/css/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/templates/error/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/templates/fragments/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/templates/fragments/head.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/alarmes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/alarmes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/etiquetas.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/etiquetas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/historico.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/historico.js" afterDir="false" />
@@ -13,8 +18,15 @@
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/perfis.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/perfis.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/sugestoes.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/sugestoes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../sinalif-cliente/js/usuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-cliente/js/usuarios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../sinalif-srv2/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv2/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-gestor/src/main/java/sinalif_gestor/services/SistemasService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-gestor/src/main/java/sinalif_gestor/services/SistemasService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/dtos/MusicaRecordDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/dtos/MusicaRecordDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/models/Musica.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/models/Musica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/services/MusicaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/src/main/java/sinalif_srv1/services/MusicaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/dtos/MusicaRecordDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/dtos/MusicaRecordDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/models/Musica.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/models/Musica.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/services/MusicaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../sinalif-srv1/target/classes/sinalif_srv1/services/MusicaService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/java/sinalif/models/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Web2-sinalif/sinalif/src/main/java/sinalif/models/Usuario.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,18 +36,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-        &quot;lastFilter&quot;: {
-        &quot;state&quot;: &quot;OPEN&quot;,
-        &quot;assignee&quot;: &quot;JoaoAugusto2020&quot;
-        }
-        }</component>
-  <component name="GithubPullRequestsUISettings">{
-        &quot;selectedUrlAndAccountId&quot;: {
-        &quot;url&quot;: &quot;https://github.com/JoaoAugusto2020/sinalif&quot;,
-        &quot;accountId&quot;: &quot;a77ef69e-0821-4e75-907a-4d28806dca89&quot;
-        }
-        }</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "JoaoAugusto2020"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JoaoAugusto2020/sinalif",
+    "accountId": "a77ef69e-0821-4e75-907a-4d28806dca89"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
         &quot;associatedIndex&quot;: 6
         }</component>
@@ -51,7 +63,7 @@
     "Application.servico3.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "unificacao",
+    "git-widget-placeholder": "correcoes",
     "kotlin-language-version-configured": "true"
   }
 }]]></component>
