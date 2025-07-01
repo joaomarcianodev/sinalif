@@ -27,15 +27,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(requests -> requests
-            .requestMatchers("/home", "/register", "/saveUser").permitAll()
-            .requestMatchers("/heroi/list").hasAnyAuthority("Admin", "Manager")
-            .requestMatchers("/heroi/*").hasAuthority("Admin")
+        http
+            .authorizeHttpRequests(requests -> requests
+                .requestMatchers("/home", "/register", "/saveUser", "/login").permitAll()
+                .requestMatchers("/heroi/list").hasAnyAuthority("Admin", "Manager")
+                .requestMatchers("/heroi/*").hasAuthority("Admin")
             .anyRequest().authenticated())
                 .formLogin(login ->
                             login.defaultSuccessUrl("/", true))
-//                .logout(logout ->
-//                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
+                .logout(logout ->
+                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
                 .exceptionHandling(handling ->
                             handling.accessDeniedPage("/accessDenied"))
                 .authenticationProvider(authenticationProvider());
