@@ -1,5 +1,13 @@
 package sinalif.services.impl;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import sinalif.models.Usuario;
+import sinalif.repositories.UsuarioRepository;
+import sinalif.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,64 +16,49 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import sinalif.models.Usuario;
-import sinalif.repositories.UsuarioRepository;
-import sinalif.services.UsuarioService;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-@Service("usuarioService")
+@Service
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Autowired
-    private UsuarioRepository usuarioRepo;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public Integer saveUsuario(Usuario usuario) {
-        String senhaNaoCriptografada = usuario.getSenha();
-        String senhaCriptografada = passwordEncoder.encode(senhaNaoCriptografada);
-        usuario.setSenha(senhaCriptografada);
-
-        if (usuario.getData_criacao() == null) {
-            usuario.setData_criacao(LocalDate.now());
-        }
-        
-        usuario = usuarioRepo.save(usuario);
+    public Integer saveUser(Usuario usuario) {
+        String passwd = usuario.getSenha();
+        String encodedPasswod = passwordEncoder.encode(passwd);
+        usuario.setSenha(encodedPasswod);
+        usuario = usuarioRepository.save(usuario);
         return usuario.getId_usuario();
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Usuario> opt = usuarioRepo.findUsuarioByEmail(email);
+
+        Optional<Usuario> opt = usuarioRepository.findUserByEmail(email);
 
         org.springframework.security.core.userdetails.User springUser = null;
 
         if (opt.isEmpty()) {
-            throw new UsernameNotFoundException("Usuário com e-mail: " + email + " não encontrado");
+            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
         } else {
             Usuario usuario = opt.get();
             List<String> roles = usuario.getRoles();
-            Set<GrantedAuthority> authorities = new HashSet<>();
+            Set<GrantedAuthority> ga = new HashSet<>();
             for (String role : roles) {
-                authorities.add(new SimpleGrantedAuthority(role));
+                ga.add(new SimpleGrantedAuthority(role));
             }
 
             springUser = new org.springframework.security.core.userdetails.User(
                     email,
                     usuario.getSenha(),
-                    authorities
-            );
+                    ga);
+
         }
+
         return springUser;
     }
 }
-
-     
-
