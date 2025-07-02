@@ -4,7 +4,7 @@
 - **Instituição**: Instituo Federal de Educação, Ciência e Tecnologia do Triângulo Mineiro - Campus Patrocínio.
 - **Curso**: curso superior de Tecnologia em Análise e Desenvolvimento de Sistemas (ADS).
 - **Disciplina**: Sistemas Distribuídos e Desenvolvimento de Aplicações Web II
-- **Docente**: Lucas Gonçalves Cunha
+- **Docentes**: Cícero Lima Costa e Lucas Gonçalves Cunha
 - **Discentes**: Bruno Eugênio Santos e João Augusto Marciano Silva
 
 ## Descrição do projeto
