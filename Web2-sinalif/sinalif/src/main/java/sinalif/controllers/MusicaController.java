@@ -9,7 +9,7 @@ import sinalif.services.impl.MusicaServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/srv1/musicas")
+@RequestMapping("/api/musicas")
 public class MusicaController {
     @Autowired
     private MusicaServiceImpl musicaService;

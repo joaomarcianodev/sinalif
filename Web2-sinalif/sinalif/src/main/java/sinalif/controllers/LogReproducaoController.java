@@ -9,7 +9,7 @@ import sinalif.services.impl.LogReproducaoServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/srv1/historico")
+@RequestMapping("/api/historico")
 public class LogReproducaoController {
     @Autowired
     private LogReproducaoServiceImpl logReproducaoService;
