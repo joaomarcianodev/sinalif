@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity(prePostEnabled = true) // Importante para segurança baseada em métodos
 @Configuration
 public class SecurityConfig {
 
@@ -28,17 +28,40 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/home", "/register", "/saveUser", "/login").permitAll()
-                .requestMatchers("/heroi/list").hasAnyAuthority("Admin", "Manager")
-                .requestMatchers("/heroi/*").hasAuthority("Admin")
-            .anyRequest().authenticated())
+                .authorizeHttpRequests(requests -> requests
+                        // Rotas públicas (permitir a todos)
+                        .requestMatchers("/home", "/register", "/saveUser", "/login").permitAll()
+                        .requestMatchers("/accessDenied").permitAll() // Página de acesso negado também deve ser pública
+
+                        // Rotas específicas para a visão ALUNO
+                        // Exemplo: Alunos podem ver suas músicas e histórico de reprodução
+                        .requestMatchers("/srv1/musicas", "/srv1/musicas/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver músicas
+                        .requestMatchers("/srv1/historico", "/srv1/historico/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver histórico
+                        // Adicione outras rotas que um aluno deve acessar
+                        // Ex: .requestMatchers("/aluno/**").hasAuthority("Aluno")
+
+
+                        // Rotas específicas para a visão SERVIDOR (e também Admin/Manager, se aplicável)
+                        // Exemplo: Servidores (e Admin/Manager) podem gerenciar alarmes, etiquetas, pausas, perfis
+                        .requestMatchers("/api/alarmes/**").hasAnyAuthority("Servidor", "Admin", "Manager")
+                        .requestMatchers("/api/etiquetas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
+                        .requestMatchers("/api/pausasProgramadas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
+                        .requestMatchers("/api/perfis/**").hasAnyAuthority("Servidor", "Admin", "Manager")
+                        // Rotas de gerenciamento de usuários, se o servidor tiver permissão para isso
+                        .requestMatchers("/usuario/**").hasAnyAuthority("Servidor", "Admin") // Ex: rota de updateUserName
+
+                        // Suas regras existentes
+                        .requestMatchers("/heroi/list").hasAnyAuthority("Admin", "Manager")
+                        .requestMatchers("/heroi/*").hasAuthority("Admin") // Regra mais restritiva para heroi
+
+                        // Qualquer outra requisição deve ser autenticada
+                        .anyRequest().authenticated())
                 .formLogin(login ->
-                            login.defaultSuccessUrl("/", true))
+                        login.defaultSuccessUrl("/", true)) // Redireciona para a raiz após login bem-sucedido
                 .logout(logout ->
-                            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
+                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
                 .exceptionHandling(handling ->
-                            handling.accessDeniedPage("/accessDenied"))
+                        handling.accessDeniedPage("/accessDenied"))
                 .authenticationProvider(authenticationProvider());
 
         return http.build();

@@ -37,4 +37,11 @@ public class Usuario {
 	@CollectionTable(name = "Perfil", joinColumns = @JoinColumn(name = "id_usuario"))
 	@Column(name = "perfil")
 	private List<String> roles;
+
+	@Column(name = "url_foto_perfil")
+	private String url_foto_perfil; // Pode ser null inicialmente
+
+	@Column(name = "notificacoes_ativas")
+	private boolean notificacoes_ativas = true;
+
 }
