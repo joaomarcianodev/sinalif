@@ -1,6 +1,7 @@
 package sinalif.dtos;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public record AlarmeRecordDto(Long id_alarme,
@@ -8,5 +9,5 @@ public record AlarmeRecordDto(Long id_alarme,
 		String dias_semana,
 		boolean ativo,
 		boolean pausado,
-		LocalDate data_criacao,
-		LocalDate data_modificacao) {}
+		LocalDateTime data_criacao,
+		LocalDateTime data_modificacao) {}

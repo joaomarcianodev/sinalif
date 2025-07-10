@@ -3,7 +3,9 @@ package sinalif.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true) // Importante para segurança baseada em métodos
+@EnableMethodSecurity(prePostEnabled = true)
 @Configuration
 public class SecurityConfig {
 
@@ -27,37 +29,43 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        // --- ALTERAÇÃO 1: Desabilitar CSRF ---
+        // Necessário para permitir que chamadas POST/PUT internas (como a do WebClient) funcionem sem um token CSRF.
+        http.csrf(csrf -> csrf.disable());
+
         http
-                .authorizeHttpRequests(requests -> requests
-                        // Rotas públicas (permitir a todos)
-                        .requestMatchers("/home", "/register", "/saveUser", "/login").permitAll()
-                        .requestMatchers("/accessDenied").permitAll() // Página de acesso negado também deve ser pública
+                .authorizeHttpRequests(authorize -> authorize
+                        // --- ALTERAÇÃO 2: Regras Reorganizadas e Corrigidas ---
+                        // A ordem importa: do mais específico para o mais geral.
 
-                        // Rotas específicas para a visão ALUNO
-                        // Exemplo: Alunos podem ver suas músicas e histórico de reprodução
-                        .requestMatchers("/srv1/musicas", "/srv1/musicas/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver músicas
-                        .requestMatchers("/srv1/historico", "/srv1/historico/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver histórico
-                        // Adicione outras rotas que um aluno deve acessar
-                        // Ex: .requestMatchers("/aluno/**").hasAuthority("Aluno")
+                        // 1. ROTAS PÚBLICAS E DA API
+                        // Rotas que qualquer um pode acessar, incluindo a API interna.
+                        .requestMatchers(
+                                "/home",
+                                "/register",
+                                "/saveUser",
+                                "/login",
+                                "/accessDenied",
+                                "/css/**", // Permitir acesso a CSS, JS, etc.
+                                "/js/**"
+                        ).permitAll()
+                        // ESTA É A REGRA-CHAVE: Permite acesso irrestrito a todos os endpoints da API.
+                        .requestMatchers("/api/**").permitAll()
 
+                        // 2. ROTAS RESTRITAS POR AUTORIDADE (PARA AS PÁGINAS DE VIEW)
+                        // Suas regras de negócio para as páginas que os usuários acessam no navegador.
+                        .requestMatchers("/srv1/musicas", "/srv1/musicas/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager")
+                        .requestMatchers("/srv1/historico", "/srv1/historico/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager")
+                        .requestMatchers("/usuario/**").hasAnyAuthority("Servidor", "Admin")
+                        .requestMatchers("/alarmes/list").hasAnyAuthority("Admin", "Manager")
+                        .requestMatchers("/alarmes/*").hasAuthority("Admin")
 
-                        // Rotas específicas para a visão SERVIDOR (e também Admin/Manager, se aplicável)
-                        // Exemplo: Servidores (e Admin/Manager) podem gerenciar alarmes, etiquetas, pausas, perfis
-                        .requestMatchers("/api/alarmes/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/etiquetas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/pausasProgramadas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/perfis/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        // Rotas de gerenciamento de usuários, se o servidor tiver permissão para isso
-                        .requestMatchers("/usuario/**").hasAnyAuthority("Servidor", "Admin") // Ex: rota de updateUserName
-
-                        // Suas regras existentes
-                        .requestMatchers("/heroi/list").hasAnyAuthority("Admin", "Manager")
-                        .requestMatchers("/heroi/*").hasAuthority("Admin") // Regra mais restritiva para heroi
-
-                        // Qualquer outra requisição deve ser autenticada
+                        // 3. REGRA GERAL
+                        // Qualquer outra requisição que não se encaixou nas regras acima deve ser autenticada.
                         .anyRequest().authenticated())
+
                 .formLogin(login ->
-                        login.defaultSuccessUrl("/", true)) // Redireciona para a raiz após login bem-sucedido
+                        login.defaultSuccessUrl("/", true))
                 .logout(logout ->
                         logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
                 .exceptionHandling(handling ->
@@ -73,5 +81,13 @@ public class SecurityConfig {
         authenticationProvider.setUserDetailsService(uds);
         authenticationProvider.setPasswordEncoder(encoder);
         return authenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(uds);
+        authProvider.setPasswordEncoder(encoder);
+        return new ProviderManager(authProvider);
     }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+    <th:block th:replace="~{/../fragments/headAdmin :: header}"></th:block>
+
+    <div id="form" class="container col-10 mt-5">
+        <h1 class="mb-5 text-center">Alarmes</h1>
+        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
+        <form action="#" th:action="@{/adm/alarmes/save}" th:object="${alarme}" method="POST">
+            <div class="mb-3">
+                <input type="text" class="input" id="txtID" hidden>
+
+                <label for="selectEtiqueta" class="form-label">Etiqueta</label>
+                <select class="form-select input" id="selectEtiqueta" name="selectEtiqueta"></select>
+<!--                <p th:if="${#fields.hasErrors('selectEtiqueta')}" th:errorclass="text-danger" th:errors="*{selectEtiqueta}" />-->
+            </div>
+            <div class="mb-3">
+                <label for="txtHorario" class="form-label">Horário Programado</label>
+                <input type="time" class="form-control input" id="txtHorario" name="txtHorario" th:field="*{horario_programado}" placeholder="">
+                <p th:if="${#fields.hasErrors('horario_programado')}" th:errorclass="text-danger" th:errors="*{horario_programado}" />
+            </div>
+            <div class="mb-3">
+                <label for="txtDias" class="form-label">Dias da Semana</label>
+                <input type="text" class="form-control input" id="txtDias" name="txtDias" th:field="*{dias_semana}" placeholder="2,3,6">
+                <p th:if="${#fields.hasErrors('dias_semana')}" th:errorclass="text-danger" th:errors="*{dias_semana}" />
+            </div>
+            <div class="mb-3">
+                <label for="selectAtivo" class="form-label">Situação</label>
+                <select class="form-select input" id="selectAtivo" name="selectAtivo" >
+                    <option value="true">Ativado</option>
+                    <option value="false">Desativado</option>
+                </select>
+<!--                <p th:if="${#fields.hasErrors('selectAtivo')}" th:errorclass="text-danger" th:errors="*{selectAtivo}" />-->
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success" type="submit" id="btnSalvar">Salvar</button>
+                    <button class="btn btn-success" onclick="salvarEdicao()" id="btnEditar" style="display: none;">Editar</button>
+                    <button class="btn btn-primary" onclick="listar()">Listar</button>
+                    <button class="btn btn-danger" onclick="resetar()" id="btnCancelar" style="display: none;">Cancelar</button>
+                </div>
+                <div class="col-4" id="mensagem"></div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

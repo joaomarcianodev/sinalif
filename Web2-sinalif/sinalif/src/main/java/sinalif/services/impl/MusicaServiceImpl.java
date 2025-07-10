@@ -1,6 +1,7 @@
 package sinalif.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sinalif.dtos.MusicaRecordDto;
 import sinalif.models.Musica;
@@ -12,16 +13,20 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MusicaServiceImpl implements MusicaService {
-    private final MusicaRepository musicaRepository;
+    @Autowired
+    private MusicaRepository musicaRepository;
 
+    @Override
     public List<Musica> listarMusicas(){
         return musicaRepository.findAll();
     }
 
+    @Override
     public Musica detalharMusica(Long id){
         return musicaRepository.findById(id).get();
     }
 
+    @Override
     public Musica salvarMusica(MusicaRecordDto musicaRecordDto){
         Musica musica = new Musica();
         musica.setId_musica(musicaRecordDto.id_musica());
@@ -32,6 +37,7 @@ public class MusicaServiceImpl implements MusicaService {
         return musicaRepository.save(musica);
     }
 
+    @Override
     public void excluirMusica(Long id){
         musicaRepository.deleteById(id);
     }
