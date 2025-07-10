@@ -105,15 +105,15 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
         }
 
-        @Override
-        public void deleteUser(Long userId) {
-            if (usuarioRepository.existsById(userId.intValue())) {
-                usuarioRepository.deleteById(userId.intValue());
-            } else {
-                throw new RuntimeException("Usuário não encontrado com ID: " + userId);
-            }
-        }
-
         return springUser;
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        if (usuarioRepository.existsById(userId.intValue())) {
+            usuarioRepository.deleteById(userId.intValue());
+        } else {
+            throw new RuntimeException("Usuário não encontrado com ID: " + userId);
+        }
     }
 }

@@ -1,14 +1,14 @@
 package sinalif.controllers;
 
+import jakarta.transaction.Transactional;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import sinalif.models.Usuario;
 import sinalif.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping; // Importar se for usar @RequestMapping na classe
 
 @Controller
 // @RequestMapping("/auth") // Opcional: Se quiser prefixar as rotas de autenticação, por exemplo /auth/register
@@ -104,7 +104,7 @@ public class UsuarioController {
         }
     }
 
-    @DeleteMapping("/usuario/{id}/deleteAccount")
+    /*@DeleteMapping("/usuario/{id}/deleteAccount")
     @Transactional // Garante que a operação seja atômica
     public String deleteAccount(@PathVariable("id") Long userId,
                                 @AuthenticationPrincipal UserDetails loggedInUser, // Obtém o usuário logado
@@ -127,7 +127,7 @@ public class UsuarioController {
             model.addAttribute("msg", "Erro ao excluir conta: " + e.getMessage());
             return "pages/errorPage";
         }
-    }
+    }*/
 
     // Rota para a página de login (Sign-in) - Gerenciada pelo Spring Security por padrão
     // Não é estritamente necessário ter essa rota no controller, mas pode ser útil para customizar a view
