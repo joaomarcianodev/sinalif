@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+<th:block th:replace="~{/../fragments/headAdmin :: header}"></th:block>
+<div id="form" class="container col-10 mt-5">
+    <h1 class="mb-5 text-center">Perfis</h1>
+    <div class="mb-3">
+      <input type="text" class="input" id="txtID" hidden>
+      
+      <label for="txtNome" class="form-label">Nome do cargo/perfil</label>
+      <input type="text" class="form-control input" id="txtNome" placeholder="">
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success" onclick="salvar()" id="btnSalvar">Salvar</button>
+        <button class="btn btn-success" onclick="salvarEdicao()" id="btnEditar" style="display: none;">Editar</button>
+        <button class="btn btn-primary" onclick="listar()">Listar</button>
+        <button class="btn btn-danger" onclick="resetar()" id="btnCancelar" style="display: none;">Cancelar</button>
+      </div>
+      <div class="col-4" id="mensagem"></div>
+    </div>
+    
+    <hr>
+
+    <div id="listagem"></div>
+
+    
+  </div>
+
+  <footer>
+    <script src="../js/perfis.js"></script>
+  </footer>
+</body>
+</html>

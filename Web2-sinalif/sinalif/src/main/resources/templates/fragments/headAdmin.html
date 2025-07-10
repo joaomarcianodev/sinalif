@@ -1,0 +1,38 @@
+<head th:fragment="head(title)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/custom.css}"/>
+</head>
+
+<nav th:fragment="header()" class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Sinal IF</a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/alarmes}" sec:authorize="hasAuthority('Admin')">Alarmes</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/musicas}" sec:authorize="hasAuthority('Admin')">Músicas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/historico}" sec:authorize="hasAuthority('Admin')">Histórico</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')">Pausas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/etiquetas}" sec:authorize="hasAuthority('Admin')">Etiquetas</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/usuarios}" sec:authorize="hasAuthority('Admin')">Usuários</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')">Perfis</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/adm/sugestoes}" sec:authorize="hasAuthority('Admin')">Sugestões</a></li>
+            </ul>
+        </div>
+
+        <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="btn btn-block d-lg-inline-block my-2 my-sm-0" >Sair</button>
+        </form>
+    </div>
+</nav>
