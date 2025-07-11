@@ -2,47 +2,60 @@ package sinalif.controllers;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable; 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;   
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import sinalif.models.Alarme;
+import sinalif.models.Musica;
 import sinalif.models.PausaProgramada;
 import sinalif.services.PausaProgramadaService;
 
-@RestController
-@RequestMapping("/api/pausasProgramadas")
+@Controller
+@RequestMapping("/adm/pausas")
 public class PausaProgramadaController {
 	@Autowired
-	private PausaProgramadaService pausaProgramadaService;
+	private PausaProgramadaService IPausaProgramadaService;
 
 	@GetMapping
-	public List<PausaProgramada> getPausasProgramadas(){
-		return pausaProgramadaService.getPausasProgramadas();
+	public String listarPausasProgramadas(Model model){
+		model.addAttribute("pausaList", IPausaProgramadaService.listarPausasProgramadas());
+		return "pages/adm/pausas/list";
 	}
 
 	@GetMapping("/{id}")
-	public PausaProgramada getPausaProgramadaById(@PathVariable Long id){
-		return pausaProgramadaService.getPausaProgramada(id);
+	public PausaProgramada detalharPausaProgramadaById(@PathVariable Long id){
+		return IPausaProgramadaService.detalharPausaProgramada(id);
 	}
 
-	@PostMapping
-	public PausaProgramada salvarPausaProgramada(@RequestBody PausaProgramada pausaProgramada) {
-		return pausaProgramadaService.salvarPausaProgramada(pausaProgramada);
+	@GetMapping("/create")
+	public String pagePausasCreate(@NotNull Model model) {
+		model.addAttribute("pausa", new PausaProgramada());
+		return "pages/adm/pausas/create";
 	}
 
-	@PutMapping("/{id}")
-	public PausaProgramada atualizarPausaProgramada(@PathVariable Long id, @RequestBody PausaProgramada pausaProgramada) {
-		return pausaProgramadaService.atualizarPausaProgramada(id, pausaProgramada);
+	@PostMapping("/save")
+	public String salvarPausaProgramada(@ModelAttribute @Valid PausaProgramada pausaProgramada, @NotNull BindingResult result, @NotNull Model model) {
+		if (result.hasErrors()) {
+			return "pages/adm/pausas/create";
+		}
+		IPausaProgramadaService.salvarPausaProgramada(pausaProgramada);
+		return "redirect:/adm/pausas";
 	}
 
-	@DeleteMapping("/{id}")
-	public void deletarPausaProgramada(@PathVariable Long id) {
-		pausaProgramadaService.excluirPausaProgramada(id);
+	@GetMapping("/edit/{id}")
+	public String atualizarPausaProgramada(@PathVariable Long id, Model model) {
+		model.addAttribute("pausa", IPausaProgramadaService.detalharPausaProgramada(id));
+		return "pages/adm/pausas/create";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String excluirPausaProgramada(@PathVariable Long id) {
+		IPausaProgramadaService.excluirPausaProgramada(id);
+		return "redirect:/adm/pausas";
 	}
 }

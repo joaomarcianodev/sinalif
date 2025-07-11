@@ -1,36 +1,68 @@
 package sinalif.controllers;
 
+import jakarta.validation.Valid;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sinalif.dtos.LogReproducaoRecordDto;
+import sinalif.models.Alarme;
+import sinalif.models.Etiqueta;
 import sinalif.models.LogReproducao;
-import sinalif.services.impl.LogReproducaoServiceImpl;
+import sinalif.services.LogReproducaoService;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/srv1/historico")
+@Controller
+@RequestMapping("/adm/historico")
 public class LogReproducaoController {
     @Autowired
-    private LogReproducaoServiceImpl logReproducaoService;
+    private LogReproducaoService ILogReproducaoService;
 
     @GetMapping
-    public List<LogReproducao> listarLogReproducao(){
-        return logReproducaoService.listarLogReproducao();
+    public String listarLogReproducao(Model model){
+        model.addAttribute("logList", ILogReproducaoService.listarLogReproducao());
+        return "pages/adm/historico/list";
     }
 
     @GetMapping("/{id}")
     public LogReproducao detalharLogReproducao(@PathVariable Long id){
-        return logReproducaoService.detalharLogReproducao(id);
+        return ILogReproducaoService.detalharLogReproducao(id);
     }
+
+    //Fora de contexto ter um Create e Save pra log
+    /*@GetMapping("/create")
+    public String pageLogsCreate(@NotNull Model model) {
+        model.addAttribute("log", new LogReproducao());
+        return "pages/adm/historico/create";
+    }
+
+    @PostMapping("/save")
+    public String salvarLog(@ModelAttribute @Valid LogReproducao log, @NotNull BindingResult result, @NotNull Model model) {
+        if (result.hasErrors()) {
+            return "pages/adm/historico/create";
+        }
+        ILogReproducaoService.salvarLogReproducao(log);
+        return "redirect:/adm/historico";
+    }*/
 
     @PostMapping
-    public LogReproducao salvarLogReproducao(@RequestBody LogReproducaoRecordDto logRepDto){
-        return logReproducaoService.salvarLogReproducao(logRepDto);
+    public LogReproducao salvarLogReproducao(@RequestBody LogReproducao log){
+        return ILogReproducaoService.salvarLogReproducao(log);
     }
 
-    @DeleteMapping("/{id}")
-    public void excluirLogReproducao(@PathVariable Long id){
-        logReproducaoService.excluirLogReproducao(id);
+    //Fora de contexto ter um Update pra log
+    /*@GetMapping("/edit/{id}")
+    public String atualizarLogReproducao(@PathVariable Long id, Model model) {
+        model.addAttribute("historico", ILogReproducaoService.detalharLogReproducao(id));
+        return "pages/adm/historico/create";
+    }*/
+
+    @GetMapping("/delete/{id}")
+    public String excluirLogReproducao(@PathVariable Long id){
+        ILogReproducaoService.excluirLogReproducao(id);
+        return "redirect:/adm/historico";
     }
 }

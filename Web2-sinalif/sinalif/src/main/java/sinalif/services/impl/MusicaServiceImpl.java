@@ -3,7 +3,6 @@ package sinalif.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sinalif.dtos.MusicaRecordDto;
 import sinalif.models.Musica;
 import sinalif.repositories.MusicaRepository;
 import sinalif.services.MusicaService;
@@ -27,13 +26,7 @@ public class MusicaServiceImpl implements MusicaService {
     }
 
     @Override
-    public Musica salvarMusica(MusicaRecordDto musicaRecordDto){
-        Musica musica = new Musica();
-        musica.setId_musica(musicaRecordDto.id_musica());
-        musica.setUrl(musicaRecordDto.url());
-        musica.setStatus(musicaRecordDto.status());
-        musica.setData_criacao(musicaRecordDto.data_criacao());
-
+    public Musica salvarMusica(Musica musica){
         return musicaRepository.save(musica);
     }
 

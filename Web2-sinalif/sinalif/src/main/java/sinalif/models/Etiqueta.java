@@ -1,6 +1,7 @@
 package sinalif.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
@@ -12,10 +13,12 @@ public class Etiqueta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id_etiqueta;
-	
+
+	@NotBlank(message= "Nome é um campo obrigatório")
 	@Column(nullable = false)
 	private String nome;
-	
+
+	@NotBlank(message= "Duração é um campo obrigatório")
 	@Column(nullable = false)
 	private String duracao;
 

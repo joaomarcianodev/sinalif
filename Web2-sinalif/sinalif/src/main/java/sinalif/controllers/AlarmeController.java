@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import sinalif.dtos.AlarmeRecordDto;
 import sinalif.models.Alarme;
 import sinalif.services.AlarmeService;
 import sinalif.services.EtiquetaService;
@@ -22,53 +21,43 @@ public class AlarmeController {
 	private EtiquetaService IEtiquetaService;
 
 	@GetMapping()
-	public String pageAlarmes(@NotNull Model model) {
-		model.addAttribute("alarmeList", IAlarmeService.getAlarmes());
+	public String listarAlarmes(@NotNull Model model) {
+		model.addAttribute("alarmeList", IAlarmeService.listarAlarmes());
 		return "pages/adm/alarmes/list";
+	}
+
+	@GetMapping("/{id}")
+	public Alarme getAlarmeById(@PathVariable Long id) {
+		return IAlarmeService.detalharAlarme(id);
 	}
 
 	@GetMapping("/create")
 	public String pageAlarmesCreate(@NotNull Model model) {
 		model.addAttribute("alarme", new Alarme());
-		model.addAttribute("etiquetaList", IEtiquetaService.getEtiquetas());
+		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/adm/alarmes/create";
 	}
 
 	@PostMapping("/save")
-	public String postMethodName(@ModelAttribute @Valid Alarme alarme, @NotNull BindingResult result, @NotNull Model model) {
+	public String salvarAlarme(@ModelAttribute @Valid Alarme alarme, @NotNull BindingResult result, @NotNull Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("etiquetaList", IEtiquetaService.getEtiquetas());
+			model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 			return "pages/adm/alarmes/create";
 		}
 		IAlarmeService.salvarAlarme(alarme);
 		return "redirect:/adm/alarmes";
 	}
 
-	@GetMapping("/{id}")
-	public Alarme getAlarmeById(@PathVariable Long id) {
-		return IAlarmeService.getAlarme(id);
-	}
-
-	@GetMapping("/edit/{id_alarme}")
+	@GetMapping("/edit/{id}")
 	public String atualizarAlarme(@PathVariable Long id_alarme, Model model) {
-		model.addAttribute("alarme", IAlarmeService.getAlarme(id_alarme));
-		model.addAttribute("etiquetaList", IEtiquetaService.getEtiquetas());
+		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id_alarme));
+		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/adm/alarmes/create";
 	}
 
-	@GetMapping("/delete/{id_alarme}")
-	public String deletarAlarme(@PathVariable Long id_alarme) {
- 		IAlarmeService.excluirAlarme(id_alarme);
+	@GetMapping("/delete/{id}")
+	public String excluirAlarme(@PathVariable Long id) {
+ 		IAlarmeService.excluirAlarme(id);
 		return "redirect:/adm/alarmes";
 	}
-
-	/*@GetMapping
-	 public List<Alarme> getAlarmes(){
-	     return IAlarmeService.getAlarmes();
-	 }*/
-
-	/*@PostMapping
-	public Alarme salvaAlarme(@RequestBody Alarme alarme) {
-		return IAlarmeService.salvarAlarme(alarme);
-	}*/
 }

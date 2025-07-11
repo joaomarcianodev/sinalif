@@ -19,7 +19,7 @@ public class Musica {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id_musica;
 
-    @NotNull(message= "Este campo é obrigatório")
+    @NotBlank(message= "URL é um campo obrigatório")
     @Column(name = "url", nullable = false)
     private String url;
 

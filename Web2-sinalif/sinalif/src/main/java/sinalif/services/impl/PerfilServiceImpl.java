@@ -17,12 +17,12 @@ public class PerfilServiceImpl implements PerfilService {
 	private PerfilRepository perfilRepository;
 
 	@Override
-	public List<Perfil> getPerfis(){
+	public List<Perfil> listarPerfis(){
 		return perfilRepository.findAll();
 	}
 
 	@Override
-	public Perfil getPerfil(Long id) {
+	public Perfil detalharPerfil(Long id) {
 		return perfilRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
 	}

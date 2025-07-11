@@ -17,12 +17,12 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 	private EtiquetaRepository etiquetaRepository;
 
 	@Override
-	public List<Etiqueta> getEtiquetas(){
+	public List<Etiqueta> listarEtiquetas(){
 		return etiquetaRepository.findAll();
 	}
 
 	@Override
-	public Etiqueta getEtiqueta(Long id) {
+	public Etiqueta detalharEtiqueta(Long id) {
 		return etiquetaRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Etiqueta não encontrada com ID: " + id));
 	}

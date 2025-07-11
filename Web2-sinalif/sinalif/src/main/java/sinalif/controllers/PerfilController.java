@@ -2,47 +2,61 @@ package sinalif.controllers;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable; 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;   
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import sinalif.models.Alarme;
+import sinalif.models.PausaProgramada;
 import sinalif.models.Perfil;
+import sinalif.services.PerfilService;
 import sinalif.services.impl.PerfilServiceImpl;
 
-@RestController
-@RequestMapping("/api/perfis")
+@Controller
+@RequestMapping("/adm/perfis")
 public class PerfilController {
 	@Autowired
-	private PerfilServiceImpl perfilService;
+	private PerfilService IPerfilService;
 
 	@GetMapping
-	public List<Perfil> getPerfis(){
-		return perfilService.getPerfis();
+	public String listarPerfis(Model model){
+		model.addAttribute("perfilList", IPerfilService.listarPerfis());
+		return "pages/adm/perfis/list";
 	}
 
 	@GetMapping("/{id}")
-	public Perfil getPerfilById(@PathVariable Long id){
-		return perfilService.getPerfil(id);
+	public Perfil detalharPerfil(@PathVariable Long id){
+		return IPerfilService.detalharPerfil(id);
 	}
 
-	@PostMapping
-	public Perfil salvarPerfil(@RequestBody Perfil perfil) {
-		return perfilService.salvarPerfil(perfil);
+	@GetMapping("/create")
+	public String pagePerfisCreate(@NotNull Model model) {
+		model.addAttribute("perfil", new Perfil());
+		return "pages/adm/perfis/create";
 	}
 
-	@PutMapping("/{id}")
-	public Perfil atualizarPerfil(@PathVariable Long id, @RequestBody Perfil perfil) {
-		return perfilService.atualizarPerfil(id, perfil);
+	@PostMapping("/save")
+	public String salvarPausaProgramada(@ModelAttribute @Valid Perfil perfil, @NotNull BindingResult result, @NotNull Model model) {
+		if (result.hasErrors()) {
+			return "pages/adm/perfis/create";
+		}
+		IPerfilService.salvarPerfil(perfil);
+		return "redirect:/adm/perfis";
 	}
 
-	@DeleteMapping("/{id}")
-	public void deletarPerfil(@PathVariable Long id) {
-		perfilService.excluirPerfil(id);
+	@GetMapping("/edit/{id}")
+	public String atualizarPerfil(@PathVariable Long id, Model model) {
+		model.addAttribute("perfil", IPerfilService.detalharPerfil(id));
+		return "pages/adm/perfis/create";
+	}
+
+	@GetMapping("/delete/{id}")
+	public String excluirPerfil(@PathVariable Long id) {
+		IPerfilService.excluirPerfil(id);
+		return "redirect:/adm/perfis";
 	}
 }

@@ -16,12 +16,12 @@ public class PausaProgramadaServiceImpl implements PausaProgramadaService{
     private PausaProgramadaRepository pausaProgramadaRepository;
 
     @Override
-    public List<PausaProgramada> getPausasProgramadas(){
+    public List<PausaProgramada> listarPausasProgramadas(){
         return pausaProgramadaRepository.findAll();
     }
 
     @Override
-    public PausaProgramada getPausaProgramada(Long id) {
+    public PausaProgramada detalharPausaProgramada(Long id) {
         return pausaProgramadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pausa programada não encontrada com ID: " + id));
     }
@@ -35,10 +35,8 @@ public class PausaProgramadaServiceImpl implements PausaProgramadaService{
     public PausaProgramada atualizarPausaProgramada(Long id, PausaProgramada pausaProgramadaAtualizada) {
         PausaProgramada pausaExistente = pausaProgramadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pausa programada não encontrada com ID: " + id));
-        pausaExistente.setData_inicio(pausaProgramadaAtualizada.getData_inicio());
-        pausaExistente.setData_fim(pausaProgramadaAtualizada.getData_fim());
-        pausaExistente.setHora_inicio(pausaProgramadaAtualizada.getHora_inicio());
-        pausaExistente.setHora_fim(pausaProgramadaAtualizada.getHora_fim());
+        pausaExistente.setData_hora_inicio(pausaProgramadaAtualizada.getData_hora_inicio());
+        pausaExistente.setData_hora_fim(pausaProgramadaAtualizada.getData_hora_fim());
         pausaExistente.setAtivo(pausaProgramadaAtualizada.isAtivo());
         return pausaProgramadaRepository.save(pausaExistente);
     }
