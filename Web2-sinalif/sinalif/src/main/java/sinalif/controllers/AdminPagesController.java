@@ -13,11 +13,6 @@ public class AdminPagesController {
         return "pages/adm/indexAdmin";
     }
 
-    @GetMapping("/alarmes")
-    public String pageAlarmes() {
-        return "pages/adm/alarmes";
-    }
-
     @GetMapping("/etiquetas")
     public String pageEtiquetas() {
         return "pages/adm/etiquetas";

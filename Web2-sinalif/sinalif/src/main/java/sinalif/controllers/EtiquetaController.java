@@ -23,7 +23,7 @@ public class EtiquetaController {
 
 	@GetMapping
 	public List<Etiqueta> getEtiqueta(){
-		return etiquetaService.getEtiqueta();
+		return etiquetaService.getEtiquetas();
 	}
 
 	@GetMapping("/{id}")

@@ -1,5 +1,6 @@
 package sinalif.services;
 
+import sinalif.dtos.AlarmeRecordDto;
 import sinalif.models.Alarme;
 
 import java.util.List;

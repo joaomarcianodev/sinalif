@@ -1,11 +1,8 @@
 package sinalif.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "etiqueta")
@@ -21,6 +18,17 @@ public class Etiqueta {
 	
 	@Column(nullable = false)
 	private String duracao;
+
+	@OneToMany(mappedBy = "etiqueta", cascade = CascadeType.ALL)
+	private List<Alarme> alarmes;
+
+	public List<Alarme> getAlarmes() {
+		return alarmes;
+	}
+
+	public void setAlarmes(List<Alarme> alarmes) {
+		this.alarmes = alarmes;
+	}
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;

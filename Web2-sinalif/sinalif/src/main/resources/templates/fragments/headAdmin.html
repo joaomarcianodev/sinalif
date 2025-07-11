@@ -3,30 +3,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}"></title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+    />
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" th:href="@{/css/custom.css}"/>
 </head>
 
-<nav th:fragment="header()" class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
+<nav th:fragment="navbar()" class="container-fluid navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">Sinal IF</a>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/alarmes}" sec:authorize="hasAuthority('Admin')">Alarmes</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/musicas}" sec:authorize="hasAuthority('Admin')">Músicas</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/historico}" sec:authorize="hasAuthority('Admin')">Histórico</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')">Pausas</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/etiquetas}" sec:authorize="hasAuthority('Admin')">Etiquetas</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/usuarios}" sec:authorize="hasAuthority('Admin')">Usuários</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')">Perfis</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/adm/sugestoes}" sec:authorize="hasAuthority('Admin')">Sugestões</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/adm/etiquetas}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Etiquetas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/adm/etiquetas/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Etiqueta</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/etiquetas}" sec:authorize="hasAuthority('Admin')">Listar Etiquetas</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/adm/alarmes}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Alarmes
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/adm/alarmes/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Alarme</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/alarmes}" sec:authorize="hasAuthority('Admin')">Listar Alarmes</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
 

@@ -3,6 +3,7 @@ package sinalif.services.impl;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sinalif.models.Perfil;
@@ -12,21 +13,26 @@ import sinalif.services.PerfilService;
 @Service
 @RequiredArgsConstructor
 public class PerfilServiceImpl implements PerfilService {
-	private final PerfilRepository perfilRepository;
+	@Autowired
+	private PerfilRepository perfilRepository;
 
+	@Override
 	public List<Perfil> getPerfis(){
 		return perfilRepository.findAll();
 	}
 
+	@Override
 	public Perfil getPerfil(Long id) {
 		return perfilRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
 	}
 
+	@Override
 	public Perfil salvarPerfil(Perfil perfil){
 		return perfilRepository.save(perfil);
 	}
 
+	@Override
 	public Perfil atualizarPerfil(Long id, Perfil perfilAtualizado) {
 		Perfil perfilExistente = perfilRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Perfil não encontrado com ID: " + id));
@@ -34,10 +40,12 @@ public class PerfilServiceImpl implements PerfilService {
 		return perfilRepository.save(perfilExistente);
 	}
 
+	@Override
 	public void excluirPerfil(Perfil perfil) {
 		perfilRepository.deleteById(perfil.getId_perfil());
 	}
 
+	@Override
 	public void excluirPerfil(Long id) {
 		if (perfilRepository.existsById(id)) {
 			perfilRepository.deleteById(id);

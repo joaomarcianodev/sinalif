@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+
+    <div id="form" class="container col-10 mt-5">
+        <h1 class="mb-5 text-center">Alarmes</h1>
+        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
+        <form action="#" th:action="@{/adm/alarmes/save}" th:object="${alarme}" method="POST">
+            <div class="mb-3">
+                <input type="hidden" th:field="*{id_alarme}" />
+
+                <div th:if="${#lists.isEmpty(etiquetaList)}">
+                    <label for="selectEtiqueta" class="form-label">Etiqueta</label>
+                    <select class="form-select input" name="selectEtiqueta">
+                        <option disabled selected>Não há etiquetas cadastradas</option>
+                    </select>
+                    <p class="form-text text-danger">Não há etiquetas cadastradas. Por favor, <a th:href="@{/adm/etiquetas/create}">cadastre uma etiqueta</a> primeiro.</p>
+                </div>
+
+                <div th:if="${not #lists.isEmpty(etiquetaList)}">
+                    <label for="selectEtiqueta" class="form-label">Etiqueta</label>
+                    <select class="form-select input" id="selectEtiqueta" name="selectEtiqueta" th:field="*{etiqueta.id_etiqueta}">
+                        <option th:each="etiqueta : ${etiquetaList}"
+                                th:value="${etiqueta.id_etiqueta}"
+                                th:text="${etiqueta.nome + ' (' + etiqueta.duracao + ' min)'}">
+                        </option>
+                    </select>
+                </div>
+                <p th:if="${#fields.hasErrors('etiqueta.id_etiqueta')}" th:errorclass="text-danger" th:errors="*{etiqueta.id_etiqueta}"/>
+            </div>
+            <div class="mb-3">
+                <label for="txtHorario" class="form-label">Horário Programado</label>
+                <input type="time" class="form-control input" id="txtHorario" name="txtHorario" th:field="*{horario_programado}" placeholder="">
+                <p th:if="${#fields.hasErrors('horario_programado')}" th:errorclass="text-danger" th:errors="*{horario_programado}" />
+            </div>
+            <div class="mb-3">
+                <label for="txtDias" class="form-label">Dias da Semana</label>
+                <input type="text" class="form-control input" id="txtDias" name="txtDias" th:field="*{dias_semana}" placeholder="2,3,6">
+                <p th:if="${#fields.hasErrors('dias_semana')}" th:errorclass="text-danger" th:errors="*{dias_semana}" />
+            </div>
+            <div class="mb-3">
+                <label for="selectAtivo" class="form-label" >Situação</label>
+                <select class="form-select input" id="selectAtivo" name="selectAtivo" th:field="*{ativo}">
+                    <option value="true" >Ativado</option>
+                    <option value="false" >Desativado</option>
+                </select>
+                <p th:if="${#fields.hasErrors('ativo')}" th:errorclass="text-danger" th:errors="*{ativo}" />
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success" type="submit" id="btnSalvar">Salvar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
