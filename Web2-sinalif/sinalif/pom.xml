@@ -30,11 +30,6 @@
 		<java.version>24</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 			<groupId>joda-time</groupId>

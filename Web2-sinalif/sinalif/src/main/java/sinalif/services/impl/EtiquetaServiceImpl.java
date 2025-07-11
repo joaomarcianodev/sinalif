@@ -17,7 +17,7 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 	private EtiquetaRepository etiquetaRepository;
 
 	@Override
-	public List<Etiqueta> getEtiqueta(){
+	public List<Etiqueta> getEtiquetas(){
 		return etiquetaRepository.findAll();
 	}
 

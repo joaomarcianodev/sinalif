@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import sinalif.dtos.AlarmeRecordDto;
 import sinalif.models.Alarme;
 import sinalif.repositories.AlarmeRepository;
+import sinalif.repositories.EtiquetaRepository;
 import sinalif.services.AlarmeService;
 
 @Service
@@ -18,6 +20,9 @@ import sinalif.services.AlarmeService;
 public class AlarmeServiceImpl implements AlarmeService {
 	@Autowired
 	private AlarmeRepository alarmeRepository;
+
+	@Autowired
+	private EtiquetaRepository etiquetaRepository;
 
 	@Override
     public List<Alarme> getAlarmes(){
@@ -31,6 +36,7 @@ public class AlarmeServiceImpl implements AlarmeService {
 
 	@Override
 	public Alarme salvarAlarme(Alarme alarme){
+		alarme.setEtiqueta(etiquetaRepository.getReferenceById(alarme.getEtiqueta().getId_etiqueta()));
 		return alarmeRepository.save(alarme);
 	}
 

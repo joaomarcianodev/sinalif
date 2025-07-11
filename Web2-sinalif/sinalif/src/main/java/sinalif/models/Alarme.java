@@ -25,7 +25,7 @@ public class Alarme {
 	@Column(nullable = false)
 	private LocalTime horario_programado;
 
-	@NotBlank(message= "Dias é um campo obrigatório")
+	@NotBlank(message= "Dias da Semana é um campo obrigatório")
 	@Column(nullable = false)
 	private String dias_semana;
 
@@ -43,6 +43,7 @@ public class Alarme {
 	@Column(nullable = true)
 	private LocalDateTime data_modificacao;
 
+	@NotNull(message = "A etiqueta é um campo obrigatório")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_etiqueta")
 	private Etiqueta etiqueta;
