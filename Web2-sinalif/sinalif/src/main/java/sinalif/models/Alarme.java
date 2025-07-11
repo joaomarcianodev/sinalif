@@ -29,6 +29,7 @@ public class Alarme {
 	@Column(nullable = false)
 	private String dias_semana;
 
+	@NotNull(message= "Status Inicial é um campo obrigatório")
 	@Column(nullable = true)
 	private boolean ativo = true;
 

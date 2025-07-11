@@ -5,6 +5,8 @@
     <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
+        <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
+
         <h1 class="mb-5 text-center">Alarmes</h1>
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <form action="#" th:action="@{/adm/alarmes/save}" th:object="${alarme}" method="POST">
@@ -13,10 +15,10 @@
 
                 <div th:if="${#lists.isEmpty(etiquetaList)}">
                     <label for="selectEtiqueta" class="form-label">Etiqueta</label>
-                    <select class="form-select input" name="selectEtiqueta">
-                        <option disabled selected>Não há etiquetas cadastradas</option>
+                    <select class="form-select input" name="selectEtiqueta" disabled>
+                        <option selected>Não há etiquetas cadastradas</option>
                     </select>
-                    <p class="form-text text-danger">Não há etiquetas cadastradas. Por favor, <a th:href="@{/adm/etiquetas/create}">cadastre uma etiqueta</a> primeiro.</p>
+                    <p class="form-text text-danger">Não há etiquetas cadastradas. Por favor, <a th:href="@{/adm/etiquetas/create}" class="link-info">cadastre uma etiqueta</a> primeiro.</p>
                 </div>
 
                 <div th:if="${not #lists.isEmpty(etiquetaList)}">

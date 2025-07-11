@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+
+    <div id="form" class="container col-10 mt-5">
+        <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
+
+        <h1 class="mb-5 text-center">Listagem de KLASS</h1>
+        <div th:if="${#lists.isEmpty(KLASSList)}">
+            <p class="text-center">Não há klasses cadastrados. <a th:href="@{/adm/klasses/create}" class="link-info">Clique aqui</a> para cadastrar um KLASS.</p>
+        </div>
+        <div th:if="${not #lists.isEmpty(KLASSList)}">
+            <div class="table-responsive">
+                <table border='1' class="col table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Horário</th>
+                        <th>Dias</th>
+                        <th>Ativo</th>
+                        <th>Pausado</th>
+                        <th>Data Criação</th>
+                        <th>Data Modificação</th>
+                        <th>Etiqueta</th>
+                        <th>Editar</th>
+                        <th>Deletar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="KLASS : ${KLASSList}">
+                        <td th:text="${KLASS.id_KLASS}"></td>
+                        <td th:text="${KLASS.horario_programado}"></td>
+                        <td th:text="${KLASS.dias_semana}"></td>
+                        <td th:text="${KLASS.ativo ? 'Sim' : 'Não'}"></td>
+                        <td th:text="${KLASS.pausado ? 'Sim' : 'Não'}"></td>
+                        <td th:text="${#temporals.format(KLASS.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${#temporals.format(KLASS.data_modificacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${KLASS.etiqueta.nome}"></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/klasses/edit/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/klasses/delete/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Deletar</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

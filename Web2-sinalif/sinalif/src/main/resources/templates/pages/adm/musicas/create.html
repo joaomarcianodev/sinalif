@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+
+    <div id="form" class="container col-10 mt-5">
+        <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
+
+        <h1 class="mb-5 text-center">Músicas</h1>
+        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
+        <form action="#" th:action="@{/adm/musicas/save}" th:object="${musica}" method="POST">
+            <div class="mb-3">
+                <input type="hidden" th:field="*{id_musica}" />
+
+                <label for="txtUrl" class="form-label">URL</label>
+                <input type="text" class="form-control input" id="txtUrl" th:field="*{url}" placeholder="https://exemplo.com.br">
+                <p th:if="${#fields.hasErrors('url')}" th:errorclass="text-danger" th:errors="*{url}"/>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success" type="submit" id="btnSalvar">Salvar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

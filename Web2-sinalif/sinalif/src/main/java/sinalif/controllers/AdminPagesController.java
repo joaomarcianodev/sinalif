@@ -12,39 +12,4 @@ public class AdminPagesController {
     public String pageAdmin() {
         return "pages/adm/indexAdmin";
     }
-
-    @GetMapping("/etiquetas")
-    public String pageEtiquetas() {
-        return "pages/adm/etiquetas";
-    }
-
-    @GetMapping("/historico")
-    public String pageHistorico() {
-        return "pages/adm/historico";
-    }
-
-    @GetMapping("/musicas")
-    public String pageMusicas() {
-        return "pages/adm/musicas";
-    }
-
-    @GetMapping("/pausas")
-    public String pagePausas() {
-        return "pages/adm/pausas";
-    }
-
-    @GetMapping("/perfis")
-    public String pagePerfis() {
-        return "pages/adm/perfis";
-    }
-
-    @GetMapping("/usuarios")
-    public String pageUsuarios() {
-        return "pages/adm/usuarios";
-    }
-
-    @GetMapping("/sugestoes")
-    public String pageSugestoes() {
-        return "pages/adm/sugestoes";
-    }
 }

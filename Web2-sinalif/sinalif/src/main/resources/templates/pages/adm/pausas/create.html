@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<body>
+    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+
+    <div id="form" class="container col-10 mt-5">
+        <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
+
+        <h1 class="mb-5 text-center">Pausas Programadas</h1>
+        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
+        <form action="#" th:action="@{/adm/pausas/save}" th:object="${pausa}" method="POST">
+            <div class="mb-3">
+                <input type="hidden" th:field="*{id_pausa}" />
+
+                <label for="txtDataHoraInicio" class="form-label">Data e Hora de Início</label>
+                <input type="datetime-local" class="form-control input" id="txtDataHoraInicio" th:field="*{data_hora_inicio}" placeholder="">
+                <p th:if="${#fields.hasErrors('data_hora_inicio')}" th:errorclass="text-danger" th:errors="*{data_hora_inicio}"/>
+            </div>
+            <div class="mb-3">
+                <label for="txtDataHoraFim" class="form-label">Data e Hora de Término</label>
+                <input type="datetime-local" class="form-control input" id="txtDataHoraFim" th:field="*{data_hora_inicio}" placeholder="">
+                <p th:if="${#fields.hasErrors('data_hora_inicio')}" th:errorclass="text-danger" th:errors="*{data_hora_inicio}"/>
+            </div>
+            <div class="mb-3">
+                <label for="selectAtivo" class="form-label" >Situação</label>
+                <select class="form-select input" id="selectAtivo" name="selectAtivo" th:field="*{ativo}">
+                    <option value="true" >Ativado</option>
+                    <option value="false" >Desativado</option>
+                </select>
+                <p th:if="${#fields.hasErrors('ativo')}" th:errorclass="text-danger" th:errors="*{ativo}" />
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-success" type="submit" id="btnSalvar">Salvar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

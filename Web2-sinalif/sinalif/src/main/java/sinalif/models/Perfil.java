@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "archived_perfil")
@@ -15,7 +17,8 @@ public class Perfil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id_perfil;
-	
+
+	@NotBlank(message= "Nome é um campo obrigatório")
 	@Column(nullable = false)
 	private String nome;
 

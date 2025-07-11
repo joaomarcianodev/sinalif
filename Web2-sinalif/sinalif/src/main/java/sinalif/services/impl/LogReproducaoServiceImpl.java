@@ -3,7 +3,6 @@ package sinalif.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sinalif.dtos.LogReproducaoRecordDto;
 import sinalif.models.LogReproducao;
 import sinalif.repositories.LogReproducaoRepository;
 import sinalif.repositories.MusicaRepository;
@@ -31,12 +30,7 @@ public class LogReproducaoServiceImpl implements LogReproducaoService {
     }
 
     @Override
-    public LogReproducao salvarLogReproducao(LogReproducaoRecordDto logRepDto){
-        LogReproducao logRep = new LogReproducao();
-        logRep.setId_logReproducao(logRepDto.id_logReproducao());
-        logRep.setMusica(musicaRepository.findById(logRepDto.id_musica()).get());
-        logRep.setData_reproducao(logRepDto.data_reproducao());
-
+    public LogReproducao salvarLogReproducao(LogReproducao logRep){
         return logReproducaoRepository.save(logRep);
     }
 

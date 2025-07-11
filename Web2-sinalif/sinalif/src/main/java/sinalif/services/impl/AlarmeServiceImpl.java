@@ -25,12 +25,12 @@ public class AlarmeServiceImpl implements AlarmeService {
 	private EtiquetaRepository etiquetaRepository;
 
 	@Override
-    public List<Alarme> getAlarmes(){
+    public List<Alarme> listarAlarmes(){
 		return alarmeRepository.findAll();
 	}
 
 	@Override
-	public Alarme getAlarme(Long id) {
+	public Alarme detalharAlarme(Long id) {
 		return alarmeRepository.findById(id).get();
 	}
 
@@ -38,20 +38,6 @@ public class AlarmeServiceImpl implements AlarmeService {
 	public Alarme salvarAlarme(Alarme alarme){
 		alarme.setEtiqueta(etiquetaRepository.getReferenceById(alarme.getEtiqueta().getId_etiqueta()));
 		return alarmeRepository.save(alarme);
-	}
-
-	@Override
-	public void excluirAlarme(Alarme alarme) {
-		alarmeRepository.deleteById(alarme.getId_alarme());
-	}
-
-	@Override
-	public void excluirAlarme(Long id) {
-	    if (alarmeRepository.existsById(id)) {
-	    	alarmeRepository.deleteById(id);
-	    } else {
-	        throw new RuntimeException("Alarme não encontrada com ID: " + id);
-	    }
 	}
 
 	@Override
@@ -67,4 +53,17 @@ public class AlarmeServiceImpl implements AlarmeService {
 	    return alarmeRepository.save(alarmeExistente);
 	}
 
+	@Override
+	public void excluirAlarme(Long id) {
+		if (alarmeRepository.existsById(id)) {
+			alarmeRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("Alarme não encontrada com ID: " + id);
+		}
+	}
+
+	@Override
+	public void excluirAlarme(Alarme alarme) {
+		alarmeRepository.deleteById(alarme.getId_alarme());
+	}
 }

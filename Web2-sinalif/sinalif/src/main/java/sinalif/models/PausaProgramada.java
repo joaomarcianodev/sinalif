@@ -1,14 +1,18 @@
 package sinalif.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "pausaProgramada")
@@ -18,19 +22,16 @@ public class PausaProgramada {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id_pausa;
-	
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(nullable = false)
-	private LocalDate data_inicio;
-	
+	private LocalDateTime data_hora_inicio;
+
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(nullable = false)
-	private LocalDate data_fim;
-	
-	@Column(nullable = false)
-	private LocalTime hora_inicio;
-	
-	@Column(nullable = false)
-	private LocalTime hora_fim;
-	
+	private LocalDateTime data_hora_fim;
+
+	@NotNull(message= "Status Inicial é um campo obrigatório")
 	@Column(nullable = false)
 	private boolean ativo;
 	
@@ -45,36 +46,20 @@ public class PausaProgramada {
 		this.id_pausa = id_pausa;
 	}
 
-	public LocalDate getData_inicio() {
-		return data_inicio;
+	public LocalDateTime getData_hora_inicio() {
+		return data_hora_inicio;
 	}
 
-	public void setData_inicio(LocalDate data_inicio) {
-		this.data_inicio = data_inicio;
+	public void setData_hora_inicio(LocalDateTime data_hora_inicio) {
+		this.data_hora_inicio = data_hora_inicio;
 	}
 
-	public LocalDate getData_fim() {
-		return data_fim;
+	public LocalDateTime getData_hora_fim() {
+		return data_hora_fim;
 	}
 
-	public void setData_fim(LocalDate data_fim) {
-		this.data_fim = data_fim;
-	}
-
-	public LocalTime getHora_inicio() {
-		return hora_inicio;
-	}
-
-	public void setHora_inicio(LocalTime hora_inicio) {
-		this.hora_inicio = hora_inicio;
-	}
-
-	public LocalTime getHora_fim() {
-		return hora_fim;
-	}
-
-	public void setHora_fim(LocalTime hora_fim) {
-		this.hora_fim = hora_fim;
+	public void setData_hora_fim(LocalDateTime data_hora_fim) {
+		this.data_hora_fim = data_hora_fim;
 	}
 
 	public boolean isAtivo() {
