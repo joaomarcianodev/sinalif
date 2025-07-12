@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,12 +21,15 @@ public class Usuario {
 	@Column(name = "id_usuario")
 	private Integer id_usuario;
 
+	@NotBlank(message= "Nome é um campo obrigatório")
 	@Column(name = "nome")
 	private String nome;
 
+	@NotBlank(message= "Senha é um campo obrigatório")
 	@Column(name = "senha")
 	private String senha;
 
+	@NotBlank(message= "Email é um campo obrigatório")
 	@Column(name = "email")
 	private String email;
 
@@ -33,15 +37,15 @@ public class Usuario {
 	@Column(name = "data_criacao")
 	private LocalDateTime data_criacao;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "Perfil", joinColumns = @JoinColumn(name = "id_usuario"))
-	@Column(name = "perfil")
-	private List<String> roles;
-
 	@Column(name = "url_foto_perfil")
 	private String url_foto_perfil; // Pode ser null inicialmente
 
 	@Column(name = "notificacoes_ativas")
-	private boolean notificacoes_ativas = true;
+	private boolean notificacoes_ativas = false;
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "Perfil", joinColumns = @JoinColumn(name = "id_usuario"))
+	@Column(name = "perfil")
+	private List<String> roles;
 
 }

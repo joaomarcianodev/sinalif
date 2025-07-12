@@ -56,10 +56,12 @@ public class SecurityConfig {
 
                         // Qualquer outra requisição deve ser autenticada
                         .anyRequest().authenticated())
-                .formLogin(login ->
-                        login.defaultSuccessUrl("/", true)) // Redireciona para a raiz após login bem-sucedido
-                .logout(logout ->
-                        logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                        .defaultSuccessUrl("/", true)) // Redireciona para a raiz após login bem-sucedido
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
                 .exceptionHandling(handling ->
                         handling.accessDeniedPage("/accessDenied"))
                 .authenticationProvider(authenticationProvider());

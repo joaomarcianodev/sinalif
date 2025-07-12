@@ -1,53 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Formulário de login">
   <meta name="author" content="">
-  <title>Por favor, faça o login</title>
+  <title>Sign-In</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-  <style>
-    html, body {
-      height: 100%;
-    }
-
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f5f5f5;
-    }
-  </style>
 </head>
 <body>
 
-<div class="card" style="width: 22rem;">
-  <div class="content card-body">
-    <h2 class="card-title text-center mb-4">Por favor, faça o login</h2>
-    <div class="alert alert-success" role="alert" hidden>
-      Você foi desconectado com sucesso!
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card" style="width: 22rem;">
+      <div class="card-body">
+        <h2 class="card-title mb-4 text-center">Entrar</h2>
+
+        <div th:if="${param.error}"><p class="text-danger small">Dados inválidos.</p></div>
+        <div th:if="${param.logout}"><p class="text-info small">Você foi desconectado.</p></div>
+
+        <form class="login-form" method="post" th:action="@{/login}">
+          <div class="mb-3">
+            <label for="username" class="form-label">Usuário</label>
+            <input type="email" class="form-control" id="username" name="username" placeholder="Digite seu email" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+          </div>
+
+          <input type="hidden" name="_csrf" value="5oZbJqPRKQonHh-c7CBjI8JJgYCLUGPNR0yGr-t7rwzKkxbF0bE9Q5O1G2kKLimpjQ1XFfEorOG5aVbgfnq_logemWmrpCSm" />
+
+          <div class="mt-3 mb-3">
+            <p class="text-dark small">Não possui uma conta? <a th:href="@{/register}" class="link-info">Clique aqui</a> para registrar-se.</p>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <form class="login-form" method="post" action="/login">
-      <div class="mb-3">
-        <label for="username" class="form-label">Usuário</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu usuário" required autofocus>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-      </div>
-      <input name="_csrf" type="hidden" value="5oZbJqPRKQonHh-c7CBjI8JJgYCLUGPNR0yGr-t7rwzKkxbF0bE9Q5O1G2kKLimpjQ1XFfEorOG5aVbgfnq_logemWmrpCSm" />
-      <div class="d-grid">
-        <button type="submit" class="btn btn-primary">Entrar</button>
-      </div>
-    </form>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
