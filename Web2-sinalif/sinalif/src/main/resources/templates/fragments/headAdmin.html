@@ -85,8 +85,8 @@
                         Perfis
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/perfis/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Etiqueta</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')">Listar Etiquetas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/perfis/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Perfil</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')">Listar Perfis</a></li>
                     </ul>
                 </li>
             </ul>
@@ -94,7 +94,7 @@
 
         <form class="form-inline my-2 my-lg-0" action="/logout" method="post">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <button type="submit" class="btn btn-block d-lg-inline-block my-2 my-sm-0" >Sair</button>
+            <button type="submit" class="btn btn-light d-lg-inline-block my-2 my-sm-0" >Sair</button>
         </form>
     </div>
 </nav>

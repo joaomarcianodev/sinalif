@@ -1,39 +1,73 @@
 package sinalif.controllers;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sinalif.models.Usuario;
+import sinalif.services.PerfilService;
 import sinalif.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 @Controller
-// @RequestMapping("/auth") // Opcional: Se quiser prefixar as rotas de autenticação, por exemplo /auth/register
 public class UsuarioController {
-
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuarioService IUsuarioService;
+    @Autowired
+    private PerfilService IPerfilService;
+
+    @GetMapping("/adm/usuarios")
+    public String listarUsuarios(Model model){
+        model.addAttribute("usuarioList", IUsuarioService.listarUsers());
+        return "pages/adm/usuarios/list";
+    }
+
+    @GetMapping("/adm/usuarios/create")
+    public String pageUsuarioCreate(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("perfilList", IPerfilService.listarPerfis());
+        return "pages/adm/usuarios/create";
+    }
+
+    @PostMapping("/adm/usuarios/save")
+    public String salvarUsuario(@ModelAttribute @Valid Usuario usuario, @NotNull Model model, @NotNull BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("perfilList", IPerfilService.listarPerfis());
+            return "pages/adm/usuarios/create";
+        } else if (!usuario.getEmail().endsWith("@iftm.edu.br")) {
+            model.addAttribute("perfilList", IPerfilService.listarPerfis());
+            model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
+            return "pages/adm/usuarios/create";
+        }
+
+        Integer id = IUsuarioService.saveUser(usuario);
+        String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
+        model.addAttribute("msg", message);
+        return "pages/adm/usuarios/list"; // Redireciona para a página de login após o registro
+    }
 
     // Rota para a página de registro (Sign-up)
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        model.addAttribute("usuario", new Usuario()); // Adiciona um objeto Usuario vazio para o formulário
-        return "pages/user/registerUser"; // Caminho para sua view de registro
+    public String pageRegisterUser(Model model) {
+        model.addAttribute("usuario", new Usuario());
+        model.addAttribute("perfilList", IPerfilService.listarPerfis());
+        return "pages/user/registerUser";
     }
 
     // Processa o formulário de registro (Sign-up)
     @PostMapping("/saveUser")
-    public String registerUser(@ModelAttribute("usuario") Usuario usuario, Model model) {
-        // Validação básica de e-mail (será melhorada no ponto 3)
-        if (!usuario.getEmail().endsWith("@iftm.edu.br")) {
+    public String registerUser(@ModelAttribute("usuario") Usuario usuario, Model model, BindingResult result) {
+        if (result.hasErrors() || !usuario.getEmail().endsWith("@iftm.edu.br")) {
             model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
             return "pages/user/registerUser";
         }
 
-        Integer id = usuarioService.saveUser(usuario);
+        Integer id = IUsuarioService.saveUser(usuario);
         String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
         model.addAttribute("msg", message);
         return "pages/user/loginUser"; // Redireciona para a página de login após o registro
@@ -44,7 +78,7 @@ public class UsuarioController {
                                  @RequestParam("newName") String newName,
                                  Model model) {
         try {
-            Usuario updatedUsuario = usuarioService.updateUserName(userId, newName);
+            Usuario updatedUsuario = IUsuarioService.updateUserName(userId, newName);
             model.addAttribute("msg", "Nome do usuário " + updatedUsuario.getEmail() + " atualizado para " + newName);
             // Redirecionar para alguma página de sucesso ou perfil do usuário
             return "pages/user/profilePage"; // Crie esta página ou use uma existente
@@ -59,7 +93,7 @@ public class UsuarioController {
                                      @RequestParam("photoUrl") String photoUrl,
                                      Model model) {
         try {
-            Usuario updatedUsuario = usuarioService.updateProfilePicture(userId, photoUrl);
+            Usuario updatedUsuario = IUsuarioService.updateProfilePicture(userId, photoUrl);
             model.addAttribute("msg", "Foto de perfil do usuário " + updatedUsuario.getEmail() + " atualizada com sucesso.");
             model.addAttribute("usuario", updatedUsuario); // Opcional: passa o usuário atualizado para a view
             return "pages/user/profilePage"; // Ou uma página de sucesso
@@ -74,7 +108,7 @@ public class UsuarioController {
                                       @RequestParam("active") boolean active,
                                       Model model) {
         try {
-            Usuario updatedUsuario = usuarioService.toggleNotifications(userId, active);
+            Usuario updatedUsuario = IUsuarioService.toggleNotifications(userId, active);
             String status = active ? "ativadas" : "desativadas";
             model.addAttribute("msg", "Notificações para o usuário " + updatedUsuario.getEmail() + " foram " + status + ".");
             return "pages/user/profilePage"; // Ou uma página de sucesso
@@ -95,7 +129,7 @@ public class UsuarioController {
                 throw new RuntimeException("A nova senha deve ter pelo menos 6 caracteres.");
             }
 
-            Usuario updatedUsuario = usuarioService.changePassword(userId, oldPassword, newPassword);
+            Usuario updatedUsuario = IUsuarioService.changePassword(userId, oldPassword, newPassword);
             model.addAttribute("msg", "Senha do usuário " + updatedUsuario.getEmail() + " alterada com sucesso.");
             return "pages/user/profilePage"; // Redireciona para a página de perfil ou sucesso
         } catch (RuntimeException e) {

@@ -7,48 +7,52 @@
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
-        <h1 class="mb-5 text-center">KLASS</h1>
-        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
-        <form action="#" th:action="@{/adm/klasses/save}" th:object="${KLASS}" method="POST">
-            <div class="mb-3">
-                <input type="hidden" th:field="*{id_KLASS}" />
+        <h1 class="mb-5 text-center">Usuários</h1>
 
-                <div th:if="${#lists.isEmpty(etiquetaList)}">
-                    <label for="selectEtiqueta" class="form-label">Etiqueta</label>
-                    <select class="form-select input" name="selectEtiqueta" disabled>
-                        <option selected>Não há etiquetas cadastradas</option>
+        <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
+        <div th:text="${msg}" class="mb-3"></div>
+
+        <form action="#" th:action="@{/adm/usuarios/save}" th:object="${usuario}" method="POST">
+            <div class="mb-3">
+                <input type="hidden" th:field="*{id_usuario}" />
+
+                <label for="nome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
+                <p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="*{nome}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" th:field="*{email}">
+                <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="senha" name="senha" th:field="*{senha}">
+                <p th:if="${#fields.hasErrors('senha')}" th:errorclass="text-danger" th:errors="*{senha}"/>
+            </div>
+
+            <div class="mb-3">
+                <div th:if="${#lists.isEmpty(perfilList)}">
+                    <label for="selectPerfil" class="form-label">Perfil:</label>
+                    <select class="form-select input" id="selectPerfil" name="roles">
+                        <option selected>Selecione um perfil local</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Funcionário">Funcionário</option>
+                        <option value="Aluno">Aluno</option>
                     </select>
-                    <p class="form-text text-danger">Não há etiquetas cadastradas. Por favor, <a th:href="@{/adm/etiquetas/create}" class="link-info">cadastre uma etiqueta</a> primeiro.</p>
                 </div>
 
-                <div th:if="${not #lists.isEmpty(etiquetaList)}">
-                    <label for="selectEtiqueta" class="form-label">Etiqueta</label>
-                    <select class="form-select input" id="selectEtiqueta" name="selectEtiqueta" th:field="*{etiqueta.id_etiqueta}">
-                        <option th:each="etiqueta : ${etiquetaList}"
-                                th:value="${etiqueta.id_etiqueta}"
-                                th:text="${etiqueta.nome + ' (' + etiqueta.duracao + ' min)'}">
+                <div th:if="${not #lists.isEmpty(perfilList)}">
+                    <label for="selectPerfil" class="form-label">Perfil:</label>
+                    <select class="form-select input" id="selectPerfil" name="selectPerfil" th:field="*{roles}">
+                        <option th:each="perfil : ${perfilList}"
+                                th:value="${perfil.nome}"
+                                th:text="${perfil.nome}">
                         </option>
                     </select>
                 </div>
-                <p th:if="${#fields.hasErrors('etiqueta.id_etiqueta')}" th:errorclass="text-danger" th:errors="*{etiqueta.id_etiqueta}"/>
-            </div>
-            <div class="mb-3">
-                <label for="txtHorario" class="form-label">Horário Programado</label>
-                <input type="time" class="form-control input" id="txtHorario" name="txtHorario" th:field="*{horario_programado}" placeholder="">
-                <p th:if="${#fields.hasErrors('horario_programado')}" th:errorclass="text-danger" th:errors="*{horario_programado}" />
-            </div>
-            <div class="mb-3">
-                <label for="txtDias" class="form-label">Dias da Semana</label>
-                <input type="text" class="form-control input" id="txtDias" name="txtDias" th:field="*{dias_semana}" placeholder="2,3,6">
-                <p th:if="${#fields.hasErrors('dias_semana')}" th:errorclass="text-danger" th:errors="*{dias_semana}" />
-            </div>
-            <div class="mb-3">
-                <label for="selectAtivo" class="form-label" >Situação</label>
-                <select class="form-select input" id="selectAtivo" name="selectAtivo" th:field="*{ativo}">
-                    <option value="true" >Ativado</option>
-                    <option value="false" >Desativado</option>
-                </select>
-                <p th:if="${#fields.hasErrors('ativo')}" th:errorclass="text-danger" th:errors="*{ativo}" />
             </div>
 
             <div class="row">

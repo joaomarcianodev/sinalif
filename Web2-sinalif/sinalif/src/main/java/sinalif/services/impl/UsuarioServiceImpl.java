@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import sinalif.models.Musica;
 import sinalif.models.Usuario;
 import sinalif.repositories.UsuarioRepository;
 import sinalif.services.UsuarioService;
@@ -24,6 +25,11 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public List<Usuario> listarUsers(){
+        return usuarioRepository.findAll();
+    }
 
     @Override
     public Integer saveUser(Usuario usuario) {
