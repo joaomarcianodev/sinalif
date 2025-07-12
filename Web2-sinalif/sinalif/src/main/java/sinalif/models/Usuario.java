@@ -22,15 +22,15 @@ public class Usuario {
 	private Integer id_usuario;
 
 	@NotBlank(message= "Nome é um campo obrigatório")
-	@Column(name = "nome")
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
 	@NotBlank(message= "Senha é um campo obrigatório")
-	@Column(name = "senha")
+	@Column(name = "senha", nullable = false)
 	private String senha;
 
 	@NotBlank(message= "Email é um campo obrigatório")
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 
 	@CreatedDate
@@ -43,9 +43,12 @@ public class Usuario {
 	@Column(name = "notificacoes_ativas")
 	private boolean notificacoes_ativas = false;
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	/*@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "Perfil", joinColumns = @JoinColumn(name = "id_usuario"))
 	@Column(name = "perfil")
-	private List<String> roles;
+	private List<String> roles;*/
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_perfis", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_perfil"))
+	private List<Perfil> roles;
 }

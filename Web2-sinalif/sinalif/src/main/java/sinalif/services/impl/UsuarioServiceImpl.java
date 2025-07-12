@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import sinalif.models.Musica;
+import sinalif.models.Perfil;
 import sinalif.models.Usuario;
 import sinalif.repositories.UsuarioRepository;
 import sinalif.services.UsuarioService;
@@ -97,10 +98,10 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
             throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
         } else {
             Usuario usuario = opt.get();
-            List<String> roles = usuario.getRoles();
+            List<Perfil> roles = usuario.getRoles();
             Set<GrantedAuthority> ga = new HashSet<>();
-            for (String role : roles) {
-                ga.add(new SimpleGrantedAuthority(role));
+            for (Perfil role : roles) {
+                ga.add(role);
             }
 
             springUser = new org.springframework.security.core.userdetails.User(
