@@ -40,8 +40,8 @@ public class UsuarioController {
             model.addAttribute("perfilList", IPerfilService.listarPerfis());
             return "pages/adm/usuarios/create";
         } else if (!usuario.getEmail().endsWith("@iftm.edu.br")) {
-            model.addAttribute("perfilList", IPerfilService.listarPerfis());
             model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
+            model.addAttribute("perfilList", IPerfilService.listarPerfis());
             return "pages/adm/usuarios/create";
         }
 
@@ -61,9 +61,13 @@ public class UsuarioController {
 
     // Processa o formulário de registro (Sign-up)
     @PostMapping("/saveUser")
-    public String registerUser(@ModelAttribute("usuario") Usuario usuario, Model model, BindingResult result) {
-        if (result.hasErrors() || !usuario.getEmail().endsWith("@iftm.edu.br")) {
+    public String registerUser(@ModelAttribute @Valid Usuario usuario, @NotNull Model model, @NotNull BindingResult result) {
+        if (result.hasErrors()) {
+            model.addAttribute("perfilList", IPerfilService.listarPerfis());
+            return "pages/user/registerUser";
+        } else if (!usuario.getEmail().endsWith("iftm.edu.br")) {
             model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
+            model.addAttribute("perfilList", IPerfilService.listarPerfis());
             return "pages/user/registerUser";
         }
 
@@ -71,6 +75,17 @@ public class UsuarioController {
         String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
         model.addAttribute("msg", message);
         return "pages/user/loginUser"; // Redireciona para a página de login após o registro
+    }
+
+    // Rota para a página de login (Sign-in)
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "pages/user/loginUser";
+    }
+
+    @GetMapping("/accessDenied")
+    public String getAccessDeniedPage() {
+        return "pages/user/accessDeniedPage";
     }
 
     @PutMapping("/usuario/{id}/updateName")
@@ -162,16 +177,4 @@ public class UsuarioController {
             return "pages/errorPage";
         }
     }*/
-
-    // Rota para a página de login (Sign-in) - Gerenciada pelo Spring Security por padrão
-    // Não é estritamente necessário ter essa rota no controller, mas pode ser útil para customizar a view
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "pages/user/loginUser"; // Caminho para sua view de login
-    }
-
-    @GetMapping("/accessDenied")
-    public String getAccessDeniedPage() {
-        return "pages/user/accessDeniedPage";
-    }
 }

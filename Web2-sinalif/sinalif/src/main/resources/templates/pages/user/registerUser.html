@@ -25,7 +25,7 @@
 
           <div class="mb-3">
             <label for="email" class="form-label">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" th:field="*{email}">
+            <input type="email" class="form-control" id="email" name="email" th:field="*{email}" placeholder="email@iftm.edu.br">
             <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"/>
           </div>
 
@@ -50,7 +50,7 @@
               <label for="selectPerfil" class="form-label">Perfil:</label>
               <select class="form-select input" id="selectPerfil" name="selectPerfil" th:field="*{roles}">
                 <option th:each="perfil : ${perfilList}"
-                        th:value="${perfil.nome}"
+                        th:value="${perfil.id_perfil}"
                         th:text="${perfil.nome}">
                 </option>
               </select>

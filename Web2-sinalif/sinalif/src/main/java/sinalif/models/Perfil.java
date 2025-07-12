@@ -8,10 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "archived_perfil")
-public class Perfil {
+@Table(name = "perfil")
+public class Perfil implements GrantedAuthority {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -41,5 +42,9 @@ public class Perfil {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+	@Override
+	public String getAuthority() {
+		return this.nome;
+	}
 }
