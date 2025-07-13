@@ -7,3 +7,12 @@
     line-height: 60px; /* Vertically center the text there */
     background-color: #343a40 ;
 }
+
+#player-container {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+.progress-container {
+    cursor: pointer;
+}
