@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import lombok.RequiredArgsConstructor;
 import sinalif.models.Musica;
 import sinalif.models.Perfil;
 import sinalif.models.Usuario;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -33,7 +35,13 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     }
 
     @Override
-    public Integer saveUser(Usuario usuario) {
+    public Usuario detalharUsuario(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+    }
+
+    @Override
+    public Long saveUser(Usuario usuario) {
         String passwd = usuario.getSenha();
         String encodedPasswod = passwordEncoder.encode(passwd);
         usuario.setSenha(encodedPasswod);
@@ -42,8 +50,14 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     }
 
     @Override
+    public Long saveUserEdit(Usuario usuario) {
+        usuario = usuarioRepository.save(usuario);
+        return usuario.getId_usuario();
+    }
+
+    @Override
     public Usuario updateUserName(Long userId, String newName) {
-        return usuarioRepository.findById(userId.intValue()) // getId_usuario é Integer, então converte
+        return usuarioRepository.findById(userId) // getId_usuario é Integer, então converte
                 .map(usuario -> {
                     usuario.setNome(newName);
                     return usuarioRepository.save(usuario);
@@ -53,7 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public Usuario updateProfilePicture(Long userId, String newPhotoUrl) {
-        return usuarioRepository.findById(userId.intValue())
+        return usuarioRepository.findById(userId)
                 .map(usuario -> {
                     usuario.setUrl_foto_perfil(newPhotoUrl);
                     return usuarioRepository.save(usuario);
@@ -63,7 +77,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public Usuario toggleNotifications(Long userId, boolean active) {
-        return usuarioRepository.findById(userId.intValue())
+        return usuarioRepository.findById(userId)
                 .map(usuario -> {
                     usuario.setNotificacoes_ativas(active);
                     return usuarioRepository.save(usuario);
@@ -73,7 +87,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public Usuario changePassword(Long userId, String oldPassword, String newPassword) {
-        return usuarioRepository.findById(userId.intValue())
+        return usuarioRepository.findById(userId)
                 .map(usuario -> {
                     // Verifica se a senha antiga corresponde à senha armazenada
                     if (passwordEncoder.matches(oldPassword, usuario.getSenha())) {
@@ -116,8 +130,8 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if (usuarioRepository.existsById(userId.intValue())) {
-            usuarioRepository.deleteById(userId.intValue());
+        if (usuarioRepository.existsById(userId)) {
+            usuarioRepository.deleteById(userId);
         } else {
             throw new RuntimeException("Usuário não encontrado com ID: " + userId);
         }

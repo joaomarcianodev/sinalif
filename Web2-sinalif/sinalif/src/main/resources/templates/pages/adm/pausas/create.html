@@ -19,8 +19,8 @@
             </div>
             <div class="mb-3">
                 <label for="txtDataHoraFim" class="form-label">Data e Hora de Término</label>
-                <input type="datetime-local" class="form-control input" id="txtDataHoraFim" th:field="*{data_hora_inicio}" placeholder="">
-                <p th:if="${#fields.hasErrors('data_hora_inicio')}" th:errorclass="text-danger" th:errors="*{data_hora_inicio}"/>
+                <input type="datetime-local" class="form-control input" id="txtDataHoraFim" th:field="*{data_hora_fim}" placeholder="">
+                <p th:if="${#fields.hasErrors('data_hora_fim')}" th:errorclass="text-danger" th:errors="*{data_hora_fim}"/>
             </div>
             <div class="mb-3">
                 <label for="selectAtivo" class="form-label" >Situação</label>

@@ -49,8 +49,8 @@ public class AlarmeController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String atualizarAlarme(@PathVariable Long id_alarme, Model model) {
-		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id_alarme));
+	public String atualizarAlarme(@PathVariable Long id, Model model) {
+		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id));
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/adm/alarmes/create";
 	}
