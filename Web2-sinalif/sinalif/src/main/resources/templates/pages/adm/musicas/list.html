@@ -20,6 +20,7 @@
                         <th>URL</th>
                         <th>status</th>
                         <th>Data Criação</th>
+                        <th class="col-1">Reproduzir</th>
                         <th class="col-1">Editar</th>
                         <th class="col-1">Deletar</th>
                     </tr>
@@ -30,6 +31,7 @@
                         <td th:text="${musica.url}"></td>
                         <td th:text="${musica.status}"></td>
                         <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/adm/musicas/play/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
                         <td><a class="btn btn-warning" role="button" th:href="@{/adm/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
                         <td><a class="btn btn-danger" role="button" th:href="@{/adm/musicas/delete/{id_musica}(id_musica=${musica.id_musica})}">Deletar</a></td>
                     </tr>

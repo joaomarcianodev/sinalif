@@ -11,15 +11,19 @@ import sinalif.dtos.MusicaRecordDto;
 import sinalif.models.Alarme;
 import sinalif.models.Etiqueta;
 import sinalif.models.Musica;
+import sinalif.repositories.MusicaRepository;
 import sinalif.services.MusicaService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/adm/musicas")
 public class MusicaController {
     @Autowired
     private MusicaService IMusicaService;
+    @Autowired
+    private MusicaRepository musicaRepository;
 
     @GetMapping
     public String listarMusicas(Model model){
@@ -57,5 +61,17 @@ public class MusicaController {
     public String excluirMusica(@PathVariable Long id){
         IMusicaService.excluirMusica(id);
         return "redirect:/adm/musicas";
+    }
+
+    @GetMapping("/play/{id}")
+    public String exibirPlayer(@PathVariable Long id, Model model) {
+        Optional<Musica> musicaOptional = musicaRepository.findById(id);
+
+        if (musicaOptional.isPresent()) {
+            model.addAttribute("musica", musicaOptional.get());
+            return "pages/reprodutor";
+        } else {
+            return "javascript:alert('ID não encontrado');history.back()";
+        }
     }
 }

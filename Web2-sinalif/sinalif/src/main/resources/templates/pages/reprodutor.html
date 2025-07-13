@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<th:block th:replace="~{/../fragments/headAdmin :: head('Reprodutor')}"></th:block>
+
+<body class="bg-light">
+    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+
+    <div class="container mt-5">
+        <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
+        
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+
+                <h1 id="music-title" class="card-title display-5">Carregando Título...</h1>
+                <p class="card-subtitle mb-4 text-muted">Use os controles abaixo para reproduzir</p>
+
+                <div class="mb-4">
+                    <button id="play-button" class="btn btn-success btn-lg mx-2">
+                        <i class="bi bi-play-fill"></i> Play
+                    </button>
+                    <button id="pause-button" class="btn btn-warning btn-lg mx-2">
+                        <i class="bi bi-pause-fill"></i> Pause
+                    </button>
+                </div>
+
+                <div id="timeline-container" class="progress-container mb-2">
+                    <div class="progress" role="progressbar" style="height: 15px;">
+                        <div id="timeline" class="progress-bar bg-info progress-bar-striped progress-bar-animated"></div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <span id="current-time" class="text-muted">00:00</span>
+                    <span class="text-muted mx-1">/</span>
+                    <span id="total-duration" class="text-muted">00:00</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="player-container"></div>
+    <div id="youtube-data" th:data-url="${musica.url}" style="display: none;"></div>
+
+
+    <script>
+        // Carrega a API do YouTube (isso não muda)
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // Variáveis globais para o player e o intervalo
+        let player;
+        let progressInterval;
+
+        // --- FUNÇÕES GLOBAIS PARA A API DO YOUTUBE ---
+        // Estas funções permanecem globais para que a API do YouTube possa encontrá-las.
+        // As manipulações do DOM dentro delas agora usarão jQuery.
+
+        function onYouTubeIframeAPIReady() {
+            const videoId = getVideoIdFromUrl($('#youtube-data').data('url'));
+            if (videoId) {
+                player = new YT.Player('player-container', {
+                    height: '0',
+                    width: '0',
+                    videoId: videoId,
+                    playerVars: { 'playsinline': 1 },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            } else {
+                console.error('Não foi possível extrair o ID do vídeo da URL:', $('#youtube-data').data('url'));
+                $('.card-body').html('<div class="alert alert-danger">URL do YouTube inválida.</div>');
+            }
+        }
+
+        function onPlayerReady(event) {
+            console.log('Player está pronto!');
+            
+            // jQuery para buscar o título e atualizar o DOM
+            const videoTitle = player.getVideoData().title;
+            $('#music-title').text(videoTitle);
+
+            const duration = player.getDuration();
+            $('#total-duration').text(formatTime(duration));
+
+            // Habilita os botões com jQuery
+            $('#play-button, #pause-button').prop('disabled', false);
+        }
+
+        function onPlayerStateChange(event) {
+            // Usa .addClass() e .removeClass() do jQuery
+            if (event.data == YT.PlayerState.PLAYING) {
+                $('#timeline').addClass('progress-bar-animated');
+                progressInterval = setInterval(updateProgressBar, 500);
+            } else {
+                $('#timeline').removeClass('progress-bar-animated');
+                clearInterval(progressInterval);
+            }
+        }
+
+        function updateProgressBar() {
+            const currentTime = player.getCurrentTime();
+            const duration = player.getDuration();
+            const progressPercent = (duration > 0) ? (currentTime / duration) * 100 : 0;
+
+            // Atualiza o DOM com jQuery
+            $('#current-time').text(formatTime(currentTime));
+            $('#timeline').css('width', progressPercent + '%');
+            $('#timeline').parent().attr('aria-valuenow', progressPercent);
+        }
+
+        // --- CÓDIGO JQUERY ---
+        // Roda quando o documento está pronto
+        $(function() {
+            // Desabilita os botões por padrão
+            $('#play-button, #pause-button').prop('disabled', true);
+
+            // Eventos de clique com a sintaxe .on() do jQuery
+            $('#play-button').on('click', function() {
+                if (player) player.playVideo();
+            });
+
+            $('#pause-button').on('click', function() {
+                if (player) player.pauseVideo();
+            });
+
+            $('#timeline-container').on('click', function(e) {
+                if (player && player.getDuration()) {
+                    // $(this) refere-se ao #timeline-container
+                    const containerWidth = $(this).width();
+                    const clickPositionX = e.offsetX;
+                    const newTime = (clickPositionX / containerWidth) * player.getDuration();
+                    
+                    player.seekTo(newTime, true);
+                    updateProgressBar(); // Atualiza a barra imediatamente
+                }
+            });
+        });
+
+        // Funções utilitárias não precisam de jQuery e permanecem as mesmas
+        function getVideoIdFromUrl(url) {
+            if (!url) return null;
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = Math.floor(totalSeconds % 60);
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+    </script>
+
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
+
+</body>
+</html>
