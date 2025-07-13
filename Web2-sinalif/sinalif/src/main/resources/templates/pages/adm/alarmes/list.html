@@ -16,7 +16,7 @@
                 <table border='1' class="col table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th class="col-1">ID</th>
                         <th>Horário</th>
                         <th>Dias</th>
                         <th>Ativo</th>
@@ -24,8 +24,8 @@
                         <th>Data Criação</th>
                         <th>Data Modificação</th>
                         <th>Etiqueta</th>
-                        <th>Editar</th>
-                        <th>Deletar</th>
+                        <th class="col-1">Editar</th>
+                        <th class="col-1">Deletar</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,8 +38,8 @@
                         <td th:text="${#temporals.format(alarme.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
                         <td th:text="${#temporals.format(alarme.data_modificacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
                         <td th:text="${alarme.etiqueta.nome}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/alarmes/edit/{id}(id_alarme=${alarme.id_alarme})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/alarmes/delete/{id}(id_alarme=${alarme.id_alarme})}">Deletar</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/alarmes/edit/{id_alarme}(id_alarme=${alarme.id_alarme})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/alarmes/delete/{id_alarme}(id_alarme=${alarme.id_alarme})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

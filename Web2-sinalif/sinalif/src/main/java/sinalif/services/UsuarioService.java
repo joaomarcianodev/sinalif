@@ -1,12 +1,15 @@
 package sinalif.services;
 
+import sinalif.models.Perfil;
 import sinalif.models.Usuario;
 
 import java.util.List;
 
 public interface UsuarioService {
     public List<Usuario> listarUsers();
-    public Integer saveUser(Usuario usuario);
+    public Usuario detalharUsuario(Long id);
+    public Long saveUser(Usuario usuario);
+    public Long saveUserEdit(Usuario usuario);
     public Usuario updateUserName(Long userId, String newName);
     public Usuario updateProfilePicture(Long userId, String newPhotoUrl); // Novo metodo
     public Usuario toggleNotifications(Long userId, boolean active);

@@ -5,17 +5,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "pausaProgramada")
+@EntityListeners(AuditingEntityListener.class)
 public class PausaProgramada {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,20 +22,25 @@ public class PausaProgramada {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id_pausa;
 
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull(message= "Data de início é um campo obrigatório")
+	@FutureOrPresent(message = "A data de início deve ser no presente ou futuro.")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Column(nullable = false)
 	private LocalDateTime data_hora_inicio;
 
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@NotNull(message= "Data de término é um campo obrigatório")
+	@FutureOrPresent(message = "A data de término deve ser no presente ou futuro.")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@Column(nullable = false)
 	private LocalDateTime data_hora_fim;
 
 	@NotNull(message= "Status Inicial é um campo obrigatório")
 	@Column(nullable = false)
 	private boolean ativo;
-	
-	@Column(nullable = false)
-	private LocalDate data_criacao;
+
+	@CreatedDate
+	@Column(nullable = true, updatable = false)
+	private LocalDateTime data_criacao;
 
 	public long getId_pausa() {
 		return id_pausa;
@@ -70,11 +74,11 @@ public class PausaProgramada {
 		this.ativo = ativo;
 	}
 
-	public LocalDate getData_criacao() {
+	public LocalDateTime getData_criacao() {
 		return data_criacao;
 	}
 
-	public void setData_criacao(LocalDate data_criacao) {
+	public void setData_criacao(LocalDateTime data_criacao) {
 		this.data_criacao = data_criacao;
 	}
 

@@ -39,7 +39,7 @@ public class PausaProgramadaController {
 	}
 
 	@PostMapping("/save")
-	public String salvarPausaProgramada(@ModelAttribute @Valid PausaProgramada pausaProgramada, @NotNull BindingResult result, @NotNull Model model) {
+	public String salvarPausaProgramada(@ModelAttribute("pausa") @Valid PausaProgramada pausaProgramada, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "pages/adm/pausas/create";
 		}

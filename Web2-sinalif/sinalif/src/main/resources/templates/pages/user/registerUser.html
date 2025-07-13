@@ -16,7 +16,7 @@
       <div class="card-body">
         <h2 class="card-title mb-4 text-center">Registrar-se</h2>
 
-        <form th:action="@{/saveUser}" th:object="${usuario}" method="post">
+        <form th:action="@{/saveRegister}" th:object="${usuario}" method="post">
           <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
             <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
@@ -36,22 +36,13 @@
           </div>
 
           <div class="mb-3">
-            <div th:if="${#lists.isEmpty(perfilList)}">
-              <label for="selectPerfil" class="form-label">Perfil:</label>
-              <select class="form-select input" id="selectPerfil" name="roles">
-                <option selected>Selecione um perfil local</option>
-                <option value="Admin">Admin</option>
-                <option value="Funcionário">Funcionário</option>
-                <option value="Aluno">Aluno</option>
-              </select>
-            </div>
-
             <div th:if="${not #lists.isEmpty(perfilList)}">
               <label for="selectPerfil" class="form-label">Perfil:</label>
               <select class="form-select input" id="selectPerfil" name="selectPerfil" th:field="*{roles}">
                 <option th:each="perfil : ${perfilList}"
                         th:value="${perfil.id_perfil}"
-                        th:text="${perfil.nome}">
+                        th:if="${perfil.nome == 'Aluno'}"
+                        th:text="${perfil.nome}" selected>
                 </option>
               </select>
             </div>

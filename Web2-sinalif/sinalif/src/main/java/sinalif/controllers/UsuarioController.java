@@ -1,10 +1,8 @@
 package sinalif.controllers;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sinalif.models.Usuario;
@@ -20,11 +18,19 @@ public class UsuarioController {
     private UsuarioService IUsuarioService;
     @Autowired
     private PerfilService IPerfilService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/adm/usuarios")
     public String listarUsuarios(Model model){
         model.addAttribute("usuarioList", IUsuarioService.listarUsers());
         return "pages/adm/usuarios/list";
+    }
+
+    @GetMapping("/adm/usuarios/delete/{id}")
+    public String excluirUsuario(@PathVariable Long id) {
+        IUsuarioService.deleteUser(id);
+        return "redirect:/adm/usuarios";
     }
 
     @GetMapping("/adm/usuarios/create")
@@ -34,21 +40,68 @@ public class UsuarioController {
         return "pages/adm/usuarios/create";
     }
 
-    @PostMapping("/adm/usuarios/save")
-    public String salvarUsuario(@ModelAttribute @Valid Usuario usuario, @NotNull Model model, @NotNull BindingResult result) {
+    @GetMapping("/adm/usuarios/edit/{id}")
+    public String atualizarUsuario(@PathVariable Long id, Model model) {
+        model.addAttribute("usuario", IUsuarioService.detalharUsuario(id));
+        model.addAttribute("perfilList", IPerfilService.listarPerfis());
+        return "pages/adm/usuarios/edit";
+    }
+
+    @PostMapping("/adm/usuarios/saveEdit")
+    public String salvarEdicaoUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult result, Model model) {
+        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+            result.rejectValue(
+                    "email",
+                    "usuario.email.dominioInvalido",
+                    "O e-mail deve ser do domínio @iftm.edu.br"
+            );
+        }
+
         if (result.hasErrors()) {
+            System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             model.addAttribute("perfilList", IPerfilService.listarPerfis());
-            return "pages/adm/usuarios/create";
-        } else if (!usuario.getEmail().endsWith("@iftm.edu.br")) {
-            model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
+            return "pages/adm/usuarios/edit";
+        }
+
+        Usuario usuarioDoBanco = IUsuarioService.detalharUsuario(usuario.getId_usuario());
+
+        usuarioDoBanco.setNome(usuario.getNome());
+        usuarioDoBanco.setEmail(usuario.getEmail());
+        usuarioDoBanco.setRoles(usuario.getRoles());
+
+        Long id = IUsuarioService.saveUserEdit(usuarioDoBanco);
+        String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
+        model.addAttribute("msg", message);
+        return "redirect:/adm/usuarios";
+    }
+
+    @PostMapping("/adm/usuarios/save")
+    public String salvarUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult result, Model model) {
+        if (usuario.getSenha() != null && usuario.getSenha().length() < 8) {
+            result.rejectValue(
+                    "senha",
+                    "usuario.senha.tamanhoInvalido",
+                    "A senha deve ter no mínimo 8 caracteres."
+            );
+        }
+        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+            result.rejectValue(
+                    "email",
+                    "usuario.email.dominioInvalido",
+                    "O e-mail deve ser do domínio @iftm.edu.br"
+            );
+        }
+
+        if (result.hasErrors()) {
+            System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             model.addAttribute("perfilList", IPerfilService.listarPerfis());
             return "pages/adm/usuarios/create";
         }
 
-        Integer id = IUsuarioService.saveUser(usuario);
-        String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
+        Long id = IUsuarioService.saveUser(usuario);
+        String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso!"; // + ID: " + id;
         model.addAttribute("msg", message);
-        return "pages/adm/usuarios/list"; // Redireciona para a página de login após o registro
+        return "redirect:/adm/usuarios";
     }
 
     // Rota para a página de registro (Sign-up)
@@ -60,21 +113,33 @@ public class UsuarioController {
     }
 
     // Processa o formulário de registro (Sign-up)
-    @PostMapping("/saveUser")
-    public String registerUser(@ModelAttribute @Valid Usuario usuario, @NotNull Model model, @NotNull BindingResult result) {
+    @PostMapping("/saveRegister")
+    public String registerUser(@ModelAttribute @Valid Usuario usuario, BindingResult result, Model model) {
+        if (usuario.getSenha() != null && usuario.getSenha().length() < 8) {
+            result.rejectValue(
+                    "senha",
+                    "usuario.senha.tamanhoInvalido",
+                    "A senha deve ter no mínimo 8 caracteres."
+            );
+        }
+        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+            result.rejectValue(
+                    "email",
+                    "usuario.email.dominioInvalido",
+                    "O e-mail deve ser do domínio @iftm.edu.br"
+            );
+        }
+
         if (result.hasErrors()) {
-            model.addAttribute("perfilList", IPerfilService.listarPerfis());
-            return "pages/user/registerUser";
-        } else if (!usuario.getEmail().endsWith("iftm.edu.br")) {
-            model.addAttribute("msg", "O e-mail deve ser do domínio @iftm.edu.br");
+            System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             model.addAttribute("perfilList", IPerfilService.listarPerfis());
             return "pages/user/registerUser";
         }
 
-        Integer id = IUsuarioService.saveUser(usuario);
+        Long id = IUsuarioService.saveUser(usuario);
         String message = "Usuário '" + usuario.getNome() + "' registrado com sucesso! ID: " + id;
         model.addAttribute("msg", message);
-        return "pages/user/loginUser"; // Redireciona para a página de login após o registro
+        return "redirect:/login"; // Redireciona para a página de login após o registro
     }
 
     // Rota para a página de login (Sign-in)
@@ -89,9 +154,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuario/{id}/updateName")
-    public String updateUserName(@PathVariable("id") Long userId,
-                                 @RequestParam("newName") String newName,
-                                 Model model) {
+    public String updateUserName(@PathVariable("id") Long userId, @RequestParam("newName") String newName, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.updateUserName(userId, newName);
             model.addAttribute("msg", "Nome do usuário " + updatedUsuario.getEmail() + " atualizado para " + newName);
@@ -104,9 +167,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuario/{id}/updatePhoto")
-    public String updateProfilePhoto(@PathVariable("id") Long userId,
-                                     @RequestParam("photoUrl") String photoUrl,
-                                     Model model) {
+    public String updateProfilePhoto(@PathVariable("id") Long userId, @RequestParam("photoUrl") String photoUrl, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.updateProfilePicture(userId, photoUrl);
             model.addAttribute("msg", "Foto de perfil do usuário " + updatedUsuario.getEmail() + " atualizada com sucesso.");
@@ -119,9 +180,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/usuario/{id}/notifications")
-    public String toggleNotifications(@PathVariable("id") Long userId,
-                                      @RequestParam("active") boolean active,
-                                      Model model) {
+    public String toggleNotifications(@PathVariable("id") Long userId, @RequestParam("active") boolean active, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.toggleNotifications(userId, active);
             String status = active ? "ativadas" : "desativadas";
@@ -134,10 +193,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario/{id}/changePassword")
-    public String changeUserPassword(@PathVariable("id") Long userId,
-                                     @RequestParam("oldPassword") String oldPassword,
-                                     @RequestParam("newPassword") String newPassword,
-                                     Model model) {
+    public String changeUserPassword(@PathVariable("id") Long userId, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Model model) {
         try {
             // Adicionar validação de senha (tamanho mínimo, caracteres especiais, etc.) aqui ou no serviço
             if (newPassword == null || newPassword.length() < 6) { // Exemplo de validação

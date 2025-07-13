@@ -7,39 +7,27 @@
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
-        <h1 class="mb-5 text-center">Listagem de KLASS</h1>
-        <div th:if="${#lists.isEmpty(KLASSList)}">
-            <p class="text-center">Não há klasses cadastrados. <a th:href="@{/adm/klasses/create}" class="link-info">Clique aqui</a> para cadastrar um KLASS.</p>
+        <h1 class="mb-5 text-center">Listagem de Perfis</h1>
+        <div th:if="${#lists.isEmpty(perfilList)}">
+            <p class="text-center">Não há perfis cadastrados. <a th:href="@{/adm/perfis/create}" class="link-info">Clique aqui</a> para cadastrar um perfil.</p>
         </div>
-        <div th:if="${not #lists.isEmpty(KLASSList)}">
+        <div th:if="${not #lists.isEmpty(perfilList)}">
             <div class="table-responsive">
                 <table border='1' class="col table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Horário</th>
-                        <th>Dias</th>
-                        <th>Ativo</th>
-                        <th>Pausado</th>
-                        <th>Data Criação</th>
-                        <th>Data Modificação</th>
-                        <th>Etiqueta</th>
-                        <th>Editar</th>
-                        <th>Deletar</th>
+                        <th class="col-1">ID</th>
+                        <th>Nome</th>
+                        <th class="col-1">Editar</th>
+                        <th class="col-1">Deletar</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="KLASS : ${KLASSList}">
-                        <td th:text="${KLASS.id_KLASS}"></td>
-                        <td th:text="${KLASS.horario_programado}"></td>
-                        <td th:text="${KLASS.dias_semana}"></td>
-                        <td th:text="${KLASS.ativo ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${KLASS.pausado ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${#temporals.format(KLASS.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td th:text="${#temporals.format(KLASS.data_modificacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td th:text="${KLASS.etiqueta.nome}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/klasses/edit/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/klasses/delete/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Deletar</a></td>
+                    <tr th:each="perfil : ${perfilList}">
+                        <td th:text="${perfil.id_perfil}"></td>
+                        <td th:text="${perfil.nome}"></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/perfis/edit/{id_perfil}(id_perfil=${perfil.id_perfil})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/perfis/delete/{id_perfil}(id_perfil=${perfil.id_perfil})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

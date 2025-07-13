@@ -3,11 +3,15 @@ package sinalif.dtos;
 import sinalif.models.Perfil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public record UsuarioRecordDto(
-    Integer id,
+    Long id,
     String nome,
     String email,
-    LocalDate data_criacao,
-    Perfil perfil
+    LocalDateTime data_criacao,
+    List<Perfil> roles,
+    String novaSenha,
+    String confirmarSenha
 ) {}

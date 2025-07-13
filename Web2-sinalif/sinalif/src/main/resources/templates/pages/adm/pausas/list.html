@@ -7,39 +7,33 @@
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
-        <h1 class="mb-5 text-center">Listagem de KLASS</h1>
-        <div th:if="${#lists.isEmpty(KLASSList)}">
-            <p class="text-center">Não há klasses cadastrados. <a th:href="@{/adm/klasses/create}" class="link-info">Clique aqui</a> para cadastrar um KLASS.</p>
+        <h1 class="mb-5 text-center">Listagem de Pausas Programadas</h1>
+        <div th:if="${#lists.isEmpty(pausaList)}">
+            <p class="text-center">Não há pausas cadastradas. <a th:href="@{/adm/pausas/create}" class="link-info">Clique aqui</a> para cadastrar um pausa.</p>
         </div>
-        <div th:if="${not #lists.isEmpty(KLASSList)}">
+        <div th:if="${not #lists.isEmpty(pausaList)}">
             <div class="table-responsive">
                 <table border='1' class="col table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Horário</th>
-                        <th>Dias</th>
+                        <th class="col-1">ID</th>
+                        <th>Data e Hora de início</th>
+                        <th>Data e Hora de término</th>
                         <th>Ativo</th>
-                        <th>Pausado</th>
                         <th>Data Criação</th>
-                        <th>Data Modificação</th>
-                        <th>Etiqueta</th>
-                        <th>Editar</th>
-                        <th>Deletar</th>
+                        <th class="col-1">Editar</th>
+                        <th class="col-1">Deletar</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="KLASS : ${KLASSList}">
-                        <td th:text="${KLASS.id_KLASS}"></td>
-                        <td th:text="${KLASS.horario_programado}"></td>
-                        <td th:text="${KLASS.dias_semana}"></td>
-                        <td th:text="${KLASS.ativo ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${KLASS.pausado ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${#temporals.format(KLASS.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td th:text="${#temporals.format(KLASS.data_modificacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td th:text="${KLASS.etiqueta.nome}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/klasses/edit/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/klasses/delete/{id_KLASS}(id_KLASS=${KLASS.id_KLASS})}">Deletar</a></td>
+                    <tr th:each="pausa : ${pausaList}">
+                        <td th:text="${pausa.id_pausa}"></td>
+                        <td th:text="${#temporals.format(pausa.data_hora_inicio, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${#temporals.format(pausa.data_hora_fim, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${pausa.ativo ? 'Sim' : 'Não'}"></td>
+                        <td th:text="${#temporals.format(pausa.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/pausas/edit/{id_pausa}(id_pausa=${pausa.id_pausa})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/pausas/delete/{id_pausa}(id_pausa=${pausa.id_pausa})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>
