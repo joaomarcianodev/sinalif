@@ -34,13 +34,13 @@ public class PerfilController {
 	}
 
 	@GetMapping("/create")
-	public String pagePerfisCreate(@NotNull Model model) {
+	public String pagePerfisCreate(Model model) {
 		model.addAttribute("perfil", new Perfil());
 		return "pages/adm/perfis/create";
 	}
 
 	@PostMapping("/save")
-	public String salvarPausaProgramada(@ModelAttribute @Valid Perfil perfil, @NotNull BindingResult result, @NotNull Model model) {
+	public String salvarPausaProgramada(@ModelAttribute @Valid Perfil perfil, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "pages/adm/perfis/create";
 		}

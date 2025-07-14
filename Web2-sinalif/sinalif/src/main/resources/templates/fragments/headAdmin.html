@@ -40,28 +40,24 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link" th:href="@{/adm/historico}" sec:authorize="hasAuthority('Admin')" role="button">
-                        Histórico
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" th:href="@{/adm/musicas}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Músicas
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" th:href="@{/adm/musicas/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Músicas</a></li>
                         <li><a class="dropdown-item" th:href="@{/adm/musicas}" sec:authorize="hasAuthority('Admin')">Listar Músicas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/historico}" sec:authorize="hasAuthority('Admin')">Histórico de Reproduções</a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Pausas Programadas
+                    <a class="nav-link dropdown-toggle" th:href="@{/adm/sugestoes}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sugestões
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/pausas/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Pausa</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')">Listar Pausas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/sugestoes/adm/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Sugestões</a></li>
+                        <li><a class="dropdown-item" th:href="@{/sugestoes/adm}" sec:authorize="hasAuthority('Admin')">Listar Sugestões</a></li>
+                        <li><a class="dropdown-item" th:href="@{/sugestoes}" sec:authorize="hasAuthority('Admin')">Analisar Sugestões Pendentes</a></li>
                     </ul>
                 </li>
 
@@ -82,6 +78,16 @@
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" th:href="@{/adm/perfis/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Perfil</a></li>
                         <li><a class="dropdown-item" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')">Listar Perfis</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Pausas Programadas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/adm/pausas/create}" sec:authorize="hasAuthority('Admin')">Cadastrar Pausa</a></li>
+                        <li><a class="dropdown-item" th:href="@{/adm/pausas}" sec:authorize="hasAuthority('Admin')">Listar Pausas</a></li>
                     </ul>
                 </li>
             </ul>

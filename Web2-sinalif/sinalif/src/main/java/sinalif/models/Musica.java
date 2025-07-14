@@ -19,12 +19,13 @@ public class Musica {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id_musica;
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+
     @NotBlank(message= "URL é um campo obrigatório")
     @Column(name = "url", nullable = false)
     private String url;
-
-    @Column(name = "status", nullable = true)
-    private String status = "Pendente";
 
     @CreatedDate
     @Column(name = "data_criacao", nullable = true)
@@ -49,19 +50,31 @@ public class Musica {
         this.url = url;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public LocalDateTime getData_criacao() {
         return data_criacao;
     }
 
     public void setData_criacao(LocalDateTime data_criacao) {
         this.data_criacao = data_criacao;
+    }
+
+    public void setId_musica(long id_musica) {
+        this.id_musica = id_musica;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<LogReproducao> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(List<LogReproducao> logs) {
+        this.logs = logs;
     }
 }

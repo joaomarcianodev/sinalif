@@ -4,11 +4,11 @@ import sinalif.models.Sugestao;
 import java.util.List;
 
 public interface SugestaoService {
-    List<Sugestao> listarSugestoes();
-    Sugestao detalharSugestao(Long id);
-    Sugestao criarSugestao(Sugestao sugestao);
-    Sugestao atualizarSugestao(Long id, Sugestao sugestaoDetalhes);
-    void deletarSugestao(Long id);
-    List<Sugestao> listarSugestoesPorUsuario(Long idUsuario);
-    Sugestao atualizarStatusSugestao(Long idSugestao, String novoStatus);
+    public List<Sugestao> listarSugestoes();
+    public Sugestao detalharSugestao(Long id);
+    public Sugestao salvarSugestao(Sugestao sugestao);
+    public Sugestao atualizarSugestao(Long id, Sugestao sugestaoDetalhes);
+    public Sugestao atualizarStatusSugestao(Long idSugestao, String novoStatus);
+    public void excluirSugestao(Long id);
+    public List<Sugestao> listarSugestoesPorUsuario(Long idUsuario);
 }

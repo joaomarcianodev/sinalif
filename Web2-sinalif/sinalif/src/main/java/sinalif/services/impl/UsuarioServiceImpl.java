@@ -1,11 +1,9 @@
 package sinalif.services.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import sinalif.models.Musica;
 import sinalif.models.Perfil;
 import sinalif.models.Usuario;
@@ -57,7 +55,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public Usuario updateUserName(Long userId, String newName) {
-        return usuarioRepository.findById(userId) // getId_usuario é Integer, então converte
+        return usuarioRepository.findById(userId) // getIdUsuario é Integer, então converte
                 .map(usuario -> {
                     usuario.setNome(newName);
                     return usuarioRepository.save(usuario);

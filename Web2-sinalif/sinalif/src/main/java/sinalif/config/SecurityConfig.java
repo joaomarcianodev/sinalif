@@ -35,18 +35,18 @@ public class SecurityConfig {
 
                         // Rotas específicas para a visão ALUNO
                         // Exemplo: Alunos podem ver suas músicas e histórico de reprodução
-                        .requestMatchers("/srv1/musicas", "/srv1/musicas/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver músicas
-                        .requestMatchers("/srv1/historico", "/srv1/historico/*").hasAnyAuthority("Aluno", "Servidor", "Admin", "Manager") // Aluno pode ver histórico
+                        .requestMatchers("/srv1/musicas", "/srv1/musicas/*").hasAnyAuthority("Aluno", "Servidor", "Admin") // Aluno pode ver músicas
+                        .requestMatchers("/srv1/historico", "/srv1/historico/*").hasAnyAuthority("Aluno", "Servidor", "Admin") // Aluno pode ver histórico
                         // Adicione outras rotas que um aluno deve acessar
                         // Ex: .requestMatchers("/aluno/**").hasAuthority("Aluno")
 
 
                         // Rotas específicas para a visão SERVIDOR (e também Admin/Manager, se aplicável)
                         // Exemplo: Servidores (e Admin/Manager) podem gerenciar alarmes, etiquetas, pausas, perfis
-                        .requestMatchers("/api/alarmes/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/etiquetas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/pausasProgramadas/**").hasAnyAuthority("Servidor", "Admin", "Manager")
-                        .requestMatchers("/api/perfis/**").hasAnyAuthority("Servidor", "Admin", "Manager")
+                        .requestMatchers("/api/alarmes/**").hasAnyAuthority("Servidor", "Admin")
+                        .requestMatchers("/api/etiquetas/**").hasAnyAuthority("Servidor", "Admin")
+                        .requestMatchers("/api/pausasProgramadas/**").hasAnyAuthority("Servidor", "Admin")
+                        .requestMatchers("/api/perfis/**").hasAnyAuthority("Servidor", "Admin")
                         // Rotas de gerenciamento de usuários, se o servidor tiver permissão para isso
                         .requestMatchers("/usuario/**").hasAnyAuthority("Servidor", "Admin") // Ex: rota de updateUserName
 

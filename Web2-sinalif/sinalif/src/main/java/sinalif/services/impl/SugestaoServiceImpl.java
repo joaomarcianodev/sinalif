@@ -34,11 +34,11 @@ public class SugestaoServiceImpl implements SugestaoService {
     }
 
     @Override
-    public Sugestao criarSugestao(Sugestao sugestao) {
+    public Sugestao salvarSugestao(Sugestao sugestao) {
         Usuario usuario = usuarioRepository.findById(sugestao.getUsuario().getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + sugestao.getUsuario().getIdUsuario()));
         sugestao.setUsuario(usuario);
-        sugestao.setStatus_sugestao("pendente");
+        sugestao.setStatus_sugestao("Pendente");
         sugestao.setData_sugestao(LocalDateTime.now());
         sugestao.setData_analise(null);
         return sugestaoRepository.save(sugestao);
@@ -48,7 +48,6 @@ public class SugestaoServiceImpl implements SugestaoService {
     public Sugestao atualizarSugestao(Long id, Sugestao sugestaoDetalhes) {
         return sugestaoRepository.findById(id)
                 .map(sugestao -> {
-                    sugestao.setId_musica(sugestaoDetalhes.getId_musica());
                     sugestao.setUrl_sugerida(sugestaoDetalhes.getUrl_sugerida());
                     if (sugestaoDetalhes.getStatus_sugestao() != null && !sugestaoDetalhes.getStatus_sugestao().isEmpty()) {
                         sugestao.setStatus_sugestao(sugestaoDetalhes.getStatus_sugestao());
@@ -62,7 +61,7 @@ public class SugestaoServiceImpl implements SugestaoService {
     }
 
     @Override
-    public void deletarSugestao(Long id) {
+    public void excluirSugestao(Long id) {
         if (sugestaoRepository.existsById(id)) {
             sugestaoRepository.deleteById(id);
         } else {

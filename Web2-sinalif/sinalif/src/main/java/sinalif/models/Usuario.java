@@ -49,6 +49,88 @@ public class Usuario {
 	private List<Perfil> roles;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private Set<Sugestao> sugestoes; // Use Set para garantir unicidade e evitar duplicatas
-	// ---------------------------------------------------
+	private Set<Sugestao> sugestoes;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private Set<Sugestao> musicas;
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUrl_foto_perfil() {
+		return url_foto_perfil;
+	}
+
+	public void setUrl_foto_perfil(String url_foto_perfil) {
+		this.url_foto_perfil = url_foto_perfil;
+	}
+
+	public boolean isNotificacoes_ativas() {
+		return notificacoes_ativas;
+	}
+
+	public void setNotificacoes_ativas(boolean notificacoes_ativas) {
+		this.notificacoes_ativas = notificacoes_ativas;
+	}
+
+	public LocalDateTime getData_criacao() {
+		return data_criacao;
+	}
+
+	public void setData_criacao(LocalDateTime data_criacao) {
+		this.data_criacao = data_criacao;
+	}
+
+	public List<Perfil> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Perfil> roles) {
+		this.roles = roles;
+	}
+
+	public Set<Sugestao> getSugestoes() {
+		return sugestoes;
+	}
+
+	public void setSugestoes(Set<Sugestao> sugestoes) {
+		this.sugestoes = sugestoes;
+	}
+
+	public Set<Sugestao> getMusicas() {
+		return musicas;
+	}
+
+	public void setMusicas(Set<Sugestao> musicas) {
+		this.musicas = musicas;
+	}
 }

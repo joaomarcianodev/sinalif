@@ -3,16 +3,18 @@ package sinalif.controllers;
 import jakarta.validation.Valid;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sinalif.dtos.MusicaRecordDto;
-import sinalif.models.Alarme;
-import sinalif.models.Etiqueta;
-import sinalif.models.Musica;
+import sinalif.models.*;
 import sinalif.repositories.MusicaRepository;
+import sinalif.repositories.UsuarioRepository;
 import sinalif.services.MusicaService;
+import sinalif.services.SugestaoService;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +25,11 @@ public class MusicaController {
     @Autowired
     private MusicaService IMusicaService;
     @Autowired
+    private SugestaoService ISugestaoService;
+    @Autowired
     private MusicaRepository musicaRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
     public String listarMusicas(Model model){
@@ -47,8 +53,31 @@ public class MusicaController {
         if (result.hasErrors()) {
             return "pages/adm/musicas/create";
         }
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+
+        if (usuarioLogado.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
+        } else {
+            musica.setUsuario(usuarioLogado.get());
+            IMusicaService.salvarMusica(musica);
+            return "redirect:/adm/musicas";
+        }
+    }
+
+    @GetMapping("/save/sugestao/{id}/{status}")
+    public String salvarMusicaPorsugestao(@PathVariable Long id, @PathVariable String status) {
+        Sugestao sugestao = ISugestaoService.detalharSugestao(id);
+        sugestao.setStatus_sugestao(status);
+
+        Musica musica = new Musica();
+        musica.setUrl(sugestao.getUrl_sugerida());
+        musica.setUsuario(sugestao.getUsuario());
+
         IMusicaService.salvarMusica(musica);
-        return "redirect:/adm/musicas";
+        String redirectPath = "redirect:/sugestoes/editStatus/"+id+"/"+status;
+        return redirectPath;
     }
 
     @GetMapping("/edit/{id}")

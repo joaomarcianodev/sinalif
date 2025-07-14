@@ -17,8 +17,8 @@
                     <thead>
                     <tr>
                         <th class="col-1">ID</th>
+                        <th>Usuário</th>
                         <th>URL</th>
-                        <th>status</th>
                         <th>Data Criação</th>
                         <th class="col-1">Reproduzir</th>
                         <th class="col-1">Editar</th>
@@ -28,8 +28,8 @@
                     <tbody>
                     <tr th:each="musica : ${musicaList}">
                         <td th:text="${musica.id_musica}"></td>
+                        <td th:text="${musica.usuario.nome}"></td>
                         <td th:text="${musica.url}"></td>
-                        <td th:text="${musica.status}"></td>
                         <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
                         <td><a class="btn btn-primary" role="button" th:href="@{/adm/musicas/play/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
                         <td><a class="btn btn-warning" role="button" th:href="@{/adm/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
