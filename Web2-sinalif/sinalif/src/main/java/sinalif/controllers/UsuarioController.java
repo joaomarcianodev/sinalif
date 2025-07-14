@@ -63,7 +63,7 @@ public class UsuarioController {
             return "pages/adm/usuarios/edit";
         }
 
-        Usuario usuarioDoBanco = IUsuarioService.detalharUsuario(usuario.getId_usuario());
+        Usuario usuarioDoBanco = IUsuarioService.detalharUsuario(usuario.getIdUsuario());
 
         usuarioDoBanco.setNome(usuario.getNome());
         usuarioDoBanco.setEmail(usuario.getEmail());

@@ -35,8 +35,8 @@ public class SugestaoServiceImpl implements SugestaoService {
 
     @Override
     public Sugestao criarSugestao(Sugestao sugestao) {
-        Usuario usuario = usuarioRepository.findById(sugestao.getUsuario().getId_usuario())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + sugestao.getUsuario().getId_usuario()));
+        Usuario usuario = usuarioRepository.findById(sugestao.getUsuario().getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + sugestao.getUsuario().getIdUsuario()));
         sugestao.setUsuario(usuario);
         sugestao.setStatus_sugestao("pendente");
         sugestao.setData_sugestao(LocalDateTime.now());
@@ -72,7 +72,7 @@ public class SugestaoServiceImpl implements SugestaoService {
 
     @Override
     public List<Sugestao> listarSugestoesPorUsuario(Long idUsuario) {
-        return sugestaoRepository.findByUsuario_Id_usuario(idUsuario);
+        return sugestaoRepository.findByUsuarioIdUsuario(idUsuario);
     }
 
     @Override

@@ -28,12 +28,12 @@ public class Sugestao {
     private String url_sugerida;
 
     @Column(name = "status_sugestao", nullable = false)
-    private String status_sugestao = "pendente";
+    private String status_sugestao = "Pendente";
 
     @CreatedDate
     @Column(name = "data_sugestao", updatable = false)
     private LocalDateTime data_sugestao;
 
     @Column(name = "data_analise")
-    private LocalDateTime data_analise;
+    private LocalDateTime data_analise = null;
 }
