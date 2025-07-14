@@ -23,7 +23,7 @@ public class EtiquetaController {
 	@GetMapping
 	public String listarEtiquetas(Model model){
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
-		return "pages/adm/etiquetas/list";
+		return "pages/etiquetas/list";
 	}
 
 	@GetMapping("/{id}")
@@ -34,22 +34,22 @@ public class EtiquetaController {
 	@GetMapping("/create")
 	public String pageEtiquetasCreate(@NotNull Model model) {
 		model.addAttribute("etiqueta", new Etiqueta());
-		return "pages/adm/etiquetas/create";
+		return "pages/etiquetas/create";
 	}
 
 	@PostMapping("/save")
 	public String salvarEtiqueta(@ModelAttribute @Valid Etiqueta etiqueta, @NotNull BindingResult result, @NotNull Model model) {
 		if (result.hasErrors()) {
-			return "pages/adm/etiquetas/create";
+			return "pages/etiquetas/create";
 		}
 		IEtiquetaService.salvarEtiqueta(etiqueta);
-		return "redirect:/adm/etiquetas";
+		return "redirect:/etiquetas";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String atualizarEtiqueta(@PathVariable Long id, Model model) {
 		model.addAttribute("etiqueta", IEtiquetaService.detalharEtiqueta(id));
-		return "pages/adm/etiquetas/create";
+		return "pages/etiquetas/create";
 	}
 
 	@GetMapping("/delete/{id}")

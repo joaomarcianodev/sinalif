@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Página Administrativa')}"></th:block>
 <body>
-    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
@@ -12,7 +12,7 @@
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <div th:text="${msg}" class="mb-3 text-danger"></div>
 
-        <form action="#" th:action="@{/adm/usuarios/save}" th:object="${usuario}" method="POST">
+        <form action="#" th:action="@{/adm/usuarios/saveEdit}" th:object="${usuario}" method="POST">
             <div class="mb-3">
                 <input type="hidden" th:field="*{idUsuario}" />
 
@@ -25,12 +25,6 @@
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" name="email" th:field="*{email}" placeholder="email@iftm.edu.br">
                 <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger" th:errors="*{email}"/>
-            </div>
-
-            <div class="mb-3">
-                <label for="senha" class="form-label">Senha:</label>
-                <input type="password" class="form-control" id="senha" name="senha" th:field="*{senha}">
-                <p th:if="${#fields.hasErrors('senha')}" th:errorclass="text-danger" th:errors="*{senha}"/>
             </div>
 
             <div class="mb-3">

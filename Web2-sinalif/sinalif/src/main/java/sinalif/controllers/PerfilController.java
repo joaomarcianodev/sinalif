@@ -25,7 +25,7 @@ public class PerfilController {
 	@GetMapping
 	public String listarPerfis(Model model){
 		model.addAttribute("perfilList", IPerfilService.listarPerfis());
-		return "pages/adm/perfis/list";
+		return "pages/perfis/list";
 	}
 
 	@GetMapping("/{id}")
@@ -36,13 +36,13 @@ public class PerfilController {
 	@GetMapping("/create")
 	public String pagePerfisCreate(Model model) {
 		model.addAttribute("perfil", new Perfil());
-		return "pages/adm/perfis/create";
+		return "pages/perfis/create";
 	}
 
 	@PostMapping("/save")
 	public String salvarPausaProgramada(@ModelAttribute @Valid Perfil perfil, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "pages/adm/perfis/create";
+			return "pages/perfis/create";
 		}
 		IPerfilService.salvarPerfil(perfil);
 		return "redirect:/adm/perfis";
@@ -51,7 +51,7 @@ public class PerfilController {
 	@GetMapping("/edit/{id}")
 	public String atualizarPerfil(@PathVariable Long id, Model model) {
 		model.addAttribute("perfil", IPerfilService.detalharPerfil(id));
-		return "pages/adm/perfis/create";
+		return "pages/perfis/create";
 	}
 
 	@GetMapping("/delete/{id}")

@@ -34,7 +34,7 @@ public class MusicaController {
     @GetMapping
     public String listarMusicas(Model model){
         model.addAttribute("musicaList", IMusicaService.listarMusicas());
-        return "pages/adm/musicas/list";
+        return "pages/musicas/list";
     }
 
     @GetMapping("/{id}")
@@ -45,13 +45,13 @@ public class MusicaController {
     @GetMapping("/create")
     public String pageMusicasCreate(@NotNull Model model) {
         model.addAttribute("musica", new Musica());
-        return "pages/adm/musicas/create";
+        return "pages/musicas/create";
     }
 
     @PostMapping("/save")
     public String salvarMusica(@ModelAttribute @Valid Musica musica, @NotNull BindingResult result, @NotNull Model model) {
         if (result.hasErrors()) {
-            return "pages/adm/musicas/create";
+            return "pages/musicas/create";
         }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -83,7 +83,7 @@ public class MusicaController {
     @GetMapping("/edit/{id}")
     public String atualizarMusica(@PathVariable Long id, Model model) {
         model.addAttribute("musica", IMusicaService.detalharMusica(id));
-        return "pages/adm/musicas/create";
+        return "pages/musicas/create";
     }
 
     @GetMapping("/delete/{id}")

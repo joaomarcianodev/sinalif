@@ -109,7 +109,7 @@ public class UsuarioController {
     public String pageRegisterUser(Model model) {
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("perfilList", IPerfilService.listarPerfis());
-        return "pages/user/registerUser";
+        return "pages/userAuth/registerUser";
     }
 
     // Processa o formulário de registro (Sign-up)
@@ -133,7 +133,7 @@ public class UsuarioController {
         if (result.hasErrors()) {
             System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             model.addAttribute("perfilList", IPerfilService.listarPerfis());
-            return "pages/user/registerUser";
+            return "pages/userAuth/registerUser";
         }
 
         Long id = IUsuarioService.saveUser(usuario);
@@ -145,12 +145,12 @@ public class UsuarioController {
     // Rota para a página de login (Sign-in)
     @GetMapping("/login")
     public String showLoginForm() {
-        return "pages/user/loginUser";
+        return "pages/userAuth/loginUser";
     }
 
     @GetMapping("/accessDenied")
     public String getAccessDeniedPage() {
-        return "pages/user/accessDeniedPage";
+        return "pages/userAuth/accessDeniedPage";
     }
 
     @PutMapping("/usuario/{id}/updateName")
@@ -159,7 +159,7 @@ public class UsuarioController {
             Usuario updatedUsuario = IUsuarioService.updateUserName(userId, newName);
             model.addAttribute("msg", "Nome do usuário " + updatedUsuario.getEmail() + " atualizado para " + newName);
             // Redirecionar para alguma página de sucesso ou perfil do usuário
-            return "pages/user/profilePage"; // Crie esta página ou use uma existente
+            return "pages/userAuth/profilePage"; // Crie esta página ou use uma existente
         } catch (RuntimeException e) {
             model.addAttribute("msg", "Erro ao atualizar nome do usuário: " + e.getMessage());
             return "pages/errorPage"; // Crie esta página
@@ -172,7 +172,7 @@ public class UsuarioController {
             Usuario updatedUsuario = IUsuarioService.updateProfilePicture(userId, photoUrl);
             model.addAttribute("msg", "Foto de perfil do usuário " + updatedUsuario.getEmail() + " atualizada com sucesso.");
             model.addAttribute("usuario", updatedUsuario); // Opcional: passa o usuário atualizado para a view
-            return "pages/user/profilePage"; // Ou uma página de sucesso
+            return "pages/userAuth/profilePage"; // Ou uma página de sucesso
         } catch (RuntimeException e) {
             model.addAttribute("msg", "Erro ao atualizar foto de perfil: " + e.getMessage());
             return "pages/errorPage";
@@ -185,7 +185,7 @@ public class UsuarioController {
             Usuario updatedUsuario = IUsuarioService.toggleNotifications(userId, active);
             String status = active ? "ativadas" : "desativadas";
             model.addAttribute("msg", "Notificações para o usuário " + updatedUsuario.getEmail() + " foram " + status + ".");
-            return "pages/user/profilePage"; // Ou uma página de sucesso
+            return "pages/userAuth/profilePage"; // Ou uma página de sucesso
         } catch (RuntimeException e) {
             model.addAttribute("msg", "Erro ao alterar status de notificações: " + e.getMessage());
             return "pages/errorPage";
@@ -202,7 +202,7 @@ public class UsuarioController {
 
             Usuario updatedUsuario = IUsuarioService.changePassword(userId, oldPassword, newPassword);
             model.addAttribute("msg", "Senha do usuário " + updatedUsuario.getEmail() + " alterada com sucesso.");
-            return "pages/user/profilePage"; // Redireciona para a página de perfil ou sucesso
+            return "pages/userAuth/profilePage"; // Redireciona para a página de perfil ou sucesso
         } catch (RuntimeException e) {
             model.addAttribute("msg", "Erro ao alterar senha: " + e.getMessage());
             return "pages/errorPage";
@@ -219,7 +219,7 @@ public class UsuarioController {
         if (loggedInUser == null || !loggedInUser.getUsername().equals(usuarioService.detalharUsuarioPorId(userId).getEmail())) { // Criar detalharUsuarioPorId no service
             if (!loggedInUser.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("Admin"))) {
                 model.addAttribute("msg", "Você não tem permissão para excluir esta conta.");
-                return "pages/user/accessDeniedPage";
+                return "pages/userAuth/accessDeniedPage";
             }
         }
 

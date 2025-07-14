@@ -23,7 +23,7 @@ public class AlarmeController {
 	@GetMapping()
 	public String listarAlarmes(@NotNull Model model) {
 		model.addAttribute("alarmeList", IAlarmeService.listarAlarmes());
-		return "pages/adm/alarmes/list";
+		return "pages/alarmes/list";
 	}
 
 	@GetMapping("/{id}")
@@ -35,14 +35,14 @@ public class AlarmeController {
 	public String pageAlarmesCreate(@NotNull Model model) {
 		model.addAttribute("alarme", new Alarme());
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
-		return "pages/adm/alarmes/create";
+		return "pages/alarmes/create";
 	}
 
 	@PostMapping("/save")
 	public String salvarAlarme(@ModelAttribute @Valid Alarme alarme, @NotNull BindingResult result, @NotNull Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
-			return "pages/adm/alarmes/create";
+			return "pages/alarmes/create";
 		}
 		IAlarmeService.salvarAlarme(alarme);
 		return "redirect:/adm/alarmes";
@@ -52,7 +52,7 @@ public class AlarmeController {
 	public String atualizarAlarme(@PathVariable Long id, Model model) {
 		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id));
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
-		return "pages/adm/alarmes/create";
+		return "pages/alarmes/create";
 	}
 
 	@GetMapping("/delete/{id}")

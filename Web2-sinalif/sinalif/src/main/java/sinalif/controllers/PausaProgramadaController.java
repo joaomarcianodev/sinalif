@@ -24,7 +24,7 @@ public class PausaProgramadaController {
 	@GetMapping
 	public String listarPausasProgramadas(Model model){
 		model.addAttribute("pausaList", IPausaProgramadaService.listarPausasProgramadas());
-		return "pages/adm/pausas/list";
+		return "pages/pausas/list";
 	}
 
 	@GetMapping("/{id}")
@@ -35,13 +35,13 @@ public class PausaProgramadaController {
 	@GetMapping("/create")
 	public String pagePausasCreate(@NotNull Model model) {
 		model.addAttribute("pausa", new PausaProgramada());
-		return "pages/adm/pausas/create";
+		return "pages/pausas/create";
 	}
 
 	@PostMapping("/save")
 	public String salvarPausaProgramada(@ModelAttribute("pausa") @Valid PausaProgramada pausaProgramada, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "pages/adm/pausas/create";
+			return "pages/pausas/create";
 		}
 		IPausaProgramadaService.salvarPausaProgramada(pausaProgramada);
 		return "redirect:/adm/pausas";
@@ -50,7 +50,7 @@ public class PausaProgramadaController {
 	@GetMapping("/edit/{id}")
 	public String atualizarPausaProgramada(@PathVariable Long id, Model model) {
 		model.addAttribute("pausa", IPausaProgramadaService.detalharPausaProgramada(id));
-		return "pages/adm/pausas/create";
+		return "pages/pausas/create";
 	}
 
 	@GetMapping("/delete/{id}")

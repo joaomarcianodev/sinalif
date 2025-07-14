@@ -16,7 +16,7 @@ import sinalif.services.LogReproducaoService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/adm/historico")
+@RequestMapping("/historico")
 public class LogReproducaoController {
     @Autowired
     private LogReproducaoService ILogReproducaoService;
@@ -24,7 +24,7 @@ public class LogReproducaoController {
     @GetMapping
     public String listarLogReproducao(Model model){
         model.addAttribute("logList", ILogReproducaoService.listarLogReproducao());
-        return "pages/adm/historico/list";
+        return "pages/historico/list";
     }
 
     @GetMapping("/{id}")
@@ -36,16 +36,16 @@ public class LogReproducaoController {
     /*@GetMapping("/create")
     public String pageLogsCreate(@NotNull Model model) {
         model.addAttribute("log", new LogReproducao());
-        return "pages/adm/historico/create";
+        return "pages/historico/create";
     }
 
     @PostMapping("/save")
     public String salvarLog(@ModelAttribute @Valid LogReproducao log, @NotNull BindingResult result, @NotNull Model model) {
         if (result.hasErrors()) {
-            return "pages/adm/historico/create";
+            return "pages/historico/create";
         }
         ILogReproducaoService.salvarLogReproducao(log);
-        return "redirect:/adm/historico";
+        return "redirect:/historico";
     }*/
 
     @PostMapping
@@ -57,7 +57,7 @@ public class LogReproducaoController {
     /*@GetMapping("/edit/{id}")
     public String atualizarLogReproducao(@PathVariable Long id, Model model) {
         model.addAttribute("historico", ILogReproducaoService.detalharLogReproducao(id));
-        return "pages/adm/historico/create";
+        return "pages/historico/create";
     }*/
 
     @GetMapping("/delete/{id}")

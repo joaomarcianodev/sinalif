@@ -28,10 +28,10 @@ public class SugestaoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/adm")
+    @GetMapping()
     public String listarSugestoes(Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
-        return "pages/adm/sugestoes/list";
+        return "pages/sugestoes/list";
     }
 
     @GetMapping("/adm/{id}")
@@ -42,19 +42,19 @@ public class SugestaoController {
     @GetMapping("/adm/usuario/{idUsuario}")
     public String listarSugestoesPorUsuario(@PathVariable Long idUsuario, Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoesPorUsuario(idUsuario));
-        return "pages/adm/sugestoes/list";
+        return "pages/sugestoes/list";
     }
 
-    @GetMapping("/adm/create")
+    @GetMapping("/create")
     public String criarSugestao(Model model) {
         model.addAttribute("sugestao", new Sugestao());
-        return "pages/adm/sugestoes/create";
+        return "pages/sugestoes/create";
     }
 
-    @PostMapping("/adm/save")
+    @PostMapping("/save")
     public String salvarSugestao(@ModelAttribute @Valid Sugestao sugestao, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "pages/adm/sugestoes/create";
+            return "pages/sugestoes/create";
         }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -65,14 +65,14 @@ public class SugestaoController {
         } else {
             sugestao.setUsuario(usuarioLogado.get());
             ISugestaoService.salvarSugestao(sugestao);
-            return "redirect:/sugestoes/adm";
+            return "redirect:/sugestoes";
         }
     }
 
     @GetMapping("/adm/delete/{id}")
     public String excluirSugestao(@PathVariable Long id) {
         ISugestaoService.excluirSugestao(id);
-        return "redirect:/sugestoes/adm";
+        return "redirect:/sugestoes";
     }
 
     /*@GetMapping("/play/{id}")
@@ -88,7 +88,7 @@ public class SugestaoController {
     }*/
 
 
-    @GetMapping
+    @GetMapping("/pendentes")
     public String listarSugestoesFuncionario(Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
         return "pages/sugestoes/pendentes";
