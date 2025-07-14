@@ -59,7 +59,7 @@ public class UsuarioControllerTest {
         adminRole.setNome("Admin");
 
         Usuario user1 = new Usuario();
-        user1.setId_usuario(1L);
+        user1.setIdUsuario(1L);
         user1.setNome("Admin Teste");
         user1.setEmail("admin@iftm.edu.br");
         user1.setRoles(List.of(adminRole));
@@ -209,7 +209,7 @@ public class UsuarioControllerTest {
     @DisplayName("GET /adm/usuarios/edit/{id} - Deve exibir formulário de edição para Admin")
     void testAtualizarUsuarioForAdmin() throws Exception {
         Usuario existingUser = new Usuario();
-        existingUser.setId_usuario(1L);
+        existingUser.setIdUsuario(1L);
         existingUser.setNome("Existing User");
         existingUser.setEmail("existing@iftm.edu.br");
         existingUser.setRoles(createTestPerfilList());
@@ -231,18 +231,17 @@ public class UsuarioControllerTest {
     @DisplayName("POST /adm/usuarios/saveEdit - Deve salvar edição de usuário válido com sucesso")
     void testSalvarEdicaoUsuarioValido() throws Exception {
         Usuario existingUser = new Usuario();
-        existingUser.setId_usuario(1L);
+        existingUser.setIdUsuario(1L);
         existingUser.setNome("Existing User");
         existingUser.setEmail("existing@iftm.edu.br");
         existingUser.setSenha("oldpassword");
         existingUser.setRoles(createTestPerfilList());
 
         Usuario updatedUser = new Usuario();
-        updatedUser.setId_usuario(1L);
+        updatedUser.setIdUsuario(1L);
         updatedUser.setNome("Updated User");
         updatedUser.setEmail("updated@iftm.edu.br");
         updatedUser.setRoles(createTestPerfilList());
-
 
         when(usuarioService.detalharUsuario(1L)).thenReturn(existingUser); // Retorna o usuário existente
         when(usuarioService.saveUserEdit(any(Usuario.class))).thenReturn(1L);
@@ -288,7 +287,7 @@ public class UsuarioControllerTest {
         novoUsuario.setNome("Registro Teste");
         novoUsuario.setEmail("registro@iftm.edu.br");
         novoUsuario.setSenha("novaSenha123");
-        novoUsuario.setRoles(Collections.singletonList(new Perfil(2L, "User"))); // Exemplo de perfil padrão para registro
+        novoUsuario.setRoles(Collections.singletonList(new Perfil(1L, "User"))); // Exemplo de perfil padrão para registro
 
         when(usuarioService.saveUser(any(Usuario.class))).thenReturn(2L);
 
@@ -306,7 +305,7 @@ public class UsuarioControllerTest {
     @DisplayName("POST /usuario/{id}/updateName - Deve atualizar o nome do usuário")
     void testUpdateUserName() throws Exception {
         Usuario updatedUsuario = new Usuario();
-        updatedUsuario.setId_usuario(1L);
+        updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setNome("Novo Nome");
         updatedUsuario.setEmail("user@iftm.edu.br");
 
@@ -327,7 +326,7 @@ public class UsuarioControllerTest {
     @DisplayName("POST /usuario/{id}/updatePhoto - Deve atualizar a foto de perfil do usuário")
     void testUpdateProfilePhoto() throws Exception {
         Usuario updatedUsuario = new Usuario();
-        updatedUsuario.setId_usuario(1L);
+        updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setUrl_foto_perfil("http://example.com/new_photo.jpg");
         updatedUsuario.setEmail("user@iftm.edu.br");
 
@@ -348,7 +347,7 @@ public class UsuarioControllerTest {
     @DisplayName("POST /usuario/{id}/notifications - Deve alternar o status das notificações")
     void testToggleNotifications() throws Exception {
         Usuario updatedUsuario = new Usuario();
-        updatedUsuario.setId_usuario(1L);
+        updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setNotificacoes_ativas(true);
         updatedUsuario.setEmail("user@iftm.edu.br");
 
@@ -369,7 +368,7 @@ public class UsuarioControllerTest {
     @DisplayName("POST /usuario/{id}/changePassword - Deve alterar a senha do usuário com sucesso")
     void testChangeUserPasswordSuccess() throws Exception {
         Usuario updatedUsuario = new Usuario();
-        updatedUsuario.setId_usuario(1L);
+        updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setEmail("user@iftm.edu.br");
         updatedUsuario.setSenha("new_encoded_password"); // Senha já encodificada no mock
 

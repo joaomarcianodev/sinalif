@@ -21,13 +21,10 @@ public class Sugestao {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "id_musica", nullable = false)
-    private Long id_musica;
-
     @Column(name = "url_sugerida", nullable = false)
     private String url_sugerida;
 
-    @Column(name = "status_sugestao", nullable = false)
+    @Column(name = "status_sugestao")
     private String status_sugestao = "Pendente";
 
     @CreatedDate
@@ -36,4 +33,52 @@ public class Sugestao {
 
     @Column(name = "data_analise")
     private LocalDateTime data_analise = null;
+
+    public Long getId_sugestao() {
+        return id_sugestao;
+    }
+
+    public void setId_sugestao(Long id_sugestao) {
+        this.id_sugestao = id_sugestao;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getUrl_sugerida() {
+        return url_sugerida;
+    }
+
+    public void setUrl_sugerida(String url_sugerida) {
+        this.url_sugerida = url_sugerida;
+    }
+
+    public String getStatus_sugestao() {
+        return status_sugestao;
+    }
+
+    public void setStatus_sugestao(String status_sugestao) {
+        this.status_sugestao = status_sugestao;
+    }
+
+    public LocalDateTime getData_sugestao() {
+        return data_sugestao;
+    }
+
+    public void setData_sugestao(LocalDateTime data_sugestao) {
+        this.data_sugestao = data_sugestao;
+    }
+
+    public LocalDateTime getData_analise() {
+        return data_analise;
+    }
+
+    public void setData_analise(LocalDateTime data_analise) {
+        this.data_analise = data_analise;
+    }
 }

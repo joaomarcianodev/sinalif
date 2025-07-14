@@ -80,7 +80,7 @@ public class UsuarioIntegrationTest {
                 .andExpect(redirectedUrl("/adm/usuarios"));
         Optional<Usuario> savedUser = usuarioRepository.findUserByEmail("integration@iftm.edu.br");
         assertTrue(savedUser.isPresent());
-        assertNotNull(savedUser.get().getId_usuario());
+        assertNotNull(savedUser.get().getIdUsuario());
         assertTrue(savedUser.get().getSenha().startsWith("$2a$")); // Verifica se a senha foi encodificada
     }
 
@@ -93,10 +93,10 @@ public class UsuarioIntegrationTest {
         userToUpdate.setEmail("original@iftm.edu.br");
         userToUpdate.setSenha("originalPassword");
         userToUpdate.setRoles(Collections.singletonList(userRole));
-        Usuario savedUser = usuarioService.saveUser(userToUpdate); // Salva usando o serviço real
+        Long idSavedUser = usuarioService.saveUser(userToUpdate); // Salva usando o serviço real
 
         Usuario updatedDetails = new Usuario();
-        updatedDetails.setId_usuario(savedUser.getId_usuario());
+        updatedDetails.setIdUsuario(idSavedUser);
         updatedDetails.setNome("Updated Name");
         updatedDetails.setEmail("updated@iftm.edu.br"); // Email pode ser mudado
         updatedDetails.setRoles(Collections.singletonList(adminRole)); // Pode mudar o perfil
@@ -108,7 +108,7 @@ public class UsuarioIntegrationTest {
                 .andExpect(redirectedUrl("/adm/usuarios"));
 
         // Verifica no banco se as alterações foram persistidas
-        Usuario fetchedUser = usuarioRepository.findById(savedUser.getId_usuario()).orElseThrow();
+        Usuario fetchedUser = usuarioRepository.findById(idSavedUser).orElseThrow();
         assertTrue(fetchedUser.getNome().equals("Updated Name"));
         assertTrue(fetchedUser.getEmail().equals("updated@iftm.edu.br"));
         assertTrue(fetchedUser.getRoles().contains(adminRole)); // Verifica se o perfil foi atualizado
@@ -123,14 +123,14 @@ public class UsuarioIntegrationTest {
         userToDelete.setEmail("delete@iftm.edu.br");
         userToDelete.setSenha("deletethis");
         userToDelete.setRoles(Collections.singletonList(userRole));
-        Usuario savedUser = usuarioService.saveUser(userToDelete);
+        Long idSavedUser = usuarioService.saveUser(userToDelete);
 
-        mockMvc.perform(get("/adm/usuarios/delete/" + savedUser.getId_usuario()))
+        mockMvc.perform(get("/adm/usuarios/delete/" + idSavedUser))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/adm/usuarios"));
 
         // Verifica se o usuário foi removido do banco
-        assertFalse(usuarioRepository.existsById(savedUser.getId_usuario()));
+        assertFalse(usuarioRepository.existsById(idSavedUser));
     }
 
     @Test

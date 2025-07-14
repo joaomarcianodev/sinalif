@@ -14,7 +14,7 @@
 
         <form action="#" th:action="@{/adm/usuarios/save}" th:object="${usuario}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_usuario}" />
+                <input type="hidden" th:field="*{idUsuario}" />
 
                 <label for="nome" class="form-label">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">

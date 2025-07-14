@@ -1,114 +1,102 @@
 package sinalif.controllers;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sinalif.dtos.SugestaoRecordDto;
 import sinalif.models.Sugestao;
 import sinalif.models.Usuario;
+import sinalif.repositories.UsuarioRepository;
+import sinalif.services.MusicaService;
 import sinalif.services.SugestaoService;
 import sinalif.services.UsuarioService;
+import java.util.Optional;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
-@RestController
-@RequestMapping("/srv2/sugestoes")
+@Controller
+@RequestMapping("/sugestoes")
 public class SugestaoController {
     @Autowired
-    private SugestaoService sugestaoService;
-
+    private SugestaoService ISugestaoService;
     @Autowired
-    private UsuarioService usuarioService;
+    private MusicaService IMusicaService;
+    @Autowired
+    private UsuarioService IUsuarioService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    @PostMapping
-    public ResponseEntity<Sugestao> criarSugestao(@RequestBody @Valid SugestaoRecordDto sugestaoDto) {
-        Sugestao sugestao = new Sugestao();
-        BeanUtils.copyProperties(sugestaoDto, sugestao);
-        Usuario usuario = usuarioService.detalharUsuario(sugestaoDto.id_usuario());
-        sugestao.setUsuario(usuario);
-        Sugestao novaSugestao = sugestaoService.criarSugestao(sugestao);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novaSugestao);
+    @GetMapping("/adm")
+    public String listarSugestoes(Model model) {
+        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
+        return "pages/adm/sugestoes/list";
     }
+
+    @GetMapping("/adm/{id}")
+    public Sugestao detalharSugestao(@PathVariable Long id) {
+        return ISugestaoService.detalharSugestao(id);
+    }
+
+    @GetMapping("/adm/usuario/{idUsuario}")
+    public String listarSugestoesPorUsuario(@PathVariable Long idUsuario, Model model) {
+        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoesPorUsuario(idUsuario));
+        return "pages/adm/sugestoes/list";
+    }
+
+    @GetMapping("/adm/create")
+    public String criarSugestao(Model model) {
+        model.addAttribute("sugestao", new Sugestao());
+        return "pages/adm/sugestoes/create";
+    }
+
+    @PostMapping("/adm/save")
+    public String salvarSugestao(@ModelAttribute @Valid Sugestao sugestao, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "pages/adm/sugestoes/create";
+        }
+
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+
+        if (usuarioLogado.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
+        } else {
+            sugestao.setUsuario(usuarioLogado.get());
+            ISugestaoService.salvarSugestao(sugestao);
+            return "redirect:/sugestoes/adm";
+        }
+    }
+
+    @GetMapping("/adm/delete/{id}")
+    public String excluirSugestao(@PathVariable Long id) {
+        ISugestaoService.excluirSugestao(id);
+        return "redirect:/sugestoes/adm";
+    }
+
+    /*@GetMapping("/play/{id}")
+    public String exibirPlayer(@PathVariable Long id, Model model) {
+        Optional<Sugestao> musicaOptional = sugestaoRepository.findById(id);
+
+        if (musicaOptional.isPresent()) {
+            model.addAttribute("musica", musicaOptional.get());
+            return "pages/reprodutor";
+        } else {
+            return "javascript:alert('ID não encontrado');history.back()";
+        }
+    }*/
+
 
     @GetMapping
-    public ResponseEntity<List<SugestaoRecordDto>> listarSugestoes() {
-        List<Sugestao> sugestoes = sugestaoService.listarSugestoes();
-        List<SugestaoRecordDto> sugestoesDto = sugestoes.stream()
-                .map(sugestao -> new SugestaoRecordDto(
-                        sugestao.getId_sugestao(),
-                        sugestao.getUsuario().getIdUsuario(),
-                        sugestao.getId_musica(),
-                        sugestao.getUrl_sugerida(),
-                        sugestao.getStatus_sugestao(),
-                        sugestao.getData_sugestao(),
-                        sugestao.getData_analise()
-                ))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(sugestoesDto);
+    public String listarSugestoesFuncionario(Model model) {
+        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
+        return "pages/sugestoes/pendentes";
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SugestaoRecordDto> detalharSugestao(@PathVariable Long id) {
-        Sugestao sugestao = sugestaoService.detalharSugestao(id);
-        SugestaoRecordDto sugestaoDto = new SugestaoRecordDto(
-                sugestao.getId_sugestao(),
-                sugestao.getUsuario().getIdUsuario(),
-                sugestao.getId_musica(),
-                sugestao.getUrl_sugerida(),
-                sugestao.getStatus_sugestao(),
-                sugestao.getData_sugestao(),
-                sugestao.getData_analise()
-        );
-        return ResponseEntity.ok(sugestaoDto);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Sugestao> atualizarSugestao(@PathVariable Long id, @RequestBody @Valid SugestaoRecordDto sugestaoDto) {
-        Sugestao sugestaoExistente = sugestaoService.detalharSugestao(id);
-        BeanUtils.copyProperties(sugestaoDto, sugestaoExistente);
-        if (sugestaoDto.id_usuario() != null) {
-            Usuario usuario = usuarioService.detalharUsuario(sugestaoDto.id_usuario());
-            sugestaoExistente.setUsuario(usuario);
-        }
-        if (sugestaoDto.status_sugestao() != null && !sugestaoDto.status_sugestao().isEmpty()) {
-            sugestaoExistente.setStatus_sugestao(sugestaoDto.status_sugestao());
-            sugestaoExistente.setData_analise(LocalDateTime.now());
-        }
-        Sugestao sugestaoAtualizada = sugestaoService.atualizarSugestao(id, sugestaoExistente);
-        return ResponseEntity.ok(sugestaoAtualizada);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarSugestao(@PathVariable Long id) {
-        sugestaoService.deletarSugestao(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/usuario/{id_usuario}")
-    public ResponseEntity<List<SugestaoRecordDto>> listarSugestoesPorUsuario(@PathVariable Long id_usuario) {
-        List<Sugestao> sugestoes = sugestaoService.listarSugestoesPorUsuario(id_usuario);
-        List<SugestaoRecordDto> sugestoesDto = sugestoes.stream()
-                .map(sugestao -> new SugestaoRecordDto(
-                        sugestao.getId_sugestao(),
-                        sugestao.getUsuario().getIdUsuario(),
-                        sugestao.getId_musica(),
-                        sugestao.getUrl_sugerida(),
-                        sugestao.getStatus_sugestao(),
-                        sugestao.getData_sugestao(),
-                        sugestao.getData_analise()
-                ))
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(sugestoesDto);
-    }
-
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Sugestao> atualizarStatusSugestao(@PathVariable Long id, @RequestParam String status) {
-        Sugestao sugestaoAtualizada = sugestaoService.atualizarStatusSugestao(id, status);
-        return ResponseEntity.ok(sugestaoAtualizada);
+    @GetMapping("/editStatus/{id}/{status}")
+    public String atualizarStatusSugestao(@PathVariable Long id, @PathVariable String status) {
+        ISugestaoService.atualizarStatusSugestao(id, status);
+        return "redirect:/sugestoes";
     }
 }

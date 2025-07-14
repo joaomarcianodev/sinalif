@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public record SugestaoRecordDto(
         Long id_sugestao,
-        Long id_usuario,
+        Long idUsuario,
         Long id_musica,
         String url_sugerida,
         String status_sugestao,
