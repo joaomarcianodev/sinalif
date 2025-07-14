@@ -20,8 +20,8 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // Usar GenerationType.IDENTITY para autoincremento
-	@Column(name = "id_usuario")
-	private Long id_usuario;
+	@Column(name = "idUsuario")
+	private Long idUsuario;
 
 	@NotBlank(message= "Nome é um campo obrigatório")
 	@Column(name = "nome", nullable = false)
@@ -48,7 +48,6 @@ public class Usuario {
 	@JoinTable(name = "users_perfis", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_perfil"))
 	private List<Perfil> roles;
 
-	// --- NOVO: Relacionamento One-to-Many com Sugestao ---
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Set<Sugestao> sugestoes; // Use Set para garantir unicidade e evitar duplicatas
 	// ---------------------------------------------------

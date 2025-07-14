@@ -41,7 +41,7 @@ public class SugestaoController {
         List<SugestaoRecordDto> sugestoesDto = sugestoes.stream()
                 .map(sugestao -> new SugestaoRecordDto(
                         sugestao.getId_sugestao(),
-                        sugestao.getUsuario().getId_usuario(),
+                        sugestao.getUsuario().getIdUsuario(),
                         sugestao.getId_musica(),
                         sugestao.getUrl_sugerida(),
                         sugestao.getStatus_sugestao(),
@@ -57,7 +57,7 @@ public class SugestaoController {
         Sugestao sugestao = sugestaoService.detalharSugestao(id);
         SugestaoRecordDto sugestaoDto = new SugestaoRecordDto(
                 sugestao.getId_sugestao(),
-                sugestao.getUsuario().getId_usuario(),
+                sugestao.getUsuario().getIdUsuario(),
                 sugestao.getId_musica(),
                 sugestao.getUrl_sugerida(),
                 sugestao.getStatus_sugestao(),
@@ -89,13 +89,13 @@ public class SugestaoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<SugestaoRecordDto>> listarSugestoesPorUsuario(@PathVariable Long idUsuario) {
-        List<Sugestao> sugestoes = sugestaoService.listarSugestoesPorUsuario(idUsuario);
+    @GetMapping("/usuario/{id_usuario}")
+    public ResponseEntity<List<SugestaoRecordDto>> listarSugestoesPorUsuario(@PathVariable Long id_usuario) {
+        List<Sugestao> sugestoes = sugestaoService.listarSugestoesPorUsuario(id_usuario);
         List<SugestaoRecordDto> sugestoesDto = sugestoes.stream()
                 .map(sugestao -> new SugestaoRecordDto(
                         sugestao.getId_sugestao(),
-                        sugestao.getUsuario().getId_usuario(),
+                        sugestao.getUsuario().getIdUsuario(),
                         sugestao.getId_musica(),
                         sugestao.getUrl_sugerida(),
                         sugestao.getStatus_sugestao(),

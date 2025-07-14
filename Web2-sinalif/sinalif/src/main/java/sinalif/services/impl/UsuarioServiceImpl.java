@@ -46,13 +46,13 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
         String encodedPasswod = passwordEncoder.encode(passwd);
         usuario.setSenha(encodedPasswod);
         usuario = usuarioRepository.save(usuario);
-        return usuario.getId_usuario();
+        return usuario.getIdUsuario();
     }
 
     @Override
     public Long saveUserEdit(Usuario usuario) {
         usuario = usuarioRepository.save(usuario);
-        return usuario.getId_usuario();
+        return usuario.getIdUsuario();
     }
 
     @Override
