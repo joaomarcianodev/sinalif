@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Sugestões')}"></th:block>
 <body>
-<th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+<th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
 <div id="form" class="container col-10 mt-5">
     <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
     <h1 class="mb-5 text-center">Sugestões</h1>
     <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
-    <form action="#" th:action="@{/sugestoes/adm/save}" th:object="${sugestao}" method="POST">
+    <form action="#" th:action="@{/sugestoes/save}" th:object="${sugestao}" method="POST">
         <div class="mb-3">
             <input type="hidden" th:field="*{id_sugestao}" />
 

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Pausas Programadas')}"></th:block>
 <body>
-    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
         <h1 class="mb-5 text-center">Listagem de Pausas Programadas</h1>
         <div th:if="${#lists.isEmpty(pausaList)}">
-            <p class="text-center">Não há pausas cadastradas. <a th:href="@{/adm/pausas/create}" class="link-info">Clique aqui</a> para cadastrar um pausa.</p>
+            <p class="text-center">Não há pausas cadastradas. <a th:href="@{/pausas/create}" class="link-info">Clique aqui</a> para cadastrar um pausa.</p>
         </div>
         <div th:if="${not #lists.isEmpty(pausaList)}">
             <div class="table-responsive">
@@ -32,8 +32,8 @@
                         <td th:text="${#temporals.format(pausa.data_hora_fim, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
                         <td th:text="${pausa.ativo ? 'Sim' : 'Não'}"></td>
                         <td th:text="${#temporals.format(pausa.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/pausas/edit/{id_pausa}(id_pausa=${pausa.id_pausa})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/pausas/delete/{id_pausa}(id_pausa=${pausa.id_pausa})}">Deletar</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/pausas/edit/{id_pausa}(id_pausa=${pausa.id_pausa})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/pausas/delete/{id_pausa}(id_pausa=${pausa.id_pausa})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

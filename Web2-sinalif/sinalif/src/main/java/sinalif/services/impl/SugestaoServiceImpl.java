@@ -28,6 +28,11 @@ public class SugestaoServiceImpl implements SugestaoService {
     }
 
     @Override
+    public List<Sugestao> listarMinhasSugestoes(Long idUsuario) {
+        return sugestaoRepository.findByUsuarioIdUsuario(idUsuario);
+    }
+
+    @Override
     public Sugestao detalharSugestao(Long id) {
         return sugestaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sugestão não encontrada com ID: " + id));

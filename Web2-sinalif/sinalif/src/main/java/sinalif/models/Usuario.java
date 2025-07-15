@@ -52,7 +52,7 @@ public class Usuario {
 	private Set<Sugestao> sugestoes;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private Set<Sugestao> musicas;
+	private Set<Musica> musicas;
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -126,11 +126,11 @@ public class Usuario {
 		this.sugestoes = sugestoes;
 	}
 
-	public Set<Sugestao> getMusicas() {
+	public Set<Musica> getMusicas() {
 		return musicas;
 	}
 
-	public void setMusicas(Set<Sugestao> musicas) {
+	public void setMusicas(Set<Musica> musicas) {
 		this.musicas = musicas;
 	}
 }

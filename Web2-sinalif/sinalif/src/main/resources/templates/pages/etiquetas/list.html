@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Etiquetas')}"></th:block>
 <body>
-    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
         <h1 class="mb-5 text-center">Listagem de Etiquetas</h1>
         <div th:if="${#lists.isEmpty(etiquetaList)}">
-            <p class="text-center">Não há etiquetas cadastrados. <a th:href="@{/adm/etiquetas/create}" class="link-info">Clique aqui</a> para cadastrar um etiqueta.</p>
+            <p class="text-center">Não há etiquetas cadastrados. <a th:href="@{/etiquetas/create}" class="link-info">Clique aqui</a> para cadastrar um etiqueta.</p>
         </div>
         <div th:if="${not #lists.isEmpty(etiquetaList)}">
             <div class="">
@@ -28,8 +28,8 @@
                         <td th:text="${etiqueta.id_etiqueta}"></td>
                         <td th:text="${etiqueta.nome}"></td>
                         <td th:text="${etiqueta.duracao}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/etiquetas/edit/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/etiquetas/delete/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Deletar</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/etiquetas/edit/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/etiquetas/delete/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

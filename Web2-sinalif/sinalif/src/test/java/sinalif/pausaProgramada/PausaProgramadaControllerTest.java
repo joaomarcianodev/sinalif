@@ -74,7 +74,7 @@ public class PausaProgramadaControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user@example.com", authorities = {"User"})
+    @WithMockUser(username = "userAuth@example.com", authorities = {"User"})
     @DisplayName("GET /adm/pausas - Deve retornar 403 Forbidden para usuário sem permissão (User)")
     void testListarPausasProgramadasForbiddenForUserRole() throws Exception {
         // Mockar o serviço para evitar NullPointerException, mesmo que o acesso seja negado
@@ -108,7 +108,7 @@ public class PausaProgramadaControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user@example.com", authorities = {"User"})
+    @WithMockUser(username = "userAuth@example.com", authorities = {"User"})
     @DisplayName("GET /adm/pausas/create - Deve retornar 403 Forbidden para usuário sem permissão (User)")
     void testPagePausasCreateForbiddenForUser() throws Exception {
         mockMvc.perform(get("/adm/pausas/create"))

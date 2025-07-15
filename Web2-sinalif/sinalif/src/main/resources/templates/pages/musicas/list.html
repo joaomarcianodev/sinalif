@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Músicas')}"></th:block>
 <body>
-    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
 
         <h1 class="mb-5 text-center">Listagem de Músicas</h1>
         <div th:if="${#lists.isEmpty(musicaList)}">
-            <p class="text-center">Não há músicas cadastrados. <a th:href="@{/adm/musicas/create}" class="link-info">Clique aqui</a> para cadastrar um música.</p>
+            <p class="text-center">Não há músicas cadastrados. <a th:href="@{/musicas/create}" class="link-info">Clique aqui</a> para cadastrar um música.</p>
         </div>
         <div th:if="${not #lists.isEmpty(musicaList)}">
             <div class="table-responsive">
@@ -31,9 +31,9 @@
                         <td th:text="${musica.usuario.nome}"></td>
                         <td th:text="${musica.url}"></td>
                         <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td><a class="btn btn-primary" role="button" th:href="@{/adm/musicas/play/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/musicas/delete/{id_musica}(id_musica=${musica.id_musica})}">Deletar</a></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/musicas/play/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/musicas/delete/{id_musica}(id_musica=${musica.id_musica})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/adm/musicas")
+@RequestMapping("/musicas")
 public class MusicaController {
     @Autowired
     private MusicaService IMusicaService;
@@ -34,7 +34,7 @@ public class MusicaController {
     @GetMapping
     public String listarMusicas(Model model){
         model.addAttribute("musicaList", IMusicaService.listarMusicas());
-        return "pages/adm/musicas/list";
+        return "pages/musicas/list";
     }
 
     @GetMapping("/{id}")
@@ -45,24 +45,29 @@ public class MusicaController {
     @GetMapping("/create")
     public String pageMusicasCreate(@NotNull Model model) {
         model.addAttribute("musica", new Musica());
-        return "pages/adm/musicas/create";
+        return "pages/musicas/create";
     }
 
     @PostMapping("/save")
     public String salvarMusica(@ModelAttribute @Valid Musica musica, @NotNull BindingResult result, @NotNull Model model) {
         if (result.hasErrors()) {
-            return "pages/adm/musicas/create";
+            return "pages/musicas/create";
         }
 
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+        if(musica.getUsuario() == null || musica.getUsuario().getIdUsuario() == null) {
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
 
-        if (usuarioLogado.isEmpty()) {
-            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
-        } else {
-            musica.setUsuario(usuarioLogado.get());
+            if (usuarioLogado.isEmpty()) {
+                throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
+            } else {
+                musica.setUsuario(usuarioLogado.get());
+                IMusicaService.salvarMusica(musica);
+                return "redirect:/musicas";
+            }
+        }else{
             IMusicaService.salvarMusica(musica);
-            return "redirect:/adm/musicas";
+            return "redirect:/musicas";
         }
     }
 
@@ -83,13 +88,13 @@ public class MusicaController {
     @GetMapping("/edit/{id}")
     public String atualizarMusica(@PathVariable Long id, Model model) {
         model.addAttribute("musica", IMusicaService.detalharMusica(id));
-        return "pages/adm/musicas/create";
+        return "pages/musicas/create";
     }
 
     @GetMapping("/delete/{id}")
     public String excluirMusica(@PathVariable Long id){
         IMusicaService.excluirMusica(id);
-        return "redirect:/adm/musicas";
+        return "redirect:/musicas";
     }
 
     @GetMapping("/play/{id}")

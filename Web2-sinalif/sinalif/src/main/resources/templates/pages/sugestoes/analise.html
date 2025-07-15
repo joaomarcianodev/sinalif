@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/head :: head('Analise de Sugestões')}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Sugestões')}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')"></th:block>
 <body>
     <th:block th:replace="~{/../fragments/head :: navbar}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')"></th:block>
 
@@ -22,7 +22,7 @@
                         <th>Status</th>
                         <th>Data Sugestão</th>
                         <th>Data Análise</th>
-                        <th class="col-1">Reproduzir</th>
+<!--                        <th class="col-1">Reproduzir</th>-->
                         <th class="col-1">Aceitar</th>
                         <th class="col-1">Negar</th>
                     </tr>
@@ -36,13 +36,13 @@
                         <td th:text="${#temporals.format(sugestao.data_sugestao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <div th:if="${sugestao.data_analise == null}">
                             <td th:text="Aguardando"></td>
-                            <td><a class="btn btn-primary" role="button" th:href="@{/musicas/play/{sugestao}(sugestao=${sugestao.sugestao})}">Reproduzir</a></td>
-                            <td><a class="btn btn-success" role="button" th:href="@{/adm/musicas/save/sugestao/{id_sugestao}/{status_sugestao}(id_sugestao=${sugestao.id_sugestao}, status_sugestao=${'Deferido'})}">Aceitar</a></td>
+<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/musicas/play/{url_sugerida}(url_sugerida=${sugestao.url_sugerida})}">Reproduzir</a></td>-->
+                            <td><a class="btn btn-success" role="button" th:href="@{/musicas/save/sugestao/{id_sugestao}/{status_sugestao}(id_sugestao=${sugestao.id_sugestao}, status_sugestao=${'Deferido'})}">Aceitar</a></td>
                             <td><a class="btn btn-danger" role="button" th:href="@{/sugestoes/editStatus/{id_sugestao}/{status_sugestao}(id_sugestao=${sugestao.id_sugestao}, status_sugestao=${'Indeferido'})}">Negar</a></td>
                         </div>
                         <div th:if="${sugestao.data_analise != null}">
                             <td th:text="${#temporals.format(sugestao.data_analise, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                            <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/play/{sugestao}(sugestao=${sugestao.sugestao})}">Reproduzir</a></td>
+<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/play/{sugestao}(sugestao=${sugestao.sugestao})}">Reproduzir</a></td>-->
                             <td>Analisado</td>
                             <td>Analisado</td>
                         </div>

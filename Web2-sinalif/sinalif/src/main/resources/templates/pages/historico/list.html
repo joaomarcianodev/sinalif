@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/headAdmin :: head('Página Administrativa')}"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Histórico')}"></th:block>
 <body>
-    <th:block th:replace="~{/../fragments/headAdmin :: navbar}"></th:block>
+    <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div id="form" class="container col-10 mt-5">
         <th:block th:replace="~{/../fragments/head :: voltar}"></th:block>
@@ -27,7 +27,7 @@
                         <td th:text="${log.id_logReproducao}"></td>
                         <td th:text="${log.musica.url}"></td>
                         <td th:text="${#temporals.format(log.data_reproducao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/historico/delete/{id_logReproducao}(id_logReproducao=${log.id_logReproducao})}">Deletar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/historico/delete/{id_logReproducao}(id_logReproducao=${log.id_logReproducao})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

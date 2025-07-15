@@ -17,7 +17,7 @@ import sinalif.services.UsuarioService;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/sugestoes")
+@RequestMapping()
 public class SugestaoController {
     @Autowired
     private SugestaoService ISugestaoService;
@@ -28,33 +28,47 @@ public class SugestaoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/adm")
+    @GetMapping("/adm/sugestoes")
     public String listarSugestoes(Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
-        return "pages/adm/sugestoes/list";
+        return "pages/sugestoes/list";
     }
 
-    @GetMapping("/adm/{id}")
+    @GetMapping("/sugestoes")
+    public String listarMinhasSugestoes(Model model) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+
+        if (usuarioLogado.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
+        } else {
+            Usuario usuario = usuarioLogado.get();
+            model.addAttribute("sugestaoList", ISugestaoService.listarMinhasSugestoes(usuario.getIdUsuario()));
+            return "pages/sugestoes/list";
+        }
+    }
+
+    @GetMapping("/sugestoes/{id}")
     public Sugestao detalharSugestao(@PathVariable Long id) {
         return ISugestaoService.detalharSugestao(id);
     }
 
-    @GetMapping("/adm/usuario/{idUsuario}")
+    @GetMapping("/sugestoes/usuario/{idUsuario}")
     public String listarSugestoesPorUsuario(@PathVariable Long idUsuario, Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoesPorUsuario(idUsuario));
-        return "pages/adm/sugestoes/list";
+        return "pages/sugestoes/list";
     }
 
-    @GetMapping("/adm/create")
+    @GetMapping("/sugestoes/create")
     public String criarSugestao(Model model) {
         model.addAttribute("sugestao", new Sugestao());
-        return "pages/adm/sugestoes/create";
+        return "pages/sugestoes/create";
     }
 
-    @PostMapping("/adm/save")
+    @PostMapping("/sugestoes/save")
     public String salvarSugestao(@ModelAttribute @Valid Sugestao sugestao, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "pages/adm/sugestoes/create";
+            return "pages/sugestoes/create";
         }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -65,14 +79,14 @@ public class SugestaoController {
         } else {
             sugestao.setUsuario(usuarioLogado.get());
             ISugestaoService.salvarSugestao(sugestao);
-            return "redirect:/sugestoes/adm";
+            return "redirect:/sugestoes";
         }
     }
 
-    @GetMapping("/adm/delete/{id}")
+    @GetMapping("/sugestoes/delete/{id}")
     public String excluirSugestao(@PathVariable Long id) {
         ISugestaoService.excluirSugestao(id);
-        return "redirect:/sugestoes/adm";
+        return "redirect:/sugestoes";
     }
 
     /*@GetMapping("/play/{id}")
@@ -87,16 +101,15 @@ public class SugestaoController {
         }
     }*/
 
-
-    @GetMapping
+    @GetMapping("/sugestoes/analise")
     public String listarSugestoesFuncionario(Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
-        return "pages/sugestoes/pendentes";
+        return "pages/sugestoes/analise";
     }
 
-    @GetMapping("/editStatus/{id}/{status}")
+    @GetMapping("/sugestoes/editStatus/{id}/{status}")
     public String atualizarStatusSugestao(@PathVariable Long id, @PathVariable String status) {
         ISugestaoService.atualizarStatusSugestao(id, status);
-        return "redirect:/sugestoes";
+        return "redirect:/sugestoes/analise";
     }
 }

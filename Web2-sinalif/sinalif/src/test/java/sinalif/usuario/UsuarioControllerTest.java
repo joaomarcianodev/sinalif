@@ -89,7 +89,7 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("GET /adm/usuarios - Deve exibir 403 Forbidden para usuário sem permissão (User)")
     void testListarUsuariosForbiddenForUserRole() throws Exception {
         when(usuarioService.listarUsers()).thenReturn(createTestUserList());
@@ -126,7 +126,7 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("GET /adm/usuarios/create - Deve exibir 403 Forbidden para usuário sem permissão (User)")
     void testPageUsuarioCreateForbiddenForUser() throws Exception {
         mockMvc.perform(get("/adm/usuarios/create"))
@@ -274,7 +274,7 @@ public class UsuarioControllerTest {
 
         mockMvc.perform(get("/register"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("pages/user/registerUser"))
+                .andExpect(view().name("pages/userAuth/registerUser"))
                 .andExpect(model().attributeExists("usuario"))
                 .andExpect(model().attributeExists("perfilList"))
                 .andExpect(content().string(containsString("Registrar Novo Usuário")));
@@ -301,13 +301,13 @@ public class UsuarioControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("POST /usuario/{id}/updateName - Deve atualizar o nome do usuário")
     void testUpdateUserName() throws Exception {
         Usuario updatedUsuario = new Usuario();
         updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setNome("Novo Nome");
-        updatedUsuario.setEmail("user@iftm.edu.br");
+        updatedUsuario.setEmail("userAuth@iftm.edu.br");
 
         when(usuarioService.updateUserName(anyLong(), anyString())).thenReturn(updatedUsuario);
 
@@ -315,20 +315,20 @@ public class UsuarioControllerTest {
                         .param("newName", "Novo Nome")
                         .with(csrf()))
                 .andExpect(status().isOk()) // Pode ser OK se a página de perfil for renderizada
-                .andExpect(view().name("pages/user/profilePage"))
+                .andExpect(view().name("pages/userAuth/profilePage"))
                 .andExpect(model().attributeExists("msg"));
 
         verify(usuarioService).updateUserName(1L, "Novo Nome");
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("POST /usuario/{id}/updatePhoto - Deve atualizar a foto de perfil do usuário")
     void testUpdateProfilePhoto() throws Exception {
         Usuario updatedUsuario = new Usuario();
         updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setUrl_foto_perfil("http://example.com/new_photo.jpg");
-        updatedUsuario.setEmail("user@iftm.edu.br");
+        updatedUsuario.setEmail("userAuth@iftm.edu.br");
 
         when(usuarioService.updateProfilePicture(anyLong(), anyString())).thenReturn(updatedUsuario);
 
@@ -336,20 +336,20 @@ public class UsuarioControllerTest {
                         .param("photoUrl", "http://example.com/new_photo.jpg")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("pages/user/profilePage"))
+                .andExpect(view().name("pages/userAuth/profilePage"))
                 .andExpect(model().attributeExists("msg"));
 
         verify(usuarioService).updateProfilePicture(1L, "http://example.com/new_photo.jpg");
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("POST /usuario/{id}/notifications - Deve alternar o status das notificações")
     void testToggleNotifications() throws Exception {
         Usuario updatedUsuario = new Usuario();
         updatedUsuario.setIdUsuario(1L);
         updatedUsuario.setNotificacoes_ativas(true);
-        updatedUsuario.setEmail("user@iftm.edu.br");
+        updatedUsuario.setEmail("userAuth@iftm.edu.br");
 
         when(usuarioService.toggleNotifications(anyLong(), any(Boolean.class))).thenReturn(updatedUsuario);
 
@@ -357,19 +357,19 @@ public class UsuarioControllerTest {
                         .param("active", "true")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("pages/user/profilePage"))
+                .andExpect(view().name("pages/userAuth/profilePage"))
                 .andExpect(model().attributeExists("msg"));
 
         verify(usuarioService).toggleNotifications(1L, true);
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("POST /usuario/{id}/changePassword - Deve alterar a senha do usuário com sucesso")
     void testChangeUserPasswordSuccess() throws Exception {
         Usuario updatedUsuario = new Usuario();
         updatedUsuario.setIdUsuario(1L);
-        updatedUsuario.setEmail("user@iftm.edu.br");
+        updatedUsuario.setEmail("userAuth@iftm.edu.br");
         updatedUsuario.setSenha("new_encoded_password"); // Senha já encodificada no mock
 
         when(usuarioService.changePassword(anyLong(), anyString(), anyString())).thenReturn(updatedUsuario);
@@ -379,14 +379,14 @@ public class UsuarioControllerTest {
                         .param("newPassword", "new_password123")
                         .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("pages/user/profilePage"))
+                .andExpect(view().name("pages/userAuth/profilePage"))
                 .andExpect(model().attributeExists("msg"));
 
         verify(usuarioService).changePassword(1L, "old_password", "new_password123");
     }
 
     @Test
-    @WithMockUser(username = "user@iftm.edu.br", authorities = {"User"})
+    @WithMockUser(username = "userAuth@iftm.edu.br", authorities = {"User"})
     @DisplayName("POST /usuario/{id}/changePassword - Deve falhar ao alterar senha com senha nova muito curta")
     void testChangeUserPasswordShortNewPassword() throws Exception {
         mockMvc.perform(post("/usuario/1/changePassword")
