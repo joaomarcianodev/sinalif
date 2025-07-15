@@ -30,8 +30,8 @@
                         <td th:text="${musica.id_musica}"></td>
                         <td th:text="${musica.usuario.nome}"></td>
                         <td th:text="${musica.url}"></td>
-                        <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td><a class="btn btn-primary" role="button" th:href="@{/musicas/play/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
+                        <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/musicas/reproduzir/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
                         <td><a class="btn btn-warning" role="button" th:href="@{/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
                         <td><a class="btn btn-danger" role="button" th:href="@{/musicas/delete/{id_musica}(id_musica=${musica.id_musica})}">Deletar</a></td>
                     </tr>

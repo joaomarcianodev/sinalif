@@ -36,13 +36,13 @@
                         <td th:text="${#temporals.format(sugestao.data_sugestao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <div th:if="${sugestao.data_analise == null}">
                             <td th:text="Aguardando"></td>
-<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/musicas/play/{url_sugerida}(url_sugerida=${sugestao.url_sugerida})}">Reproduzir</a></td>-->
+<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/musicas/reproduzir/{url_sugerida}(url_sugerida=${sugestao.url_sugerida})}">Reproduzir</a></td>-->
                             <td><a class="btn btn-success" role="button" th:href="@{/musicas/save/sugestao/{id_sugestao}/{status_sugestao}(id_sugestao=${sugestao.id_sugestao}, status_sugestao=${'Deferido'})}">Aceitar</a></td>
                             <td><a class="btn btn-danger" role="button" th:href="@{/sugestoes/editStatus/{id_sugestao}/{status_sugestao}(id_sugestao=${sugestao.id_sugestao}, status_sugestao=${'Indeferido'})}">Negar</a></td>
                         </div>
                         <div th:if="${sugestao.data_analise != null}">
                             <td th:text="${#temporals.format(sugestao.data_analise, 'dd/MM/yyyy HH:mm:ss')}"></td>
-<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/play/{sugestao}(sugestao=${sugestao.sugestao})}">Reproduzir</a></td>-->
+<!--                            <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/reproduzir/{sugestao}(sugestao=${sugestao.sugestao})}">Reproduzir</a></td>-->
                             <td>Analisado</td>
                             <td>Analisado</td>
                         </div>

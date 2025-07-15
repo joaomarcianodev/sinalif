@@ -26,7 +26,7 @@
                     <tr th:each="log : ${logList}">
                         <td th:text="${log.id_logReproducao}"></td>
                         <td th:text="${log.musica.url}"></td>
-                        <td th:text="${#temporals.format(log.data_reproducao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${#temporals.format(log.data_reproducao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <td><a class="btn btn-danger" role="button" th:href="@{/historico/delete/{id_logReproducao}(id_logReproducao=${log.id_logReproducao})}">Deletar</a></td>
                     </tr>
                     </tbody>

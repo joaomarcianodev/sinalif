@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,8 +19,10 @@
       <div class="card-body">
         <h2 class="card-title mb-4 text-center">Registrar-se</h2>
 
-        <form th:action="@{/saveRegister}" th:object="${usuario}" method="post">
+        <form th:action="@{/saveRegister}" th:object="${usuario}" method="POST">
           <div class="mb-3">
+            <input type="hidden" th:field="*{idUsuario}" />
+
             <label for="nome" class="form-label">Nome:</label>
             <input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}">
             <p th:if="${#fields.hasErrors('nome')}" th:errorclass="text-danger" th:errors="*{nome}"/>
