@@ -13,7 +13,7 @@ import sinalif.services.AlarmeService;
 import sinalif.services.EtiquetaService;
 
 @Controller
-@RequestMapping("/adm/alarmes")
+@RequestMapping("/alarmes")
 public class AlarmeController {
 	@Autowired
 	private AlarmeService IAlarmeService;
@@ -45,7 +45,7 @@ public class AlarmeController {
 			return "pages/alarmes/create";
 		}
 		IAlarmeService.salvarAlarme(alarme);
-		return "redirect:/adm/alarmes";
+		return "redirect:/alarmes";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -58,6 +58,6 @@ public class AlarmeController {
 	@GetMapping("/delete/{id}")
 	public String excluirAlarme(@PathVariable Long id) {
  		IAlarmeService.excluirAlarme(id);
-		return "redirect:/adm/alarmes";
+		return "redirect:/alarmes";
 	}
 }

@@ -63,6 +63,6 @@ public class LogReproducaoController {
     @GetMapping("/delete/{id}")
     public String excluirLogReproducao(@PathVariable Long id){
         ILogReproducaoService.excluirLogReproducao(id);
-        return "redirect:/adm/historico";
+        return "redirect:/historico";
     }
 }

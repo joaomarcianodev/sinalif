@@ -28,7 +28,7 @@ public class Musica {
     private String url;
 
     @CreatedDate
-    @Column(name = "data_criacao", nullable = true)
+    @Column(name = "data_criacao", updatable = false)
     private LocalDateTime data_criacao;
 
     @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

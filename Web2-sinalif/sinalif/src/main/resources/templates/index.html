@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-<th:block th:replace="~{/../fragments/head :: head('Analise de Sugestões')}" sec:authorize="hasAuthority('Admin')"></th:block>
+<th:block th:replace="~{/../fragments/head :: head('Analise de Sugestões')}"></th:block>
 <body>
     <th:block th:replace="~{/../fragments/head :: navbar}"></th:block>
 
     <div class="container col-10 mt-5">
-
+        <div class="mb-5 mt-5">
+            <div class="display-1 text-center">Sinal IF</div>
+        </div>
+        <div class="mb-5 mt-5">
+            <div class="display-4 text-center">O seu sistema para controle de alarmes e músicas para sinais mais divertidos ao invés de uma simples sirene.</div>
+        </div>
     </div>
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
 </body>

@@ -16,7 +16,7 @@ import sinalif.models.PausaProgramada;
 import sinalif.services.PausaProgramadaService;
 
 @Controller
-@RequestMapping("/adm/pausas")
+@RequestMapping("/pausas")
 public class PausaProgramadaController {
 	@Autowired
 	private PausaProgramadaService IPausaProgramadaService;
@@ -44,7 +44,7 @@ public class PausaProgramadaController {
 			return "pages/pausas/create";
 		}
 		IPausaProgramadaService.salvarPausaProgramada(pausaProgramada);
-		return "redirect:/adm/pausas";
+		return "redirect:/pausas";
 	}
 
 	@GetMapping("/edit/{id}")
@@ -56,6 +56,6 @@ public class PausaProgramadaController {
 	@GetMapping("/delete/{id}")
 	public String excluirPausaProgramada(@PathVariable Long id) {
 		IPausaProgramadaService.excluirPausaProgramada(id);
-		return "redirect:/adm/pausas";
+		return "redirect:/pausas";
 	}
 }

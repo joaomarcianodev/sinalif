@@ -24,6 +24,7 @@ public class UsuarioController {
     @GetMapping("/adm/usuarios")
     public String listarUsuarios(Model model){
         model.addAttribute("usuarioList", IUsuarioService.listarUsers());
+//        model.addAttribute("perfil", IPerfilService.);
         return "pages/adm/usuarios/list";
     }
 
@@ -43,7 +44,6 @@ public class UsuarioController {
     @GetMapping("/adm/usuarios/edit/{id}")
     public String atualizarUsuario(@PathVariable Long id, Model model) {
         model.addAttribute("usuario", IUsuarioService.detalharUsuario(id));
-        model.addAttribute("perfilList", IPerfilService.listarPerfis());
         return "pages/adm/usuarios/edit";
     }
 

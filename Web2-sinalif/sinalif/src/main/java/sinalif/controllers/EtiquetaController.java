@@ -15,7 +15,7 @@ import sinalif.models.Etiqueta;
 import sinalif.services.EtiquetaService;
 
 @Controller
-@RequestMapping("/adm/etiquetas")
+@RequestMapping("/etiquetas")
 public class EtiquetaController {
 	@Autowired
 	private EtiquetaService IEtiquetaService;
@@ -55,6 +55,6 @@ public class EtiquetaController {
 	@GetMapping("/delete/{id}")
 	public String excluirEtiqueta(@PathVariable Long id) {
 		IEtiquetaService.excluirEtiqueta(id);
-		return "redirect:/adm/etiquetas";
+		return "redirect:/etiquetas";
 	}
 }

@@ -30,66 +30,66 @@
                             <a class="dropdown-item" th:href="@{/sugestoes/create}">Sugerir Música</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário', 'Aluno')">
-                            <a class="dropdown-item" th:href="@{/sugestoes/{id}}">Listar Minhas Sugestões</a>
+                            <a class="dropdown-item" th:href="@{/sugestoes}">Listar Minhas Sugestões</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário')">
-                            <a class="dropdown-item" th:href="@{/sugestoes/pendentes}">Listar Sugestões Pendentes</a>
+                            <a class="dropdown-item" th:href="@{/sugestoes/analise}">Analisar Sugestões</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Admin')">
-                            <a class="dropdown-item" th:href="@{/sugestoes}">Listar Todas Sugestões</a>
+                            <a class="dropdown-item" th:href="@{/adm/sugestoes}">Listar Todas Sugestões</a>
                         </li>
-                    </ul>
-                </li>
-
-                <!-- Alarmes - ADMINS e FUNCIONÁRIOS -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/alarmes}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Alarmes
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/alarmes/create}">Cadastrar Alarme</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/alarmes}">Listar Alarmes</a></li>
-                    </ul>
-                </li>
-
-                <!-- Etiquetas - ADMINS E FUNCIONÁRIOS -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/etiquetas}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Etiquetas
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/etiquetas/create}">Cadastrar Etiqueta</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/etiquetas}">Listar Etiquetas</a></li>
                     </ul>
                 </li>
 
                 <!-- Músicas - ADMINS E FUNCIONÁRIOS -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/musicas}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Músicas
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/musicas/create}">Cadastrar Música</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/musicas}">Listar Músicas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/musicas/create}">Cadastrar Música</a></li>
+                        <li><a class="dropdown-item" th:href="@{/musicas}">Listar Músicas</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/historico}">Histórico de Reproduções</a></li>
+                        <li><a class="dropdown-item" th:href="@{/historico}">Histórico de Reproduções</a></li>
+                    </ul>
+                </li>
+
+                <!-- Alarmes - ADMINS e FUNCIONÁRIOS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Alarmes
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/alarmes/create}">Cadastrar Alarme</a></li>
+                        <li><a class="dropdown-item" th:href="@{/alarmes}">Listar Alarmes</a></li>
+                    </ul>
+                </li>
+
+                <!-- Etiquetas - ADMINS E FUNCIONÁRIOS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Etiquetas
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" th:href="@{/etiquetas/create}">Cadastrar Etiqueta</a></li>
+                        <li><a class="dropdown-item" th:href="@{/etiquetas}">Listar Etiquetas</a></li>
                     </ul>
                 </li>
 
                 <!-- Pausas - ADMINS E FUNCIONÁRIOS -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/pausas}" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAnyAuthority('Admin', 'Funcionário')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pausas Programadas
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" th:href="@{/adm/pausas/create}">Cadastrar Pausa</a></li>
-                        <li><a class="dropdown-item" th:href="@{/adm/pausas}">Listar Pausas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pausas/create}">Cadastrar Pausa</a></li>
+                        <li><a class="dropdown-item" th:href="@{/pausas}">Listar Pausas</a></li>
                     </ul>
                 </li>
 
                 <!-- Usuários - ADMINS -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/usuarios}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Usuários
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
@@ -100,7 +100,7 @@
 
                 <!-- Perfis - ADMINS -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" th:href="@{/adm/perfis}" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" sec:authorize="hasAuthority('Admin')" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Perfis
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
@@ -110,7 +110,7 @@
                 </li>
 
                 <!-- Área Admin - ADMINS -->
-                <li class="nav-item" sec:authorize="hasAuthority('Admin')"><a class="nav-link" aria-current="page" th:href="@{/adm}">Área Administrativa</a></li>
+<!--                <li class="nav-item" sec:authorize="hasAuthority('Admin')"><a class="nav-link" aria-current="page" th:href="@{/adm}">Área Administrativa</a></li>-->
             </ul>
         </div>
 

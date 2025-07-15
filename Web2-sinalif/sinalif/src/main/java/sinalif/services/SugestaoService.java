@@ -5,6 +5,7 @@ import java.util.List;
 
 public interface SugestaoService {
     public List<Sugestao> listarSugestoes();
+    public List<Sugestao> listarMinhasSugestoes(Long idUsuario);
     public Sugestao detalharSugestao(Long id);
     public Sugestao salvarSugestao(Sugestao sugestao);
     public Sugestao atualizarSugestao(Long id, Sugestao sugestaoDetalhes);

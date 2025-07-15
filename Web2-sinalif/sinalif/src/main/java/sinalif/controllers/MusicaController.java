@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/adm/musicas")
+@RequestMapping("/musicas")
 public class MusicaController {
     @Autowired
     private MusicaService IMusicaService;
@@ -54,15 +54,20 @@ public class MusicaController {
             return "pages/musicas/create";
         }
 
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+        if(musica.getUsuario() == null || musica.getUsuario().getIdUsuario() == null) {
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
 
-        if (usuarioLogado.isEmpty()) {
-            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
-        } else {
-            musica.setUsuario(usuarioLogado.get());
+            if (usuarioLogado.isEmpty()) {
+                throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
+            } else {
+                musica.setUsuario(usuarioLogado.get());
+                IMusicaService.salvarMusica(musica);
+                return "redirect:/musicas";
+            }
+        }else{
             IMusicaService.salvarMusica(musica);
-            return "redirect:/adm/musicas";
+            return "redirect:/musicas";
         }
     }
 
@@ -89,7 +94,7 @@ public class MusicaController {
     @GetMapping("/delete/{id}")
     public String excluirMusica(@PathVariable Long id){
         IMusicaService.excluirMusica(id);
-        return "redirect:/adm/musicas";
+        return "redirect:/musicas";
     }
 
     @GetMapping("/play/{id}")
