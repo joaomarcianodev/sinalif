@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import sinalif.models.Alarme;
 import sinalif.models.Etiqueta;
 import sinalif.services.EtiquetaService;
 

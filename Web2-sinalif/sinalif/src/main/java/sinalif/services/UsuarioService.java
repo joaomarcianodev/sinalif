@@ -1,10 +1,8 @@
 package sinalif.services;
 
-import sinalif.models.Perfil;
 import sinalif.models.Usuario;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface UsuarioService {
     public List<Usuario> listarUsers();

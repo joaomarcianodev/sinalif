@@ -1,15 +1,12 @@
 package sinalif.services.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import sinalif.dtos.AlarmeRecordDto;
 import sinalif.models.Alarme;
 import sinalif.repositories.AlarmeRepository;
 import sinalif.repositories.EtiquetaRepository;

@@ -1,7 +1,6 @@
 package sinalif.usuario;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -31,6 +30,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import sinalif.config.TestConfig;
+import sinalif.controllers.UsuarioController;
 import sinalif.models.Perfil;
 import sinalif.models.Usuario;
 import sinalif.services.PerfilService;
@@ -287,7 +287,7 @@ public class UsuarioControllerTest {
         novoUsuario.setNome("Registro Teste");
         novoUsuario.setEmail("registro@iftm.edu.br");
         novoUsuario.setSenha("novaSenha123");
-        novoUsuario.setRoles(Collections.singletonList(new Perfil(1L, "User"))); // Exemplo de perfil padrão para registro
+        novoUsuario.setRoles(Collections.singletonList(new Perfil())); // Exemplo de perfil padrão para registro
 
         when(usuarioService.saveUser(any(Usuario.class))).thenReturn(2L);
 
