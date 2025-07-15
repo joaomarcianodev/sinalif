@@ -1,8 +1,6 @@
 package sinalif.controllers;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import sinalif.models.Usuario;

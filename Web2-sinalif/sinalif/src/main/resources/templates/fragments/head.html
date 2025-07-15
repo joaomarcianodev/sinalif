@@ -29,7 +29,7 @@
                         <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário', 'Aluno')">
                             <a class="dropdown-item" th:href="@{/sugestoes/create}">Sugerir Música</a>
                         </li>
-                        <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário')">
+                        <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário', 'Aluno')">
                             <a class="dropdown-item" th:href="@{/sugestoes}">Listar Sugestões</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Admin', 'Funcionário')">

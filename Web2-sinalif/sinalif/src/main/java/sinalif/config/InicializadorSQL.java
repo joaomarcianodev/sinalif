@@ -29,9 +29,9 @@ public class InicializadorSQL implements CommandLineRunner {
             perfilAdmin.setNome("Admin");
             perfilRepository.save(perfilAdmin);
 
-//            Perfil perfilFuncionario = new Perfil();
-//            perfilFuncionario.setNome("Funcionário");
-//            perfilRepository.save(perfilFuncionario);
+            Perfil perfilFuncionario = new Perfil();
+            perfilFuncionario.setNome("Funcionário");
+            perfilRepository.save(perfilFuncionario);
 
             Perfil perfilALuno = new Perfil();
             perfilALuno.setNome("Aluno");

@@ -2,12 +2,11 @@ package sinalif.models;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set; // Preferível para coleções únicas de Sugestões
+import java.util.Set;
 
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -9,14 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import sinalif.dtos.MusicaRecordDto;
 import sinalif.models.*;
 import sinalif.repositories.MusicaRepository;
 import sinalif.repositories.UsuarioRepository;
 import sinalif.services.MusicaService;
 import sinalif.services.SugestaoService;
-
-import java.util.List;
 import java.util.Optional;
 
 @Controller

@@ -3,15 +3,12 @@ package sinalif.services.impl;
 import java.util.*;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import sinalif.models.Musica;
 import sinalif.models.Perfil;
 import sinalif.models.Usuario;
 import sinalif.repositories.UsuarioRepository;
 import sinalif.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
