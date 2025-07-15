@@ -35,8 +35,8 @@
                         <td th:text="${alarme.dias_semana}"></td>
                         <td th:text="${alarme.ativo ? 'Sim' : 'Não'}"></td>
                         <td th:text="${alarme.pausado ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${#temporals.format(alarme.data_criacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
-                        <td th:text="${#temporals.format(alarme.data_modificacao, 'dd/MM/yyyy [HH:mm:ss]')}"></td>
+                        <td th:text="${#temporals.format(alarme.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(alarme.data_modificacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <td th:text="${alarme.etiqueta.nome}"></td>
                         <td><a class="btn btn-warning" role="button" th:href="@{/alarmes/edit/{id_alarme}(id_alarme=${alarme.id_alarme})}">Editar</a></td>
                         <td><a class="btn btn-danger" role="button" th:href="@{/alarmes/delete/{id_alarme}(id_alarme=${alarme.id_alarme})}">Deletar</a></td>

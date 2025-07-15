@@ -97,7 +97,7 @@ public class MusicaController {
         return "redirect:/musicas";
     }
 
-    @GetMapping("/play/{id}")
+    @GetMapping("/reproduzir/{id}")
     public String exibirPlayer(@PathVariable Long id, Model model) {
         Optional<Musica> musicaOptional = musicaRepository.findById(id);
 

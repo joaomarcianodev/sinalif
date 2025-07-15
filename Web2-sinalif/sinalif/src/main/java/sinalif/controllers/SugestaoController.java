@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import sinalif.models.Sugestao;
 import sinalif.models.Usuario;
 import sinalif.repositories.UsuarioRepository;
-import sinalif.services.MusicaService;
 import sinalif.services.SugestaoService;
-import sinalif.services.UsuarioService;
 import java.util.Optional;
 
 @Controller
@@ -22,20 +20,10 @@ public class SugestaoController {
     @Autowired
     private SugestaoService ISugestaoService;
     @Autowired
-    private MusicaService IMusicaService;
-    @Autowired
-    private UsuarioService IUsuarioService;
-    @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @GetMapping("/adm/sugestoes")
-    public String listarSugestoes(Model model) {
-        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
-        return "pages/sugestoes/list";
-    }
-
     @GetMapping("/sugestoes")
-    public String listarMinhasSugestoes(Model model) {
+    public String listarSugestoes(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
 
@@ -43,9 +31,17 @@ public class SugestaoController {
             throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
         } else {
             Usuario usuario = usuarioLogado.get();
-            model.addAttribute("sugestaoList", ISugestaoService.listarMinhasSugestoes(usuario.getIdUsuario()));
-            return "pages/sugestoes/list";
+
+            if(usuario.getRoles().get(0).equals("Aluno")){
+                model.addAttribute("sugestaoList", ISugestaoService.listarMinhasSugestoes(usuario.getIdUsuario()));
+                return "pages/sugestoes/list";
+            }else{
+                model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
+                return "pages/sugestoes/list";
+            }
         }
+
+
     }
 
     @GetMapping("/sugestoes/{id}")
@@ -89,7 +85,7 @@ public class SugestaoController {
         return "redirect:/sugestoes";
     }
 
-    /*@GetMapping("/play/{id}")
+    /*@GetMapping("/reproduzir/{id}")
     public String exibirPlayer(@PathVariable Long id, Model model) {
         Optional<Sugestao> musicaOptional = sugestaoRepository.findById(id);
 

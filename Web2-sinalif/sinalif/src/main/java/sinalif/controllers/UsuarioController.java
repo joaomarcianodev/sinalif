@@ -18,13 +18,10 @@ public class UsuarioController {
     private UsuarioService IUsuarioService;
     @Autowired
     private PerfilService IPerfilService;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/adm/usuarios")
     public String listarUsuarios(Model model){
         model.addAttribute("usuarioList", IUsuarioService.listarUsers());
-//        model.addAttribute("perfil", IPerfilService.);
         return "pages/adm/usuarios/list";
     }
 
@@ -114,7 +111,7 @@ public class UsuarioController {
 
     // Processa o formulário de registro (Sign-up)
     @PostMapping("/saveRegister")
-    public String registerUser(@ModelAttribute @Valid Usuario usuario, BindingResult result, Model model) {
+    public String registerUser(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult result, Model model) {
         if (usuario.getSenha() != null && usuario.getSenha().length() < 8) {
             result.rejectValue(
                     "senha",
@@ -146,6 +143,12 @@ public class UsuarioController {
     @GetMapping("/login")
     public String showLoginForm() {
         return "pages/userAuth/loginUser";
+    }
+
+    // Rota para a página de logout
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/login?logout";
     }
 
     @GetMapping("/accessDenied")
