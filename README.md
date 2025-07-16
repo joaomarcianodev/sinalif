@@ -18,8 +18,4 @@
 ## Tecnologias utilizadas
 | Spring | Bootstrap | jQuery | PostgreSQL | Youtube IFRAME API |
 | :---: | :---: | :---: | :---: | :---: |
-| <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*8QxPAk1bQFmTrkuLERm1wQ.png" height="40" alt="Spring logo"/> 
-| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" height="40" alt="Bootstrap logo"/> 
-| <img src="https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png?f=webp" height="40" alt="jQuery logo"/> 
-| <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" height="40" alt="PostgresSQL logo"/> 
-| <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" height="40" alt="Youtube API logo"/> |
+| <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*8QxPAk1bQFmTrkuLERm1wQ.png" height="40" alt="Spring logo"/> | <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" height="40" alt="Bootstrap logo"/> | <img src="https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png?f=webp" height="40" alt="jQuery logo"/> | <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" height="40" alt="PostgresSQL logo"/> | <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" height="40" alt="Youtube API logo"/> |
