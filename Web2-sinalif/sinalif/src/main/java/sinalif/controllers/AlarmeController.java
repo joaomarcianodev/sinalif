@@ -1,7 +1,6 @@
 package sinalif.controllers;
 
 import jakarta.validation.Valid;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,25 +20,25 @@ public class AlarmeController {
 	private EtiquetaService IEtiquetaService;
 
 	@GetMapping()
-	public String listarAlarmes(@NotNull Model model) {
+	public String listarAlarmes(Model model) {
 		model.addAttribute("alarmeList", IAlarmeService.listarAlarmes());
 		return "pages/alarmes/list";
 	}
 
 	@GetMapping("/{id}")
-	public Alarme getAlarmeById(@PathVariable Long id) {
+	public Alarme getAlarmeById(@PathVariable("id") Long id) {
 		return IAlarmeService.detalharAlarme(id);
 	}
 
 	@GetMapping("/create")
-	public String pageAlarmesCreate(@NotNull Model model) {
+	public String pageAlarmesCreate(Model model) {
 		model.addAttribute("alarme", new Alarme());
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/alarmes/create";
 	}
 
 	@PostMapping("/save")
-	public String salvarAlarme(@ModelAttribute @Valid Alarme alarme, @NotNull BindingResult result, @NotNull Model model) {
+	public String salvarAlarme(@ModelAttribute("alarme") @Valid Alarme alarme, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 			return "pages/alarmes/create";
@@ -49,14 +48,14 @@ public class AlarmeController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String atualizarAlarme(@PathVariable Long id, Model model) {
+	public String atualizarAlarme(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id));
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/alarmes/create";
 	}
 
 	@GetMapping("/delete/{id}")
-	public String excluirAlarme(@PathVariable Long id) {
+	public String excluirAlarme(@PathVariable("id") Long id) {
  		IAlarmeService.excluirAlarme(id);
 		return "redirect:/alarmes";
 	}

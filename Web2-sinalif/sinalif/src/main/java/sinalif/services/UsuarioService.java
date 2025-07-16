@@ -7,6 +7,7 @@ import java.util.List;
 public interface UsuarioService {
     public List<Usuario> listarUsers();
     public Usuario detalharUsuario(Long id);
+    public Usuario detalharUsuario(String email);
     public Long saveUser(Usuario usuario);
     public Long saveUserEdit(Usuario usuario);
     public Usuario updateUserName(Long userId, String newName);

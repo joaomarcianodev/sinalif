@@ -3,109 +3,107 @@ package sinalif.controllers;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import sinalif.models.Musica;
 import sinalif.models.Sugestao;
 import sinalif.models.Usuario;
-import sinalif.repositories.UsuarioRepository;
+import sinalif.services.MusicaService;
 import sinalif.services.SugestaoService;
-import java.util.Optional;
+import sinalif.services.UsuarioService;
 
 @Controller
-@RequestMapping()
+@RequestMapping("/sugestoes")
 public class SugestaoController {
     @Autowired
     private SugestaoService ISugestaoService;
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private MusicaService IMusicaService;
+    @Autowired
+    private UsuarioService IUsuarioService;
 
-    @GetMapping("/sugestoes")
+    @GetMapping()
     public String listarSugestoes(Model model) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+        Usuario usuarioLogado = IUsuarioService.detalharUsuario(email);
 
-        if (usuarioLogado.isEmpty()) {
-            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
-        } else {
-            Usuario usuario = usuarioLogado.get();
-
-            if(usuario.getRoles().get(0).equals("Aluno")){
-                model.addAttribute("sugestaoList", ISugestaoService.listarMinhasSugestoes(usuario.getIdUsuario()));
-                return "pages/sugestoes/list";
-            }else{
-                model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
-                return "pages/sugestoes/list";
-            }
+        if(usuarioLogado.getRoles().get(0).equals("Aluno")){
+            model.addAttribute("sugestaoList", ISugestaoService.listarMinhasSugestoes(usuarioLogado.getIdUsuario()));
+            return "pages/sugestoes/list";
+        }else{
+            model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
+            return "pages/sugestoes/list";
         }
-
-
     }
 
-    @GetMapping("/sugestoes/{id}")
-    public Sugestao detalharSugestao(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public Sugestao detalharSugestao(@PathVariable("id") Long id) {
         return ISugestaoService.detalharSugestao(id);
     }
 
-    @GetMapping("/sugestoes/usuario/{idUsuario}")
-    public String listarSugestoesPorUsuario(@PathVariable Long idUsuario, Model model) {
-        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoesPorUsuario(idUsuario));
+    @GetMapping("/usuario/{id}")
+    public String listarSugestoesPorUsuario(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("sugestaoList", ISugestaoService.listarSugestoesPorUsuario(id));
         return "pages/sugestoes/list";
     }
 
-    @GetMapping("/sugestoes/create")
+    @GetMapping("/create")
     public String criarSugestao(Model model) {
         model.addAttribute("sugestao", new Sugestao());
         return "pages/sugestoes/create";
     }
 
-    @PostMapping("/sugestoes/save")
-    public String salvarSugestao(@ModelAttribute @Valid Sugestao sugestao, BindingResult result, Model model) {
+    @PostMapping("/save")
+    public String salvarSugestao(@ModelAttribute("sugestao") @Valid Sugestao sugestao, BindingResult result) {
         if (result.hasErrors()) {
             return "pages/sugestoes/create";
         }
 
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Usuario> usuarioLogado = usuarioRepository.findUserByEmail(email);
+        Usuario usuarioLogado = IUsuarioService.detalharUsuario(email);
 
-        if (usuarioLogado.isEmpty()) {
-            throw new UsernameNotFoundException("Usuário com email: " + email + " não foi encontrado");
-        } else {
-            sugestao.setUsuario(usuarioLogado.get());
-            ISugestaoService.salvarSugestao(sugestao);
-            return "redirect:/sugestoes";
-        }
+        sugestao.setUsuario(usuarioLogado);
+        ISugestaoService.salvarSugestao(sugestao);
+        return "redirect:/sugestoes";
     }
 
-    @GetMapping("/sugestoes/delete/{id}")
-    public String excluirSugestao(@PathVariable Long id) {
+    @GetMapping("/save/musica/{id}/{status}")
+    public String salvarMusicaPorsugestao(@PathVariable("id") Long id, @PathVariable String status) {
+        Sugestao sugestao = ISugestaoService.detalharSugestao(id);
+        sugestao.setStatus_sugestao(status);
+
+        Musica musica = new Musica();
+        musica.setUrl(sugestao.getUrl_sugerida());
+        musica.setUsuario(sugestao.getUsuario());
+        IMusicaService.salvarMusica(musica);
+
+        String redirectPath = "redirect:/sugestoes/editStatus/"+id+"/"+status;
+        return redirectPath;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String excluirSugestao(@PathVariable("id") Long id) {
         ISugestaoService.excluirSugestao(id);
         return "redirect:/sugestoes";
     }
 
-    /*@GetMapping("/reproduzir/{id}")
-    public String exibirPlayer(@PathVariable Long id, Model model) {
-        Optional<Sugestao> musicaOptional = sugestaoRepository.findById(id);
-
-        if (musicaOptional.isPresent()) {
-            model.addAttribute("musica", musicaOptional.get());
-            return "pages/reprodutor";
-        } else {
-            return "javascript:alert('ID não encontrado');history.back()";
-        }
-    }*/
-
-    @GetMapping("/sugestoes/analise")
+    @GetMapping("/analise")
     public String listarSugestoesFuncionario(Model model) {
         model.addAttribute("sugestaoList", ISugestaoService.listarSugestoes());
         return "pages/sugestoes/analise";
     }
 
-    @GetMapping("/sugestoes/editStatus/{id}/{status}")
-    public String atualizarStatusSugestao(@PathVariable Long id, @PathVariable String status) {
+    @GetMapping("/editStatus/{id}/{status}")
+    public String atualizarStatusSugestao(@PathVariable("id") Long id, @PathVariable("status") String status) {
         ISugestaoService.atualizarStatusSugestao(id, status);
         return "redirect:/sugestoes/analise";
+    }
+
+    @GetMapping("/reproduzir/{id}")
+    public String exibirPlayer(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("musica", ISugestaoService.detalharSugestao(id));
+        return "pages/reprodutor";
     }
 }

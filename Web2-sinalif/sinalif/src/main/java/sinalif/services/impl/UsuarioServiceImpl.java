@@ -36,6 +36,12 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     }
 
     @Override
+    public Usuario detalharUsuario(String email) {
+        return usuarioRepository.findUserByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com email: " + email));
+    }
+
+    @Override
     public Long saveUser(Usuario usuario) {
         String passwd = usuario.getSenha();
         String encodedPasswod = passwordEncoder.encode(passwd);

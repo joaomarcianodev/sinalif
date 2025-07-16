@@ -23,7 +23,7 @@ public class PerfilController {
 	}
 
 	@GetMapping("/{id}")
-	public Perfil detalharPerfil(@PathVariable Long id){
+	public Perfil detalharPerfil(@PathVariable("id") Long id){
 		return IPerfilService.detalharPerfil(id);
 	}
 
@@ -34,7 +34,7 @@ public class PerfilController {
 	}
 
 	@PostMapping("/save")
-	public String salvarPausaProgramada(@ModelAttribute @Valid Perfil perfil, BindingResult result, Model model) {
+	public String salvarPausaProgramada(@ModelAttribute("perfil") @Valid Perfil perfil, BindingResult result) {
 		if (result.hasErrors()) {
 			return "pages/adm/perfis/create";
 		}
@@ -43,13 +43,13 @@ public class PerfilController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String atualizarPerfil(@PathVariable Long id, Model model) {
+	public String atualizarPerfil(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("perfil", IPerfilService.detalharPerfil(id));
 		return "pages/adm/perfis/create";
 	}
 
 	@GetMapping("/delete/{id}")
-	public String excluirPerfil(@PathVariable Long id) {
+	public String excluirPerfil(@PathVariable("id") Long id) {
 		IPerfilService.excluirPerfil(id);
 		return "redirect:/adm/perfis";
 	}

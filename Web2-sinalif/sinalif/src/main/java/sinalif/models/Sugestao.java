@@ -21,8 +21,8 @@ public class Sugestao {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
-    @Column(name = "url_sugerida", nullable = false)
-    private String url_sugerida;
+    @Column(name = "url", nullable = false)
+    private String url;
 
     @Column(name = "status_sugestao")
     private String status_sugestao = "Pendente";
@@ -51,11 +51,11 @@ public class Sugestao {
     }
 
     public String getUrl_sugerida() {
-        return url_sugerida;
+        return url;
     }
 
-    public void setUrl_sugerida(String url_sugerida) {
-        this.url_sugerida = url_sugerida;
+    public void setUrl_sugerida(String url) {
+        this.url = url;
     }
 
     public String getStatus_sugestao() {

@@ -22,7 +22,7 @@
                         <th>Status</th>
                         <th>Data Sugestão</th>
                         <th>Data Análise</th>
-                        <!-- <th class="col-1">Reproduzir</th> -->
+                        <th class="col-1">Reproduzir</th>
                         <th class="col-1">Deletar</th>
                     </tr>
                     </thead>
@@ -34,7 +34,7 @@
                         <td th:text="${sugestao.status_sugestao}"></td>
                         <td th:text="${#temporals.format(sugestao.data_sugestao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <td th:text="${sugestao.data_analise != null ? #temporals.format(sugestao.data_analise, 'dd/MM/yyyy HH:mm:ss') : 'Aguardando'}"></td>
-                        <!-- <td><a class="btn btn-primary" role="button" th:href="@{/musicas/reproduzir/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td> -->
+                        <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/reproduzir/{id_sugestao}(id_sugestao=${sugestao.id_sugestao})}">Reproduzir</a></td>
                         <td><a class="btn btn-danger" role="button" th:href="@{/sugestoes/delete/{id_sugestao}(id_sugestao=${sugestao.id_sugestao})}">Deletar</a></td>
                     </tr>
                     </tbody>
