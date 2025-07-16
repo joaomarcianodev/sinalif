@@ -22,12 +22,14 @@
     <th>Spring</th>
     <th>Bootstrap</th>
     <th>jQuery</th>
-    <th>MySQL</th>
+    <th>PostgreSQL</th>
+    <th>Youtube IFRAME API</th>
   </tr>
   <tr>
-    <td>icon</td>
-    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" height="40" alt="php logo"  /></td>
-    <td><img src="https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png?f=webp" height="40" alt="jQuery logo"  /></td>
-    <td>icon</td>
+    <td><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*8QxPAk1bQFmTrkuLERm1wQ.png" height="40" alt="Spring logo"/></td>
+    <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Bootstrap_logo.svg/1280px-Bootstrap_logo.svg.png" height="40" alt="Bootstrap logo"/></td>
+    <td><img src="https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png?f=webp" height="40" alt="jQuery logo"/></td>
+    <td><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg" height="40" alt="PostgresSQL logo"/></td>
+    <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoiMtJG_PC4lsb3-GZAiTZkUXAm3VlkJC1Ag&s" height="40" alt="Youtube API logo"/></td>
   </tr>
 </table>
