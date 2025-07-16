@@ -24,18 +24,18 @@ public class PausaProgramadaController {
 	}
 
 	@GetMapping("/{id}")
-	public PausaProgramada detalharPausaProgramadaById(@PathVariable Long id){
+	public PausaProgramada detalharPausaProgramadaById(@PathVariable("id") Long id){
 		return IPausaProgramadaService.detalharPausaProgramada(id);
 	}
 
 	@GetMapping("/create")
-	public String pagePausasCreate(@NotNull Model model) {
+	public String pagePausasCreate(Model model) {
 		model.addAttribute("pausa", new PausaProgramada());
 		return "pages/pausas/create";
 	}
 
 	@PostMapping("/save")
-	public String salvarPausaProgramada(@ModelAttribute("pausa") @Valid PausaProgramada pausaProgramada, BindingResult result, Model model) {
+	public String salvarPausaProgramada(@ModelAttribute("pausa") @Valid PausaProgramada pausaProgramada, BindingResult result) {
 		if (result.hasErrors()) {
 			return "pages/pausas/create";
 		}
@@ -44,13 +44,13 @@ public class PausaProgramadaController {
 	}
 
 	@GetMapping("/edit/{id}")
-	public String atualizarPausaProgramada(@PathVariable Long id, Model model) {
+	public String atualizarPausaProgramada(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("pausa", IPausaProgramadaService.detalharPausaProgramada(id));
 		return "pages/pausas/create";
 	}
 
 	@GetMapping("/delete/{id}")
-	public String excluirPausaProgramada(@PathVariable Long id) {
+	public String excluirPausaProgramada(@PathVariable("id") Long id) {
 		IPausaProgramadaService.excluirPausaProgramada(id);
 		return "redirect:/pausas";
 	}

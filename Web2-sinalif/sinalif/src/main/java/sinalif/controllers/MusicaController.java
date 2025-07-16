@@ -1,7 +1,6 @@
 package sinalif.controllers;
 
 import jakarta.validation.Valid;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,18 +34,18 @@ public class MusicaController {
     }
 
     @GetMapping("/{id}")
-    public Musica detalharMusica(@PathVariable Long id){
+    public Musica detalharMusica(@PathVariable("id") Long id){
         return IMusicaService.detalharMusica(id);
     }
 
     @GetMapping("/create")
-    public String pageMusicasCreate(@NotNull Model model) {
+    public String pageMusicasCreate(Model model) {
         model.addAttribute("musica", new Musica());
         return "pages/musicas/create";
     }
 
     @PostMapping("/save")
-    public String salvarMusica(@ModelAttribute @Valid Musica musica, @NotNull BindingResult result, @NotNull Model model) {
+    public String salvarMusica(@ModelAttribute("musica") @Valid Musica musica, BindingResult result) {
         if (result.hasErrors()) {
             return "pages/musicas/create";
         }
@@ -68,41 +67,21 @@ public class MusicaController {
         }
     }
 
-    @GetMapping("/save/sugestao/{id}/{status}")
-    public String salvarMusicaPorsugestao(@PathVariable Long id, @PathVariable String status) {
-        Sugestao sugestao = ISugestaoService.detalharSugestao(id);
-        sugestao.setStatus_sugestao(status);
-
-        Musica musica = new Musica();
-        musica.setUrl(sugestao.getUrl_sugerida());
-        musica.setUsuario(sugestao.getUsuario());
-
-        IMusicaService.salvarMusica(musica);
-        String redirectPath = "redirect:/sugestoes/editStatus/"+id+"/"+status;
-        return redirectPath;
-    }
-
     @GetMapping("/edit/{id}")
-    public String atualizarMusica(@PathVariable Long id, Model model) {
+    public String atualizarMusica(@PathVariable("id") Long id, Model model) {
         model.addAttribute("musica", IMusicaService.detalharMusica(id));
         return "pages/musicas/create";
     }
 
     @GetMapping("/delete/{id}")
-    public String excluirMusica(@PathVariable Long id){
+    public String excluirMusica(@PathVariable("id") Long id){
         IMusicaService.excluirMusica(id);
         return "redirect:/musicas";
     }
 
     @GetMapping("/reproduzir/{id}")
-    public String exibirPlayer(@PathVariable Long id, Model model) {
-        Optional<Musica> musicaOptional = musicaRepository.findById(id);
-
-        if (musicaOptional.isPresent()) {
-            model.addAttribute("musica", musicaOptional.get());
-            return "pages/reprodutor";
-        } else {
-            return "javascript:alert('ID não encontrado');history.back()";
-        }
+    public String exibirPlayer(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("musica", IMusicaService.detalharMusica(id));
+        return "pages/reprodutor";
     }
 }

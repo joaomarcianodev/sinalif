@@ -20,19 +20,32 @@ public class LogReproducaoController {
     }
 
     @GetMapping("/{id}")
-    public LogReproducao detalharLogReproducao(@PathVariable Long id){
+    public LogReproducao detalharLogReproducao(@PathVariable("id") Long id){
         return ILogReproducaoService.detalharLogReproducao(id);
     }
 
-    //Fora de contexto ter um Create e Save pra log
-    /*@GetMapping("/create")
-    public String pageLogsCreate(@NotNull Model model) {
-        model.addAttribute("log", new LogReproducao());
-        return "pages/historico/create";
+    //Será usado pelo sistema, e não pelos usuários
+    @PostMapping
+    public LogReproducao salvarLogReproducao(LogReproducao log){
+        return ILogReproducaoService.salvarLogReproducao(log);
     }
 
-    @PostMapping("/save")
-    public String salvarLog(@ModelAttribute @Valid LogReproducao log, @NotNull BindingResult result, @NotNull Model model) {
+    @GetMapping("/delete/{id}")
+    public String excluirLogReproducao(@PathVariable("id") Long id){
+        ILogReproducaoService.excluirLogReproducao(id);
+        return "redirect:/historico";
+    }
+
+    //Fora de contexto ter uma página de Create para log
+    /*@GetMapping("/create")
+    public String pageLogsCreate(Model model) {
+        model.addAttribute("log", new LogReproducao());
+        return "pages/historico/create";
+    }*/
+
+    //Fora de contexto ter um save q vem de uma página Create para log
+    /*@PostMapping("/save")
+    public String salvarLog(@ModelAttribute("log") @Valid LogReproducao log, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "pages/historico/create";
         }
@@ -40,21 +53,10 @@ public class LogReproducaoController {
         return "redirect:/historico";
     }*/
 
-    @PostMapping
-    public LogReproducao salvarLogReproducao(@RequestBody LogReproducao log){
-        return ILogReproducaoService.salvarLogReproducao(log);
-    }
-
     //Fora de contexto ter um Update pra log
     /*@GetMapping("/edit/{id}")
     public String atualizarLogReproducao(@PathVariable Long id, Model model) {
         model.addAttribute("historico", ILogReproducaoService.detalharLogReproducao(id));
         return "pages/historico/create";
     }*/
-
-    @GetMapping("/delete/{id}")
-    public String excluirLogReproducao(@PathVariable Long id){
-        ILogReproducaoService.excluirLogReproducao(id);
-        return "redirect:/historico";
-    }
 }

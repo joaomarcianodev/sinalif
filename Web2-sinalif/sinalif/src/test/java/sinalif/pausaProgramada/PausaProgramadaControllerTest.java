@@ -30,6 +30,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import sinalif.config.TestConfig;
+import sinalif.controllers.PausaProgramadaController;
 import sinalif.models.PausaProgramada;
 import sinalif.services.PausaProgramadaService;
 

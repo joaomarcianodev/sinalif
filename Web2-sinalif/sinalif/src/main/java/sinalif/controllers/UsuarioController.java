@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/adm/usuarios/delete/{id}")
-    public String excluirUsuario(@PathVariable Long id) {
+    public String excluirUsuario(@PathVariable("id") Long id) {
         IUsuarioService.deleteUser(id);
         return "redirect:/adm/usuarios";
     }
@@ -37,14 +37,17 @@ public class UsuarioController {
     }
 
     @GetMapping("/adm/usuarios/edit/{id}")
-    public String atualizarUsuario(@PathVariable Long id, Model model) {
+    public String atualizarUsuario(@PathVariable("id") Long id, Model model) {
         model.addAttribute("usuario", IUsuarioService.detalharUsuario(id));
+        model.addAttribute("perfilList", IPerfilService.listarPerfis());
         return "pages/adm/usuarios/edit";
     }
 
     @PostMapping("/adm/usuarios/saveEdit")
     public String salvarEdicaoUsuario(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult result, Model model) {
-        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+        if (usuario.getEmail() != null &&
+            !usuario.getEmail().isEmpty() &&
+            (!usuario.getEmail().endsWith("@iftm.edu.br") && !usuario.getEmail().endsWith("@estudante.iftm.edu.br"))) {
             result.rejectValue(
                     "email",
                     "usuario.email.dominioInvalido",
@@ -79,7 +82,9 @@ public class UsuarioController {
                     "A senha deve ter no mínimo 8 caracteres."
             );
         }
-        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+        if (usuario.getEmail() != null &&
+            !usuario.getEmail().isEmpty() &&
+            (!usuario.getEmail().endsWith("@iftm.edu.br") && !usuario.getEmail().endsWith("@estudante.iftm.edu.br"))) {
             result.rejectValue(
                     "email",
                     "usuario.email.dominioInvalido",
@@ -117,7 +122,9 @@ public class UsuarioController {
                     "A senha deve ter no mínimo 8 caracteres."
             );
         }
-        if (usuario.getEmail() != null && !usuario.getEmail().isEmpty() && !usuario.getEmail().endsWith("iftm.edu.br")) {
+        if (usuario.getEmail() != null &&
+            !usuario.getEmail().isEmpty() &&
+            (!usuario.getEmail().endsWith("@iftm.edu.br") && !usuario.getEmail().endsWith("@estudante.iftm.edu.br"))) {
             result.rejectValue(
                     "email",
                     "usuario.email.dominioInvalido",
@@ -154,7 +161,7 @@ public class UsuarioController {
         return "pages/userAuth/accessDeniedPage";
     }
 
-    @PutMapping("/usuario/{id}/updateName")
+    @PutMapping("/usuario/updateName/{id}")
     public String updateUserName(@PathVariable("id") Long userId, @RequestParam("newName") String newName, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.updateUserName(userId, newName);
@@ -167,7 +174,7 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping("/usuario/{id}/updatePhoto")
+    @PutMapping("/usuario/updatePhoto/{id}")
     public String updateProfilePhoto(@PathVariable("id") Long userId, @RequestParam("photoUrl") String photoUrl, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.updateProfilePicture(userId, photoUrl);
@@ -180,7 +187,7 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping("/usuario/{id}/notifications")
+    @PutMapping("/usuario/notifications/{id}")
     public String toggleNotifications(@PathVariable("id") Long userId, @RequestParam("active") boolean active, Model model) {
         try {
             Usuario updatedUsuario = IUsuarioService.toggleNotifications(userId, active);
@@ -193,7 +200,7 @@ public class UsuarioController {
         }
     }
 
-    @PostMapping("/usuario/{id}/changePassword")
+    @PostMapping("/usuario/changePassword/{id}")
     public String changeUserPassword(@PathVariable("id") Long userId, @RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, Model model) {
         try {
             // Adicionar validação de senha (tamanho mínimo, caracteres especiais, etc.) aqui ou no serviço
@@ -210,7 +217,7 @@ public class UsuarioController {
         }
     }
 
-    /*@DeleteMapping("/usuario/{id}/deleteAccount")
+    /*@DeleteMapping("/usuario/deleteAccount/{id}")
     @Transactional // Garante que a operação seja atômica
     public String deleteAccount(@PathVariable("id") Long userId,
                                 @AuthenticationPrincipal UserDetails loggedInUser, // Obtém o usuário logado
