@@ -27,13 +27,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="pausa : ${pausaList}">
-                        <td th:text="${pausa.id_pausa}"></td>
-                        <td th:text="${#temporals.format(pausa.data_hora_inicio, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td th:text="${#temporals.format(pausa.data_hora_fim, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${pausa.idPausa}"></td>
+                        <td th:text="${#temporals.format(pausa.dataHoraInicio, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(pausa.dataHoraFim, 'dd/MM/yyyy HH:mm:ss')}"></td>
                         <td th:text="${pausa.ativo ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${#temporals.format(pausa.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/pausas/edit/{id_pausa}(id_pausa=${pausa.id_pausa})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/pausas/delete/{id_pausa}(id_pausa=${pausa.id_pausa})}">Deletar</a></td>
+                        <td th:text="${#temporals.format(pausa.dataCriacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/pausas/edit/{idPausa}(idPausa=${pausa.idPausa})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/pausas/delete/{idPausa}(idPausa=${pausa.idPausa})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

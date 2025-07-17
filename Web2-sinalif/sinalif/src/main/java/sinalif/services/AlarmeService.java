@@ -8,7 +8,7 @@ public interface AlarmeService {
     public List<Alarme> listarAlarmes();
     public Alarme detalharAlarme(Long id);
     public Alarme salvarAlarme(Alarme alarme);
-    public Alarme atualizarAlarme(Long id, Alarme alarmeAtualizado);
     public void excluirAlarme(Long id);
+    public Alarme atualizarAlarme(Long id, Alarme alarmeAtualizado);
     public void excluirAlarme(Alarme alarme);
 }

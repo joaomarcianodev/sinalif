@@ -37,7 +37,7 @@
                 <label for="selectPerfil" class="form-label">Perfil:</label>
                 <select class="form-select input" id="selectPerfil" name="selectPerfil" th:field="*{roles}">
                     <option th:each="perfil : ${perfilList}"
-                            th:value="${perfil.id_perfil}"
+                            th:value="${perfil.idPerfil}"
                             th:text="${perfil.nome}">
                     </option>
                 </select>

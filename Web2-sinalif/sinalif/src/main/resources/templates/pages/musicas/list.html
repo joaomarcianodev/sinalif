@@ -27,13 +27,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="musica : ${musicaList}">
-                        <td th:text="${musica.id_musica}"></td>
+                        <td th:text="${musica.idMusica}"></td>
                         <td th:text="${musica.usuario.nome}"></td>
-                        <td th:text="${musica.url}"></td>
-                        <td th:text="${#temporals.format(musica.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td><a class="btn btn-primary" role="button" th:href="@{/musicas/reproduzir/{id_musica}(id_musica=${musica.id_musica})}">Reproduzir</a></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/musicas/edit/{id_musica}(id_musica=${musica.id_musica})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/musicas/delete/{id_musica}(id_musica=${musica.id_musica})}">Deletar</a></td>
+                        <td><a th:text="${musica.url}" th:href="${musica.url}" target="_blank"></a></td>
+                        <td th:text="${#temporals.format(musica.dataCriacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/musicas/reproduzir/{idMusica}(idMusica=${musica.idMusica})}">Reproduzir</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/musicas/edit/{idMusica}(idMusica=${musica.idMusica})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/musicas/delete/{idMusica}(idMusica=${musica.idMusica})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

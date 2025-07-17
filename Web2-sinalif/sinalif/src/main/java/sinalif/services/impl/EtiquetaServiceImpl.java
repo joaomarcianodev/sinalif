@@ -43,7 +43,7 @@ public class EtiquetaServiceImpl implements EtiquetaService {
 
 	@Override
 	public void excluirEtiqueta(Etiqueta etiqueta) {
-		etiquetaRepository.deleteById(etiqueta.getId_etiqueta());
+		etiquetaRepository.deleteById(etiqueta.getIdEtiqueta());
 	}
 
 	@Override

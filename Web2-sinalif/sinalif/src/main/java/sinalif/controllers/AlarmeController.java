@@ -11,6 +11,8 @@ import sinalif.models.Alarme;
 import sinalif.services.AlarmeService;
 import sinalif.services.EtiquetaService;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/alarmes")
 public class AlarmeController {
@@ -49,7 +51,10 @@ public class AlarmeController {
 
 	@GetMapping("/edit/{id}")
 	public String atualizarAlarme(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("alarme", IAlarmeService.detalharAlarme(id));
+		Alarme alarme = IAlarmeService.detalharAlarme(id);
+		alarme.setDiasSemanaCheckbox(Arrays.asList(alarme.getDiasSemana().split(",")));
+
+		model.addAttribute("alarme", alarme);
 		model.addAttribute("etiquetaList", IEtiquetaService.listarEtiquetas());
 		return "pages/alarmes/create";
 	}

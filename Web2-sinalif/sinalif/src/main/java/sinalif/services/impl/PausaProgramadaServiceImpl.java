@@ -35,15 +35,15 @@ public class PausaProgramadaServiceImpl implements PausaProgramadaService{
     public PausaProgramada atualizarPausaProgramada(Long id, PausaProgramada pausaProgramadaAtualizada) {
         PausaProgramada pausaExistente = pausaProgramadaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pausa programada não encontrada com ID: " + id));
-        pausaExistente.setData_hora_inicio(pausaProgramadaAtualizada.getData_hora_inicio());
-        pausaExistente.setData_hora_fim(pausaProgramadaAtualizada.getData_hora_fim());
+        pausaExistente.setDataHoraInicio(pausaProgramadaAtualizada.getDataHoraInicio());
+        pausaExistente.setDataHoraFim(pausaProgramadaAtualizada.getDataHoraFim());
         pausaExistente.setAtivo(pausaProgramadaAtualizada.isAtivo());
         return pausaProgramadaRepository.save(pausaExistente);
     }
 
     @Override
     public void excluirPausaProgramada(PausaProgramada pausaProgramada) {
-        pausaProgramadaRepository.deleteById(pausaProgramada.getId_pausa());
+        pausaProgramadaRepository.deleteById(pausaProgramada.getIdPausa());
     }
 
     @Override

@@ -28,14 +28,14 @@
                     </thead>
                     <tbody>
                     <tr th:each="sugestao : ${sugestaoList}">
-                        <td th:text="${sugestao.id_sugestao}"></td>
+                        <td th:text="${sugestao.idSugestao}"></td>
                         <td th:text="${sugestao.usuario.nome}"></td>
-                        <td th:text="${sugestao.url_sugerida}"></td>
-                        <td th:text="${sugestao.status_sugestao}"></td>
-                        <td th:text="${#temporals.format(sugestao.data_sugestao, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td th:text="${sugestao.data_analise != null ? #temporals.format(sugestao.data_analise, 'dd/MM/yyyy HH:mm:ss') : 'Aguardando'}"></td>
-                        <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/reproduzir/{id_sugestao}(id_sugestao=${sugestao.id_sugestao})}">Reproduzir</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/sugestoes/delete/{id_sugestao}(id_sugestao=${sugestao.id_sugestao})}">Deletar</a></td>
+                        <td><a th:text="${sugestao.url}" th:href="${sugestao.url}" target="_blank"></a></td>
+                        <td th:text="${sugestao.statusSugestao}"></td>
+                        <td th:text="${#temporals.format(sugestao.dataSugestao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${sugestao.dataAnalise != null ? #temporals.format(sugestao.dataAnalise, 'dd/MM/yyyy HH:mm:ss') : 'Aguardando'}"></td>
+                        <td><a class="btn btn-primary" role="button" th:href="@{/sugestoes/reproduzir/{idSugestao}(idSugestao=${sugestao.idSugestao})}">Reproduzir</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/sugestoes/delete/{idSugestao}(idSugestao=${sugestao.idSugestao})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

@@ -11,7 +11,7 @@
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <form action="#" th:action="@{/alarmes/save}" th:object="${alarme}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_alarme}" />
+                <input type="hidden" th:field="*{idAlarme}" />
 
                 <div th:if="${#lists.isEmpty(etiquetaList)}">
                     <label for="selectEtiqueta" class="form-label">Etiqueta</label>
@@ -23,24 +23,43 @@
 
                 <div th:if="${not #lists.isEmpty(etiquetaList)}">
                     <label for="selectEtiqueta" class="form-label">Etiqueta</label>
-                    <select class="form-select input" id="selectEtiqueta" name="selectEtiqueta" th:field="*{etiqueta.id_etiqueta}">
+                    <select class="form-select input" id="selectEtiqueta" name="selectEtiqueta" th:field="*{etiqueta.idEtiqueta}">
                         <option th:each="etiqueta : ${etiquetaList}"
-                                th:value="${etiqueta.id_etiqueta}"
+                                th:value="${etiqueta.idEtiqueta}"
                                 th:text="${etiqueta.nome + ' (' + etiqueta.duracao + ' min)'}">
                         </option>
                     </select>
                 </div>
-                <p th:if="${#fields.hasErrors('etiqueta.id_etiqueta')}" th:errorclass="text-danger" th:errors="*{etiqueta.id_etiqueta}"/>
+                <p th:if="${#fields.hasErrors('etiqueta.idEtiqueta')}" th:errorclass="text-danger" th:errors="*{etiqueta.idEtiqueta}"/>
             </div>
             <div class="mb-3">
                 <label for="txtHorario" class="form-label">Horário Programado</label>
-                <input type="time" class="form-control input" id="txtHorario" name="txtHorario" th:field="*{horario_programado}" placeholder="">
-                <p th:if="${#fields.hasErrors('horario_programado')}" th:errorclass="text-danger" th:errors="*{horario_programado}" />
+                <input type="time" class="form-control input" id="txtHorario" name="txtHorario" th:field="*{horarioProgramado}" placeholder="">
+                <p th:if="${#fields.hasErrors('horarioProgramado')}" th:errorclass="text-danger" th:errors="*{horarioProgramado}" />
             </div>
             <div class="mb-3">
-                <label for="txtDias" class="form-label">Dias da Semana</label>
-                <input type="text" class="form-control input" id="txtDias" name="txtDias" th:field="*{dias_semana}" placeholder="2,3,6">
-                <p th:if="${#fields.hasErrors('dias_semana')}" th:errorclass="text-danger" th:errors="*{dias_semana}" />
+                <label class="form-label">Dias da Semana</label><br>
+<!--                <input type="text" class="form-control input" id="txtDias" name="txtDias" th:field="*{diasSemana}" placeholder="2,3,6">-->
+<!--                <p th:if="${#fields.hasErrors('diasSemana')}" th:errorclass="text-danger" th:errors="*{diasSemana}" />-->
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${0}" th:id="${dia0}">
+                <label class="form-check-label" th:for="${dia0}">Segunda-feira</label><br>
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${1}" th:id="${dia1}">
+                <label class="form-check-label" th:for="${dia1}">Terça-feira</label><br>
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${2}" th:id="${dia2}">
+                <label class="form-check-label" th:for="${dia2}">Quarta-feira</label><br>
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${3}" th:id="${dia3}">
+                <label class="form-check-label" th:for="${dia3}">Quinta-feira</label><br>
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${4}" th:id="${dia4}">
+                <label class="form-check-label" th:for="${dia4}">Sexta-Feira</label><br>
+
+                <input class="form-check-input" type="checkbox" th:field="*{diasSemanaCheckbox}" th:value="${5}" th:id="${dia5}">
+                <label class="form-check-label" th:for="${dia5}">Sábado</label><br>
+                <p th:if="${#fields.hasErrors('diasSemanaCheckbox')}" th:errorclass="text-danger" th:errors="*{diasSemanaCheckbox}" />
             </div>
             <div class="mb-3">
                 <label for="selectAtivo" class="form-label" >Situação</label>

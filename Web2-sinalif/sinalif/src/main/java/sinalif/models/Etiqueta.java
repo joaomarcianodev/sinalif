@@ -2,64 +2,29 @@ package sinalif.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "etiqueta")
 public class Etiqueta {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id_etiqueta;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_etiqueta")
+	private Long idEtiqueta;
 
 	@NotBlank(message= "Nome é um campo obrigatório")
-	@Column(nullable = false)
+	@Column(name = "nome", nullable = false)
 	private String nome;
 
 	@NotBlank(message= "Duração é um campo obrigatório")
-	@Column(nullable = false)
+	@Column(name = "duracao", nullable = false)
 	private String duracao;
 
 	@OneToMany(mappedBy = "etiqueta", cascade = CascadeType.ALL)
 	private List<Alarme> alarmes;
-
-	public List<Alarme> getAlarmes() {
-		return alarmes;
-	}
-
-	public void setAlarmes(List<Alarme> alarmes) {
-		this.alarmes = alarmes;
-	}
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public long getId_etiqueta() {
-		return id_etiqueta;
-	}
-
-	public void setId_etiqueta(long id_etiqueta) {
-		this.id_etiqueta = id_etiqueta;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getDuracao() {
-		return duracao;
-	}
-
-	public void setDuracao(String duracao) {
-		this.duracao = duracao;
-	}
-
-		
 }

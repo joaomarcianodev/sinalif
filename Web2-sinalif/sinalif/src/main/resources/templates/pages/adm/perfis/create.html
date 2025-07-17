@@ -11,7 +11,7 @@
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <form action="#" th:action="@{/adm/perfis/save}" th:object="${perfil}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_perfil}" />
+                <input type="hidden" th:field="*{idPerfil}" />
 
                 <label for="txtNome" class="form-label">Nome do cargo/perfil</label>
                 <input type="text" class="form-control input" id="txtNome" th:field="*{nome}" placeholder="">

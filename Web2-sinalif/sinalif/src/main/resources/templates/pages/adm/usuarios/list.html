@@ -35,9 +35,9 @@
                     <td th:text="${usuario.nome}"></td>
                     <td th:text="${usuario.email}"></td>
                     <td th:text="${usuario.senha}" style="word-wrap: break-word;min-width: 160px;max-width: 150px;"></td>
-                    <td th:text="${usuario.url_foto_perfil}"></td>
-                    <td th:text="${usuario.notificacoes_ativas ? 'Ativado' : 'Desativado'}"></td>
-                    <td th:text="${#temporals.format(usuario.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                    <td th:text="${usuario.urlFotoPerfil}"></td>
+                    <td th:text="${usuario.notificacoesAtivas ? 'Ativado' : 'Desativado'}"></td>
+                    <td th:text="${#temporals.format(usuario.dataCriacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
                     <td><a class="btn btn-warning" role="button" th:href="@{/adm/usuarios/edit/{idUsuario}(idUsuario=${usuario.idUsuario})}">Editar</a></td>
                     <td><a class="btn btn-danger" role="button" th:href="@{/adm/usuarios/delete/{idUsuario}(idUsuario=${usuario.idUsuario})}">Deletar</a></td>
                 </tr>

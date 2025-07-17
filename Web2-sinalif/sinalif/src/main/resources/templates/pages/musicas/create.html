@@ -10,7 +10,7 @@
         <h1 class="mb-5 text-center">Músicas</h1>
         <form action="#" th:action="@{/musicas/save}" th:object="${musica}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_musica}" />
+                <input type="hidden" th:field="*{idMusica}" />
 
                 <label for="txtUrl" class="form-label">URL</label>
                 <input type="text" class="form-control input" id="txtUrl" th:field="*{url}" placeholder="https://exemplo.com.br">

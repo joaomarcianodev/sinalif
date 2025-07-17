@@ -2,22 +2,26 @@ package sinalif.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
+@Data
 @Entity
 @Table(name = "musica")
 @EntityListeners(AuditingEntityListener.class)
 public class Musica {
-
-    //private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id_musica;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_musica")
+    private Long idMusica;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario", nullable = false)
@@ -28,53 +32,27 @@ public class Musica {
     private String url;
 
     @CreatedDate
-    @Column(name = "data_criacao", updatable = false)
-    private LocalDateTime data_criacao;
+    @Column(name = "dataCriacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
-    @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<LogReproducao> logs;
+//    @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Set<LogReproducao> logs;
 
-    public Long getId_musica() {
-        return id_musica;
+    @OneToMany(mappedBy = "musica", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private Set<LogReproducao> logs;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Musica musica = (Musica) o;
+        // Compara apenas pelo ID, e só se ele não for nulo
+        return idMusica != null && Objects.equals(idMusica, musica.idMusica);
     }
 
-    public void setId_musica(Long id_musica) {
-        this.id_musica = id_musica;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public LocalDateTime getData_criacao() {
-        return data_criacao;
-    }
-
-    public void setData_criacao(LocalDateTime data_criacao) {
-        this.data_criacao = data_criacao;
-    }
-
-    public void setId_musica(long id_musica) {
-        this.id_musica = id_musica;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public List<LogReproducao> getLogs() {
-        return logs;
-    }
-
-    public void setLogs(List<LogReproducao> logs) {
-        this.logs = logs;
+    @Override
+    public int hashCode() {
+        // Usa uma constante para objetos ainda não persistidos
+        return getClass().hashCode();
     }
 }

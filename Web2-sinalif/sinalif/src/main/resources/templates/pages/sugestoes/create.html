@@ -12,11 +12,11 @@
     <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
     <form action="#" th:action="@{/sugestoes/save}" th:object="${sugestao}" method="POST">
         <div class="mb-3">
-            <input type="hidden" th:field="*{id_sugestao}" />
+            <input type="hidden" th:field="*{idSugestao}" />
 
             <label for="txtUrl" class="form-label">URL</label>
-            <input type="text" class="form-control input" id="txtUrl" th:field="*{url_sugerida}" placeholder="https://exemplo.com.br">
-            <p th:if="${#fields.hasErrors('url_sugerida')}" th:errorclass="text-danger" th:errors="*{url_sugerida}"/>
+            <input type="text" class="form-control input" id="txtUrl" th:field="*{url}" placeholder="https://exemplo.com.br">
+            <p th:if="${#fields.hasErrors('url')}" th:errorclass="text-danger" th:errors="*{url}"/>
         </div>
 
         <div class="row">

@@ -72,10 +72,10 @@ public class SugestaoController {
     @GetMapping("/save/musica/{id}/{status}")
     public String salvarMusicaPorsugestao(@PathVariable("id") Long id, @PathVariable String status) {
         Sugestao sugestao = ISugestaoService.detalharSugestao(id);
-        sugestao.setStatus_sugestao(status);
+        sugestao.setStatusSugestao(status);
 
         Musica musica = new Musica();
-        musica.setUrl(sugestao.getUrl_sugerida());
+        musica.setUrl(sugestao.getUrl());
         musica.setUsuario(sugestao.getUsuario());
         IMusicaService.salvarMusica(musica);
 

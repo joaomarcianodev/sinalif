@@ -70,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     public Usuario updateProfilePicture(Long userId, String newPhotoUrl) {
         return usuarioRepository.findById(userId)
                 .map(usuario -> {
-                    usuario.setUrl_foto_perfil(newPhotoUrl);
+                    usuario.setUrlFotoPerfil(newPhotoUrl);
                     return usuarioRepository.save(usuario);
                 })
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userId));
@@ -80,7 +80,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
     public Usuario toggleNotifications(Long userId, boolean active) {
         return usuarioRepository.findById(userId)
                 .map(usuario -> {
-                    usuario.setNotificacoes_ativas(active);
+                    usuario.setNotificacoesAtivas(active);
                     return usuarioRepository.save(usuario);
                 })
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + userId));
@@ -131,10 +131,14 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 
     @Override
     public void deleteUser(Long userId) {
-        if (usuarioRepository.existsById(userId)) {
-            usuarioRepository.deleteById(userId);
-        } else {
-            throw new RuntimeException("Usuário não encontrado com ID: " + userId);
+        if(userId==1){
+            throw new RuntimeException("Usuário Admin não pode ser excluido!");
+        }else{
+            if (usuarioRepository.existsById(userId)) {
+                usuarioRepository.deleteById(userId);
+            } else {
+                throw new RuntimeException("Usuário não encontrado com ID: " + userId);
+            }
         }
     }
 }

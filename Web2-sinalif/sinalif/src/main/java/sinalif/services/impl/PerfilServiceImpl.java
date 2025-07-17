@@ -42,15 +42,19 @@ public class PerfilServiceImpl implements PerfilService {
 
 	@Override
 	public void excluirPerfil(Perfil perfil) {
-		perfilRepository.deleteById(perfil.getId_perfil());
+		perfilRepository.deleteById(perfil.getIdPerfil());
 	}
 
 	@Override
 	public void excluirPerfil(Long id) {
-		if (perfilRepository.existsById(id)) {
-			perfilRepository.deleteById(id);
-		} else {
-			throw new RuntimeException("Perfil não encontrado com ID: " + id);
+		if(id == 1){
+			throw new RuntimeException("Perfil de Admin não pode ser excluido!");
+		}else{
+			if (perfilRepository.existsById(id)) {
+				perfilRepository.deleteById(id);
+			} else {
+				throw new RuntimeException("Perfil não encontrado com ID: " + id);
+			}
 		}
 	}
 }

@@ -24,10 +24,10 @@
                     </thead>
                     <tbody>
                     <tr th:each="perfil : ${perfilList}">
-                        <td th:text="${perfil.id_perfil}"></td>
+                        <td th:text="${perfil.idPerfil}"></td>
                         <td th:text="${perfil.nome}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/perfis/edit/{id_perfil}(id_perfil=${perfil.id_perfil})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/perfis/delete/{id_perfil}(id_perfil=${perfil.id_perfil})}">Deletar</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/adm/perfis/edit/{idPerfil}(idPerfil=${perfil.idPerfil})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/adm/perfis/delete/{idPerfil}(idPerfil=${perfil.idPerfil})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

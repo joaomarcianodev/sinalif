@@ -43,9 +43,9 @@ public class SugestaoServiceImpl implements SugestaoService {
         Usuario usuario = usuarioRepository.findById(sugestao.getUsuario().getIdUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + sugestao.getUsuario().getIdUsuario()));
         sugestao.setUsuario(usuario);
-        sugestao.setStatus_sugestao("Pendente");
-        sugestao.setData_sugestao(LocalDateTime.now());
-        sugestao.setData_analise(null);
+        sugestao.setStatusSugestao("Pendente");
+        sugestao.setDataSugestao(LocalDateTime.now());
+        sugestao.setDataAnalise(null);
         return sugestaoRepository.save(sugestao);
     }
 
@@ -53,12 +53,12 @@ public class SugestaoServiceImpl implements SugestaoService {
     public Sugestao atualizarSugestao(Long id, Sugestao sugestaoDetalhes) {
         return sugestaoRepository.findById(id)
                 .map(sugestao -> {
-                    sugestao.setUrl_sugerida(sugestaoDetalhes.getUrl_sugerida());
-                    if (sugestaoDetalhes.getStatus_sugestao() != null && !sugestaoDetalhes.getStatus_sugestao().isEmpty()) {
-                        sugestao.setStatus_sugestao(sugestaoDetalhes.getStatus_sugestao());
+                    sugestao.setUrl(sugestaoDetalhes.getUrl());
+                    if (sugestaoDetalhes.getStatusSugestao() != null && !sugestaoDetalhes.getStatusSugestao().isEmpty()) {
+                        sugestao.setStatusSugestao(sugestaoDetalhes.getStatusSugestao());
                     }
-                    if (sugestaoDetalhes.getData_analise() != null) {
-                        sugestao.setData_analise(sugestaoDetalhes.getData_analise());
+                    if (sugestaoDetalhes.getDataAnalise() != null) {
+                        sugestao.setDataAnalise(sugestaoDetalhes.getDataAnalise());
                     }
                     return sugestaoRepository.save(sugestao);
                 })
@@ -83,8 +83,8 @@ public class SugestaoServiceImpl implements SugestaoService {
     public Sugestao atualizarStatusSugestao(Long idSugestao, String novoStatus) {
         return sugestaoRepository.findById(idSugestao)
                 .map(sugestao -> {
-                    sugestao.setStatus_sugestao(novoStatus);
-                    sugestao.setData_analise(LocalDateTime.now());
+                    sugestao.setStatusSugestao(novoStatus);
+                    sugestao.setDataAnalise(LocalDateTime.now());
                     return sugestaoRepository.save(sugestao);
                 })
                 .orElseThrow(() -> new RuntimeException("Sugestão não encontrada com ID: " + idSugestao));

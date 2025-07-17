@@ -11,16 +11,16 @@
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <form action="#" th:action="@{/pausas/save}" th:object="${pausa}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_pausa}" />
+                <input type="hidden" th:field="*{idPausa}" />
 
                 <label for="txtDataHoraInicio" class="form-label">Data e Hora de Início</label>
-                <input type="datetime-local" class="form-control input" id="txtDataHoraInicio" th:field="*{data_hora_inicio}" placeholder="">
-                <p th:if="${#fields.hasErrors('data_hora_inicio')}" th:errorclass="text-danger" th:errors="*{data_hora_inicio}"/>
+                <input type="datetime-local" class="form-control input" id="txtDataHoraInicio" th:field="*{dataHoraInicio}" placeholder="">
+                <p th:if="${#fields.hasErrors('dataHoraInicio')}" th:errorclass="text-danger" th:errors="*{dataHoraInicio}"/>
             </div>
             <div class="mb-3">
                 <label for="txtDataHoraFim" class="form-label">Data e Hora de Término</label>
-                <input type="datetime-local" class="form-control input" id="txtDataHoraFim" th:field="*{data_hora_fim}" placeholder="">
-                <p th:if="${#fields.hasErrors('data_hora_fim')}" th:errorclass="text-danger" th:errors="*{data_hora_fim}"/>
+                <input type="datetime-local" class="form-control input" id="txtDataHoraFim" th:field="*{dataHoraFim}" placeholder="">
+                <p th:if="${#fields.hasErrors('dataHoraFim')}" th:errorclass="text-danger" th:errors="*{dataHoraFim}"/>
             </div>
             <div class="mb-3">
                 <label for="selectAtivo" class="form-label" >Situação</label>

@@ -11,7 +11,7 @@
         <div th:if="${erroApi}" class="error-message" th:text="${erroApi}"></div>
         <form action="#" th:action="@{/etiquetas/save}" th:object="${etiqueta}" method="POST">
             <div class="mb-3">
-                <input type="hidden" th:field="*{id_etiqueta}" />
+                <input type="hidden" th:field="*{idEtiqueta}" />
 
                 <label for="txtNome" class="form-label">Nome da Etiqueta</label>
                 <input type="text" class="form-control input" id="txtNome" th:field="*{nome}" placeholder="">

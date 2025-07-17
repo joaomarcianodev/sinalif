@@ -25,11 +25,11 @@
                     </thead>
                     <tbody>
                     <tr th:each="etiqueta : ${etiquetaList}">
-                        <td th:text="${etiqueta.id_etiqueta}"></td>
+                        <td th:text="${etiqueta.idEtiqueta}"></td>
                         <td th:text="${etiqueta.nome}"></td>
                         <td th:text="${etiqueta.duracao}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/etiquetas/edit/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/etiquetas/delete/{id_etiqueta}(id_etiqueta=${etiqueta.id_etiqueta})}">Deletar</a></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/etiquetas/edit/{idEtiqueta}(idEtiqueta=${etiqueta.idEtiqueta})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/etiquetas/delete/{idEtiqueta}(idEtiqueta=${etiqueta.idEtiqueta})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>

@@ -30,16 +30,16 @@
                     </thead>
                     <tbody>
                     <tr th:each="alarme : ${alarmeList}">
-                        <td th:text="${alarme.id_alarme}"></td>
-                        <td th:text="${alarme.horario_programado}"></td>
-                        <td th:text="${alarme.dias_semana}"></td>
+                        <td th:text="${alarme.idAlarme}"></td>
+                        <td th:text="${alarme.horarioProgramado}"></td>
+                        <td th:text="${alarme.diasSemana}"></td>
                         <td th:text="${alarme.ativo ? 'Sim' : 'Não'}"></td>
                         <td th:text="${alarme.pausado ? 'Sim' : 'Não'}"></td>
-                        <td th:text="${#temporals.format(alarme.data_criacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td th:text="${#temporals.format(alarme.data_modificacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
-                        <td th:text="${alarme.etiqueta.nome}"></td>
-                        <td><a class="btn btn-warning" role="button" th:href="@{/alarmes/edit/{id_alarme}(id_alarme=${alarme.id_alarme})}">Editar</a></td>
-                        <td><a class="btn btn-danger" role="button" th:href="@{/alarmes/delete/{id_alarme}(id_alarme=${alarme.id_alarme})}">Deletar</a></td>
+                        <td th:text="${#temporals.format(alarme.dataCriacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${#temporals.format(alarme.dataModificacao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                        <td th:text="${alarme.etiqueta.nome + ' (' + alarme.etiqueta.duracao + ' min)'}"></td>
+                        <td><a class="btn btn-warning" role="button" th:href="@{/alarmes/edit/{idAlarme}(idAlarme=${alarme.idAlarme})}">Editar</a></td>
+                        <td><a class="btn btn-danger" role="button" th:href="@{/alarmes/delete/{idAlarme}(idAlarme=${alarme.idAlarme})}">Deletar</a></td>
                     </tr>
                     </tbody>
                 </table>
