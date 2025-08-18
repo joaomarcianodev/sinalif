@@ -40,6 +40,11 @@
 - ✅ Login de usuários
 - ✅ Configuração de segurança das rotas
 - ❌ Página de configurações na visão do cliente
+  - ❌ Alterar nome, email, senha e foto de perfil
+  - ❌ Método para confirmar email
+  - ❌ Controle de notificações
+- ❌ Método de recuperação de senha
+- ❌ Aviso de segurança para funções críticas
 - ❌ Reprodutor automático das músicas nos horários programados
 
 ## Próximas atualizações 🔜
