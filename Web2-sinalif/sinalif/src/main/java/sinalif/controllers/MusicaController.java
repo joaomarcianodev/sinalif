@@ -82,6 +82,6 @@ public class MusicaController {
     @GetMapping("/reproduzir/{id}")
     public String exibirPlayer(@PathVariable("id") Long id, Model model) {
         model.addAttribute("musica", IMusicaService.detalharMusica(id));
-        return "pages/reprodutor";
+        return "pages/reprodutor-url";
     }
 }

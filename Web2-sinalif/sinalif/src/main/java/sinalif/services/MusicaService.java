@@ -9,4 +9,5 @@ public interface MusicaService {
     public Musica detalharMusica(Long id);
     public Musica salvarMusica(Musica musica);
     public void excluirMusica(Long id);
+    public void reproduzir(Musica musica);
 }

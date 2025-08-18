@@ -104,6 +104,6 @@ public class SugestaoController {
     @GetMapping("/reproduzir/{id}")
     public String exibirPlayer(@PathVariable("id") Long id, Model model) {
         model.addAttribute("musica", ISugestaoService.detalharSugestao(id));
-        return "pages/reprodutor";
+        return "pages/reprodutor-url";
     }
 }

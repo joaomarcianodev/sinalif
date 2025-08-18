@@ -30,6 +30,20 @@
 		<java.version>24</java.version>
 	</properties>
 	<dependencies>
+		<!--	REPRODUTOR DAS MÚSICAS		-->
+		<!-- A mp3spi depende da JLayer para a decodificação -->
+		<dependency>
+			<groupId>com.googlecode.soundlibs</groupId>
+			<artifactId>jlayer</artifactId>
+			<version>1.0.1.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/mp3spi -->
+		<dependency>
+			<groupId>com.googlecode.soundlibs</groupId>
+			<artifactId>mp3spi</artifactId>
+			<version>1.9.5-1</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 			<groupId>joda-time</groupId>

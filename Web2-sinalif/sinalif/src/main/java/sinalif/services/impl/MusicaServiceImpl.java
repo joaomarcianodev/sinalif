@@ -34,4 +34,9 @@ public class MusicaServiceImpl implements MusicaService {
     public void excluirMusica(Long id){
         musicaRepository.deleteById(id);
     }
+
+    @Override
+    public void reproduzir(Musica musica) {
+
+    }
 }
